@@ -16,7 +16,7 @@
 
     "drupal/core": "~8",
 
-    "drupal/console": "~1.0.0-rc5",
+    "drupal/console": "~1.0.0-rc7",
     "drush/drush": "~8"
   },
   "require-dev": {
@@ -40,6 +40,7 @@
     ]
   },
   "scripts": {
+    "drupal": "drupal --ansi",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
