@@ -53,15 +53,8 @@ Feature: Update database
     Given I am logged in as a user with the "administrator" role
     And I am on "/"
     Then I should see "Operating in maintenance mode."
-    When I follow "Go online."
-    Then I should see "Message to display when in maintenance mode"
-    When I check the box "edit-maintenance-mode"
-    And I press "Save configuration"
-    Then I should see "The configuration options have been saved."
-
-  @api
-  Scenario: Ensure that we are no longer in maintenance mode
-    Given I am logged in as a user with the "administrator" role
+    When I have run the drush command 'sset system.maintenance_mode 0'
+    And I have run the drush command 'cr'
     And I am on "/"
     Then I should not see "Operating in maintenance mode."
 
