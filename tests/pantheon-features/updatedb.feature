@@ -55,8 +55,8 @@ Feature: Update database
     Then I should see "Operating in maintenance mode."
     When I follow "Go online."
     Then I should see "Message to display when in maintenance mode"
-    And when I check the box "edit-maintenance-mode"
-    And when I press "Save configuration"
+    When I check the box "edit-maintenance-mode"
+    And I press "Save configuration"
     Then I should see "The configuration options have been saved."
 
   @api
