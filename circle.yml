@@ -26,11 +26,12 @@ dependencies:
     - cgr "drush/drush:~8"
     - composer install
     - composer drupal-scaffold
+    - mkdir -p ~/terminus/plugins; cd ~/terminus/plugins && git clone --branch=terminus-0.12 git@github.com:greg-1-anderson/terminus-composer.git
   post:
     - terminus auth login --machine-token=$TERMINUS_TOKEN
     - tests/scripts/delete-old-multidevs
+    - tests/scripts/create-pantheon-multidev
 test:
   override:
-    - cd web/core && ../../vendor/bin/phpunit --testsuite=unit --exclude-group Composer,DependencyInjection,PageCache
-    - tests/scripts/create-pantheon-multidev
+    - terminus composer drupal-unit-tests
     - cd tests && ./scripts/run-behat
