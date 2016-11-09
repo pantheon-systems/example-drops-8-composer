@@ -16,7 +16,7 @@
 
     "drupal/core": "~8",
 
-    "drupal/console": "~1.0.0-rc7",
+    "drupal/console": "^1.0.0-rc8",
     "drush/drush": "~8"
   },
   "require-dev": {
