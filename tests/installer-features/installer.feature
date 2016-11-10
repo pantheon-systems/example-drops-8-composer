@@ -11,11 +11,14 @@ Feature: Installer
   Scenario: Language selection
     Given I am on "/core/installer"
     And I press "Save and continue"
-    Then I should see "Select an installation profile"
-
-  Scenario: Profile selection
-    Given I am on "/core/install.php?langcode=en"
-    And I press "Save and continue"
+#   Then I should see "Select an installation profile"
+#
+# Put these steps back if you remove the installation profile selection
+# from settings.php.
+#
+# Scenario: Profile selection
+#   Given I am on "/core/install.php?langcode=en"
+#   And I press "Save and continue"
     And I wait for the progress bar to finish
     Then I should see "Site name"
 
