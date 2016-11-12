@@ -10,27 +10,7 @@
     }
   ],
   "require": {
-    "composer/installers": "^1.0.20",
-    "drupal-composer/drupal-scaffold": "^2.0.1",
-    "cweagans/composer-patches": "~1.0",
-
-    "drupal/core": "~8",
-
-    "drupal/console": "^1.0.0-rc8",
-    "drush/drush": "~8"
-  },
-  "require-dev": {
-    "mikey179/vfsstream": "~1.2",
-    "behat/behat": "3.*",
-    "behat/mink": "~1.7",
-    "behat/mink-extension": "*",
-    "behat/mink-goutte-driver": "~1.2",
-    "jcalderonzumba/gastonjs": "~1.0.2",
-    "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-    "drupal/drupal-extension": "*",
-    "drush-ops/behat-drush-endpoint": "*",
-    "phpunit/phpunit": "~4.8",
-    "symfony/css-selector": "~2.8"
+    "wikimedia/composer-merge-plugin": "~1.3"
   },
   "conflict": {
       "drupal/drupal": "*"
@@ -55,19 +35,15 @@
     ]
   },
   "extra": {
-    "installer-paths": {
-      "web/core": ["type:drupal-core"],
-      "web/modules/contrib/{$name}": ["type:drupal-module"],
-      "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-      "web/themes/contrib/{$name}": ["type:drupal-theme"],
-      "drush/contrib/{$name}": ["type:drupal-drush"]
-    },
-    "drupal-scaffold": {
-      "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8/{version}/{path}",
-      "includes": [
-        "sites/default/default.services.pantheon.preproduction.yml",
-        "sites/default/settings.pantheon.php"
-      ]
+    "merge-plugin": {
+      "include": [
+        "composer.pantheon.json"
+      ],
+      "recurse": true,
+      "replace": true,
+      "merge-dev": true,
+      "merge-extra": true,
+      "merge-extra-deep": false
     }
   }
 }
