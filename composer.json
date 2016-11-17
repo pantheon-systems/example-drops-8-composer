@@ -43,7 +43,7 @@
       "replace": true,
       "merge-dev": true,
       "merge-extra": true,
-      "merge-extra-deep": false
+      "merge-extra-deep": true
     }
   }
 }
