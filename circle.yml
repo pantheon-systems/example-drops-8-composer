@@ -13,6 +13,13 @@ dependencies:
   cache_directories:
     - ~/.composer/cache
   pre:
+    # Tests on this pull request are currently failing. I suspect that is because
+    # with a composer lock file, all the dependencies can be downloaded
+    # immediately. That means drupal core can be downloaded before the merge
+    # plugin has processed the shared settings that say the installer path
+    # for core is web/core
+    # THIS CHANGE SHOULD NOT BE MERGED. IT IS FOR DEBUGGING THE PULL REQUEST.
+    - rm composer.lock
     # Set the PHP timezone so that Behat script does not fail.
     # Using > instead of >> will overwrite the file and disable xdebug.
     # xdebug makes composer slower.
