@@ -40,7 +40,7 @@
         "composer.pantheon.json"
       ],
       "recurse": true,
-      "replace": true,
+      "replace": false,
       "merge-dev": true,
       "merge-extra": true,
       "merge-extra-deep": true
