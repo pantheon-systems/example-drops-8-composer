@@ -3,12 +3,6 @@
   "description": "Install drops-8 with Composer on Pantheon.",
   "type": "project",
   "license": "GPL-2.0+",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    }
-  ],
   "require": {
     "composer/installers": "^1.0.20",
     "wikimedia/composer-merge-plugin": "~1.3",
