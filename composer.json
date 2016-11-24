@@ -7,6 +7,8 @@
     "composer/installers": "^1.0.20",
     "wikimedia/composer-merge-plugin": "~1.3"
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "scripts": {
     "build-assets": "echo 'No build step defined.'",
     "drupal-unit-tests": "cd web/core && ../../vendor/bin/phpunit --testsuite=unit --exclude-group Composer,DependencyInjection,PageCache",

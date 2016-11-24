@@ -5,8 +5,6 @@
       "url": "https://packages.drupal.org/8"
     }
   ],
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "autoload": {
     "classmap": [
       "scripts/composer/ScriptHandler.php"
