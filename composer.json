@@ -15,6 +15,7 @@
     "cweagans/composer-patches": "~1.0",
 
     "drupal/core": "~8",
+    "drupal/lightning": "~1",
 
     "drupal/console": "^1.0.0-rc8",
     "drush/drush": "~8"
@@ -39,14 +40,20 @@
   "prefer-stable": true,
   "autoload": {
     "classmap": [
+      "scripts/ScriptHandler.php",
       "scripts/composer/ScriptHandler.php"
     ]
   },
   "scripts": {
-    "build-assets": "echo 'No build step defined.'",
+    "build-assets": [
+      "@lightning"
+    ],
     "drupal-unit-tests": "cd web/core && ../../vendor/bin/phpunit --testsuite=unit --exclude-group Composer,DependencyInjection,PageCache",
     "drupal": "drupal --ansi",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+    "lightning": [
+      "Acquia\\Lightning\\ScriptHandler::deployLibraries"
+    ],
     "post-install-cmd": [
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
@@ -68,6 +75,7 @@
         "sites/default/default.services.pantheon.preproduction.yml",
         "sites/default/settings.pantheon.php"
       ]
-    }
+    },
+    "enable-patching": true
   }
 }
