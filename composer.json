@@ -6,19 +6,16 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://packages.drupal.org/8"
+      "url": "https://packagist.drupal-composer.org"
     }
   ],
   "require": {
     "composer/installers": "^1.0.20",
-    "drupal-composer/drupal-scaffold": "^2.0.1",
+    "drupal-composer/drupal-scaffold": "*",
     "cweagans/composer-patches": "~1.0",
 
     "drupal/core": "~8",
-    "drupal/lightning": "~1",
-
-    "drupal/console": "^1.0.0-rc8",
-    "drush/drush": "~8"
+    "drupal/lightning": "^8.1.0"
   },
   "require-dev": {
     "mikey179/vfsstream": "~1.2",
