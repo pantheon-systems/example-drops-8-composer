@@ -19,6 +19,7 @@ dependencies:
     - git config --global user.email "$GIT_EMAIL"
     - git config --global user.name "Circle CI"
     - echo "date.timezone = 'US/Central'"  >  /opt/circleci/php/7.0.7/etc/conf.d/xdebug.ini
+    - npm install -g bower
   override:
     - composer global require "hirak/prestissimo:^0.3"
     - composer global require "consolidation/cgr"
