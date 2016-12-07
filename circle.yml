@@ -31,6 +31,7 @@ dependencies:
     - terminus auth login --machine-token=$TERMINUS_TOKEN
     - tests/scripts/delete-old-multidevs
     - tests/scripts/create-pantheon-multidev
+    - terminus drush "updatedb --yes"
 test:
   override:
     - terminus composer drupal-unit-tests
