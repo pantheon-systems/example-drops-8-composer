@@ -32,7 +32,9 @@ dependencies:
     # Avoid ssh prompting when connecting to new ssh hosts
     - mkdir -p "$HOME/.ssh"
     - echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
-    - terminus drush updatedb
+    - ls "$HOME/.ssh"
+    - cat "$HOME/.ssh/config"
+    - terminus drush "updatedb --yes --debug"
 test:
   override:
     - terminus composer drupal-unit-tests
