@@ -13,8 +13,6 @@ dependencies:
   cache_directories:
     - ~/.composer/cache
   pre:
-    # Avoid ssh prompting when connecting to new ssh hosts
-    - echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
     # Set the PHP timezone so that Behat script does not fail.
     # Using > instead of >> will overwrite the file and disable xdebug.
     # xdebug makes composer slower.
@@ -31,6 +29,9 @@ dependencies:
     - terminus auth login --machine-token=$TERMINUS_TOKEN
     - tests/scripts/delete-old-multidevs
     - tests/scripts/create-pantheon-multidev
+    # Avoid ssh prompting when connecting to new ssh hosts
+    - mkdir -p "$HOME/.ssh"
+    - echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
     - terminus drush updatedb
 test:
   override:
