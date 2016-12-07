@@ -1,0 +1,36 @@
+{
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "scripts/composer/ScriptHandler.php"
+    ]
+  },
+  "require": {
+    "drupal-composer/drupal-scaffold": "^2.0.1",
+    "cweagans/composer-patches": "~1.0",
+    "drupal/console": "^1.0.0-rc8",
+    "drush/drush": "~8",
+    "drupal/core": "~8"
+  },
+  "require-dev": {
+    "mikey179/vfsstream": "~1.2",
+    "behat/behat": "3.*",
+    "behat/mink": "~1.7",
+    "behat/mink-extension": "*",
+    "behat/mink-goutte-driver": "~1.2",
+    "jcalderonzumba/gastonjs": "~1.0.2",
+    "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
+    "drupal/drupal-extension": "*",
+    "drush-ops/behat-drush-endpoint": "*",
+    "phpunit/phpunit": "~4.8",
+    "symfony/css-selector": "~2.8"
+  },
+  "conflict": {
+      "drupal/drupal": "*"
+  }
+}
