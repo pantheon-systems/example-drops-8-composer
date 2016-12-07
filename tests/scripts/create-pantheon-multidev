@@ -31,8 +31,8 @@ git fetch pantheon
 # Create a new branch and commit the results from anything that may have changed
 git checkout -b $TERMINUS_ENV
 git add -A .
-git commit -m "Build assets for CI-$CIRCLE_BUILD_NUM."
-git push pantheon $TERMINUS_ENV
+git commit -q -m "Build assets for CI-$CIRCLE_BUILD_NUM."
+git push -q pantheon $TERMINUS_ENV
 
 # Create a new environment for this test.
 terminus site create-env --to-env=$TERMINUS_ENV --from-env=dev
