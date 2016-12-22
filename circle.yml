@@ -26,6 +26,7 @@ dependencies:
     - composer global require "hirak/prestissimo:^0.3"
     - composer global require "consolidation/cgr"
     - cgr "pantheon-systems/terminus:dev-master"
+    - terminus version
     - cgr "drush/drush:~8"
     - mkdir -p ~/.terminus/plugins
     - composer create-project -d ~/.terminus/plugins pantheon-systems/terminus-composer-plugin:~1
