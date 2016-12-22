@@ -25,7 +25,7 @@ dependencies:
   override:
     - composer global require "hirak/prestissimo:^0.3"
     - composer global require "consolidation/cgr"
-    - cgr "pantheon-systems/terminus:~1"
+    - cgr "pantheon-systems/terminus:~1" --stability beta
     - terminus --version
     - cgr "drush/drush:~8"
     - mkdir -p ~/.terminus/plugins
