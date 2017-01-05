@@ -38,7 +38,7 @@ dependencies:
     - terminus auth:login --machine-token="$TERMINUS_TOKEN"
     - terminus build-env:delete "$TERMINUS_SITE" "$MULTIDEV_DELETE_PATTERN" --keep=2 --delete-branch --yes
     - composer build-assets
-    - create-pantheon-multidev
+    - terminus build-env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --label="$TERMINUS_ENV_LABEL"
     - scripts/github/add-commit-comment
 test:
   override:
