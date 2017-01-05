@@ -43,9 +43,12 @@
     ]
   },
   "scripts": {
-    "build-assets": "echo 'No build step defined.'",
+    "build-assets": [
+      "./scripts/composer/install-or-update",
+      "@drupal-scaffold",
+      "@prepare-for-pantheon"
+    ],
     "drupal-unit-tests": "cd web/core && ../../vendor/bin/phpunit --testsuite=unit --exclude-group Composer,DependencyInjection,PageCache",
-    "drupal": "drupal --ansi",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
     "post-install-cmd": [
