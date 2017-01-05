@@ -9,7 +9,9 @@ machine:
     TEST_SITE_NAME: Example D8 Composer Test Site
     ADMIN_EMAIL: admin@example.com
     TERMINUS_SITE: ci-example-d8-composer
-    TERMINUS_ENV: ci-$CIRCLE_BUILD_NUM
+    PR_LABEL: ${CI_PULL_REQUEST:+pr-$CIRCLE_BRANCH}
+    CI_LABEL: ci-$CIRCLE_BUILD_NUM
+    TERMINUS_ENV: $(echo ${PR_LABEL:-$CI_LABEL} | cut -c 11)
     TERMINUS_ENV_LABEL: CI-$CIRCLE_BUILD_NUM
     MULTIDEV_DELETE_PATTERN: ^ci-
     PATH: $PATH:~/.composer/vendor/bin:~/.config/composer/vendor/bin:tests/scripts
@@ -19,6 +21,7 @@ dependencies:
     - ~/.composer/cache
   pre:
     # Avoid ssh prompting when connecting to new ssh hosts
+    - echo "Begin build for $CI_LABEL${PR_LABEL:+ for }$PR_LABEL. Pantheon test environment is $TERMINUS_SITE.$TERMINUS_ENV"
     - echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
     - |
       if [ -n "$GITHUB_TOKEN" ] ; then
