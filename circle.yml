@@ -48,5 +48,5 @@ deployment:
   build-assets:
     branch: master
     commands:
-      - merge-pantheon-multidev
+      - terminus build-env:merge "$TERMINUS_SITE.$TERMINUS_ENV" --label="$TERMINUS_ENV_LABEL"
       - terminus drush $TERMINUS_SITE.dev -- updatedb --yes
