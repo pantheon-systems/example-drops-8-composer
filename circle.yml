@@ -14,6 +14,7 @@ machine:
     TERMINUS_ENV: $(echo ${PR_LABEL:-$CI_LABEL} | cut -c -11)
     TERMINUS_ENV_LABEL: CI-$CIRCLE_BUILD_NUM
     MULTIDEV_DELETE_PATTERN: ^ci-
+    PR_DELETE_PATTERN: ^pr-
     PATH: $PATH:~/.composer/vendor/bin:~/.config/composer/vendor/bin:tests/scripts
 
 dependencies:
@@ -53,4 +54,5 @@ deployment:
     branch: master
     commands:
       - terminus build-env:merge "$TERMINUS_SITE.$TERMINUS_ENV" --label="$TERMINUS_ENV_LABEL"
+      - terminus build-env:delete "$TERMINUS_SITE" "$PR_DELETE_PATTERN" --preserve-prs --delete-branch --yes
       - terminus drush $TERMINUS_SITE.dev -- updatedb --yes
