@@ -8,7 +8,7 @@ $bindingDir = dirname($repositoryRoot); // or $_SERVER['HOME']
 
 include_once dirname(__DIR__) . 'lean-repo-utils.php';
 
-$buildMetadataFile = "$repositoryRoot/.build-metadata.json";
+$buildMetadataFile = "$repositoryRoot/build-metadata.json";
 if (!file_exists($buildMetadataFile)) {
   return;
 }
