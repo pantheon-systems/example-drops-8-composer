@@ -1,5 +1,10 @@
 <?php
 
+// This is only for multidev environments.
+if (in_array($_ENV['PANTHEON_ENVIRONMENT'], ['dev', 'test', 'live'])) {
+  return;
+}
+
 /**
  * This script will attempt to push "lean" changes back upstream.
  */
@@ -16,6 +21,10 @@ if (!file_exists($buildMetadataFile)) {
 }
 $buildMetadataFileContents = file_get_contents($buildMetadataFile);
 $buildMetadata = json_decode($buildMetadataFileContents, true);
+if (empty($buildMetadata)) {
+  print "No data in build metadata\n";
+  return;
+}
 
 print "::::::::::::::::: Build Metadata :::::::::::::::::\n";
 var_export($buildMetadata);
@@ -23,8 +32,16 @@ print "\n\n";
 
 $privateFiles = "$bindingDir/files/private";
 $gitHubSecretsFile = "$privateFiles/github-secrets.json";
+if (!file_exists($privateFiles)) {
+  print "Could not find $gitHubSecretsFile\n";
+  return;
+}
 $gitHubSecretsContents = file_get_contents($gitHubSecretsFile);
 $gitHubSecrets = json_decode($gitHubSecretsContents, true);
+if (empty($gitHubSecrets)) {
+  print "No data in GitHub secrets\n";
+  return;
+}
 
 print "::::::::::::::::: GitHub Secrets :::::::::::::::::\n";
 var_export($gitHubSecrets);
@@ -52,14 +69,24 @@ $currentCommit = exec('git rev-parse HEAD');
 print "::::::::::::::::: Info :::::::::::::::::\n";
 print "We are going to check out $prBranch from $fromSha, then cherry-pick $currentCommit and push it back to $upstreamRepo\n";
 
-// Create our new branch
-passthru("git checkout -B $prBranch $fromSha");
+// Create our new branch without switching to it. We start with
+// '$fromSha' to avoid placing any build artifacts on our branch.
+passthru("git -C $repositoryRoot branch -f $prBranch $fromSha");
 
-// Cherry-pick the commit just made
-passthru("git cherry-pick -Xthiers $currentCommit");
+$pantheonRepository = "file://$repositoryRoot";
+$workRepository = "$bindingDir/tmp/scratchRepository";
 
-// Go back to the branch we were on before
-passthru('git checkout -');
+// Clone our current repository -- but only take the current branch
+passthru("git clone $pantheonRepository --branch $prBranch --single-branch $workRepository");
+
+// Use show | apply to do the equivalent of a cherry-pick
+// between the two repositories.
+passthru("git -C $repositoryRoot show $currentCommit | git -c $workRepository apply -Xthiers");
 
 // Push the new branch back to Pantheon
-passthru("git push $upstreamRepo $prBranch");
+passthru("git -C $workRepository push $upstreamRepo $prBranch");
+
+// We don't need the pr branch or the second working repository any longer
+passthru("git -C $repositoryRoot branch -D $prBranch");
+passthru("rm -rf $workRepository");
+
