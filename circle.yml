@@ -47,12 +47,12 @@ dependencies:
     - composer build-assets
     - terminus env:wake "$TERMINUS_SITE.dev"
     - terminus build-env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --label="$TERMINUS_ENV_LABEL" --yes
-    - terminus secrets:set "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
     - scripts/github/add-commit-comment
 test:
   override:
     - run-behat
   post:
+    - terminus secrets:set "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
     - terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- pm-enable config_direct_save --yes
 
 deployment:
