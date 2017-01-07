@@ -50,6 +50,8 @@ dependencies:
 test:
   override:
     - run-behat
+  post:
+    - terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- pm-enable config_direct_save --yes
 
 deployment:
   build-assets:
