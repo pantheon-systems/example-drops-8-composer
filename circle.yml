@@ -39,6 +39,7 @@ dependencies:
     - cgr "drush/drush:~8"
     - mkdir -p ~/.terminus/plugins
     - composer create-project -d ~/.terminus/plugins pantheon-systems/terminus-build-tools-plugin:~1
+    - composer create-project -d ~/.terminus/plugins pantheon-systems/terminus-secrets-plugin:~1
   post:
     - terminus auth:login --machine-token="$TERMINUS_TOKEN"
     - terminus env:delete "$TERMINUS_SITE.$TERMINUS_ENV" --yes || echo "$TERMINUS_SITE.$TERMINUS_ENV does not exist yet."
@@ -46,6 +47,7 @@ dependencies:
     - composer build-assets
     - terminus env:wake "$TERMINUS_SITE.dev"
     - terminus build-env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --label="$TERMINUS_ENV_LABEL" --yes
+    - terminus secrets:set "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
     - scripts/github/add-commit-comment
 test:
   override:

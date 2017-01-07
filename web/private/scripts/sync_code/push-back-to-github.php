@@ -48,7 +48,12 @@ var_export($gitHubSecrets);
 print "\n\n";
 
 // The remote repo to push to
-$upstreamRepo = $gitHubSecrets['repo']['url'];
+$upstreamRepo = $buildMetadata['url'];
+if (!empty($gitHubSecrets) && array_key_exists('token', $gitHubSecrets)) {
+  $token = $gitHubSecrets['token'];
+  $upstreamRepo = str_replace('git@github.com:', 'https://github.com/', $upstreamRepo);
+  $upstreamRepo = str_replace('https://', "https://$token:x-oauth-basic@", $upstreamRepo);
+}
 
 // The last commit made on the lean repo prior to creating the build artifacts
 $fromSha = $buildMetadata['sha'];
