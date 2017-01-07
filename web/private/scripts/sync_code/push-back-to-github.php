@@ -61,8 +61,8 @@ $fromSha = $buildMetadata['sha'];
 // The name of the PR branch
 $branch = $buildMetadata['ref'];
 
-// The name of our new branch
-$prBranch = "new-$branch";
+// A working branch to make changes on
+$workBranch = substr($currentCommit, 0, 5) . $branch;
 
 // The commit to cherry-pick
 $currentCommit = exec('git rev-parse HEAD');
@@ -72,26 +72,43 @@ $currentCommit = exec('git rev-parse HEAD');
 // way to recover from this? Maybe not.
 
 print "::::::::::::::::: Info :::::::::::::::::\n";
-print "We are going to check out $prBranch from $fromSha, then cherry-pick $currentCommit and push it back to $upstreamRepo\n";
+print "We are going to check out $branch from $fromSha, then cherry-pick $currentCommit and push it back to {$buildMetadata['url']}\n";
 
 // Create our new branch without switching to it. We start with
 // '$fromSha' to avoid placing any build artifacts on our branch.
-passthru("git -C $repositoryRoot branch -f $prBranch $fromSha");
+passthru("git -C $repositoryRoot branch -f $workBranch $fromSha");
 
 $pantheonRepository = "file://$repositoryRoot";
 $workRepository = "$bindingDir/tmp/scratchRepository";
 
-// Clone our current repository -- but only take the current branch
-passthru("git clone $pantheonRepository --branch $prBranch --single-branch $workRepository");
+// Clone our current repository -- but only take the current branch.
+// We need a separate working tree because we do not want to alter the
+// current repository, which is actively in use by the current multidev
+// environment. Git requires a modifiable working tree to cherry-pick commits.
+passthru("git clone $pantheonRepository --branch $workBranch --single-branch $workRepository");
 
 // Use show | apply to do the equivalent of a cherry-pick
 // between the two repositories.
 passthru("git -C $repositoryRoot show $currentCommit | git -c $workRepository apply -Xthiers");
 
-// Push the new branch back to Pantheon
-passthru("git -C $workRepository push $upstreamRepo $prBranch");
+// Get the sha commit hash of the remote GitHub branch, to see if
+// anyone has added any commits there since this environment was created.
+// This comes back as "sha   refs/heads/branch", so we'll trim the end.
+$remoteCommit = exec("git ls-remote $upstreamRepo $branch");
+$remoteCommit = preg_replace('/ .*/', '', $remoteCommit);
 
-// We don't need the pr branch or the second working repository any longer
-passthru("git -C $repositoryRoot branch -D $prBranch");
+// If the remote commit is the same as our base commit, then we will
+// push directly back to the original branch. If it does not match, then
+// we will push to a new branch name for the user to merge on GitHub.
+$targetBranch = $workBranch;
+if ($remoteCommit == $fromSha) {
+  $targetBranch = $branch;
+}
+
+// Push the new branch back to Pantheon
+passthru("git -C $workRepository push $upstreamRepo $workBranch:$targetBranch");
+
+// We don't need the work branch or the second working repository any longer
+passthru("git -C $repositoryRoot branch -D $workBranch");
 passthru("rm -rf $workRepository");
 
