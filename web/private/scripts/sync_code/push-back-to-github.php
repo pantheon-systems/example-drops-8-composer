@@ -67,10 +67,6 @@ $workBranch = substr($currentCommit, 0, 5) . $branch;
 // The commit to cherry-pick
 $currentCommit = exec('git rev-parse HEAD');
 
-// TODO: vet the contents of the commit for applicability first.
-// If the commit is 'mixed', it must be rejected. Is there any
-// way to recover from this? Maybe not.
-
 print "::::::::::::::::: Info :::::::::::::::::\n";
 print "We are going to check out $branch from $fromSha, then cherry-pick $currentCommit and push it back to {$buildMetadata['url']}\n";
 
@@ -89,26 +85,36 @@ passthru("git clone $pantheonRepository --branch $workBranch --single-branch $wo
 
 // Use show | apply to do the equivalent of a cherry-pick
 // between the two repositories.
-passthru("git -C $repositoryRoot show $currentCommit | git -c $workRepository apply -Xthiers");
+exec("git -C $repositoryRoot show $currentCommit | git -c $workRepository apply -Xthiers", $output, $applyStatus);
 
-// Get the sha commit hash of the remote GitHub branch, to see if
-// anyone has added any commits there since this environment was created.
-// This comes back as "sha   refs/heads/branch", so we'll trim the end.
-$remoteCommit = exec("git ls-remote $upstreamRepo $branch");
-$remoteCommit = preg_replace('/ .*/', '', $remoteCommit);
+// We're done with the work branch now.
+passthru("git -C $repositoryRoot branch -D $workBranch");
 
-// If the remote commit is the same as our base commit, then we will
-// push directly back to the original branch. If it does not match, then
-// we will push to a new branch name for the user to merge on GitHub.
-$targetBranch = $workBranch;
-if ($remoteCommit == $fromSha) {
-  $targetBranch = $branch;
+// If the apply worked, then push the commit back to the light repository.
+if ($applyStatus == 0) {
+  // Get the sha commit hash of the remote GitHub branch, to see if
+  // anyone has added any commits there since this environment was created.
+  // This comes back as "sha   refs/heads/branch", so we'll trim the end.
+  $remoteCommit = exec("git ls-remote $upstreamRepo $branch");
+  $remoteCommit = preg_replace('/ .*/', '', $remoteCommit);
+
+  // If the remote commit is the same as our base commit, then we will
+  // push directly back to the original branch. If it does not match, then
+  // we will push to a new branch name for the user to merge on GitHub.
+  $targetBranch = $workBranch;
+  if ($remoteCommit == $fromSha) {
+    $targetBranch = $branch;
+  }
+
+  // Push the new branch back to Pantheon
+  passthru("git -C $workRepository push $upstreamRepo $workBranch:$targetBranch");
 }
 
-// Push the new branch back to Pantheon
-passthru("git -C $workRepository push $upstreamRepo $workBranch:$targetBranch");
-
 // We don't need the work branch or the second working repository any longer
-passthru("git -C $repositoryRoot branch -D $workBranch");
 passthru("rm -rf $workRepository");
 
+// Post error to dashboard and exit if the merge fails.
+if ($applyStatus != 0) {
+  $message = "git apply failed with exit code $applyStatus.\n\n" . explode("\n", $output);
+  pantheon_raise_dashboard_error($message, true);
+}
