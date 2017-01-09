@@ -66,23 +66,23 @@ $commitToSubmit = exec('git rev-parse HEAD');
 $targetBranch = $branch;
 
 print "::::::::::::::::: Info :::::::::::::::::\n";
-print "We are going to check out $branch from $fromSha, then cherry-pick $commitToSubmit and push it back to {$buildMetadata['url']}\n";
+print "We are going to check out $branch from {$buildMetadata['url']}, branch from $fromSha and cherry-pick $commitToSubmit onto it\n";
 
 $workRepository = "$bindingDir/tmp/scratchRepository";
 
 // Make a working clone of the GitHub branch. Clone just the branch
 // and commit we need.
-passthru("git clone $upstreamRepo --depth=1 --branch $branch --single-branch $workRepository");
+passthru("git clone $upstreamRepo --depth=1 --branch $branch --single-branch $workRepository 2>&1");
 
 // If there have been extra commits, then unshallow the repository so that
 // we can make a branch off of the commit this multidev was built from.
-$remoteHead = exec('git -C $repositoryRoot rev-parse HEAD');
+$remoteHead = exec('git -C $workRepository rev-parse HEAD 2>&1');
 if ($remoteHead != $fromSha) {
   // TODO: If we had git 2.11.0, we could use --shallow-since with the date
   // from $buildMetadata['commit-date'] to get exactly the commits we need.
   // Until then, though, we will just `unshallow` the whole branch if there
   // is a conflicting commit.
-  passthru("git -C $workRepository fetch --unshallow");
+  passthru("git -C $workRepository fetch --unshallow 2>&1");
 }
 
 // If there are conflicting commits, or if this new commit is on the master
@@ -92,18 +92,28 @@ if ($remoteHead != $fromSha) {
 if (($branch == 'master') || ($remoteHead != $fromSha)) {
   // TODO: warn that a new branch is being created.
   $targetBranch = substr($commitToSubmit, 0, 5) . $branch;
-  passthru("git -C $workRepository checkout -B $targetBranch $fromSha");
+  passthru("git -C $workRepository checkout -B $targetBranch $fromSha 2>&1");
 }
 
-// Use show | apply to do the equivalent of a cherry-pick
+// Use `git format-patch | git am` to do the equivalent of a cherry-pick
 // between the two repositories. This should not fail, as we are applying
 // our changes on top of the commit this branch was built from.
-exec("git -C $repositoryRoot show $commitToSubmit | git -C $workRepository apply", $output, $applyStatus);
+exec("git -C $repositoryRoot format-patch --stdout {$commitToSubmit}~ | git -C $workRepository am 2>&1", $output, $applyStatus);
+
+// Make sure that HEAD changed after 'git apply'
+$appliedCommit = exec('git -C $workRepository rev-parse HEAD');
+
+// Seatbelts: we expect this should only happen if $applyStatus != 0
+if ($appliedCommit != $remoteHead) {
+  print "'git apply' did not add any commits. Status code: $applyStatus\n";
+  print "Output:\n";
+  print implode("\n", $output) . "\n";
+}
 
 // If the apply worked, then push the commit back to the light repository.
-if ($applyStatus == 0) {
+if (($applyStatus == 0) && ($appliedCommit != $remoteHead)) {
   // Push the new branch back to Pantheon
-  passthru("git -C $workRepository push $upstreamRepo $targetBranch");
+  passthru("git -C $workRepository push $upstreamRepo $targetBranch 2>&1");
 }
 
 // Throw out the working repository.
