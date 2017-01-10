@@ -80,7 +80,8 @@ passthru("git clone $upstreamRepo --depth=1 --branch $branch --single-branch $wo
 
 // If there have been extra commits, then unshallow the repository so that
 // we can make a branch off of the commit this multidev was built from.
-$remoteHead = exec('git -C $workRepository rev-parse HEAD 2>&1');
+print "git -C $workRepository rev-parse HEAD\n";
+$remoteHead = exec("git -C $workRepository rev-parse HEAD");
 if ($remoteHead != $fromSha) {
   // TODO: If we had git 2.11.0, we could use --shallow-since with the date
   // from $buildMetadata['commit-date'] to get exactly the commits we need.
