@@ -70,8 +70,12 @@ print "We are going to check out $branch from {$buildMetadata['url']}, branch fr
 
 $workRepository = "$bindingDir/tmp/scratchRepository";
 
+// Temporary:
+passthru("rm -rf $workRepository");
+
 // Make a working clone of the GitHub branch. Clone just the branch
 // and commit we need.
+print "git clone $upstreamRepo --depth=1 --branch $branch --single-branch\n";
 passthru("git clone $upstreamRepo --depth=1 --branch $branch --single-branch $workRepository 2>&1");
 
 // If there have been extra commits, then unshallow the repository so that
@@ -82,6 +86,7 @@ if ($remoteHead != $fromSha) {
   // from $buildMetadata['commit-date'] to get exactly the commits we need.
   // Until then, though, we will just `unshallow` the whole branch if there
   // is a conflicting commit.
+  print "git -C $workRepository fetch --unshallow\n";
   passthru("git -C $workRepository fetch --unshallow 2>&1");
 }
 
@@ -92,12 +97,14 @@ if ($remoteHead != $fromSha) {
 if (($branch == 'master') || ($remoteHead != $fromSha)) {
   // TODO: warn that a new branch is being created.
   $targetBranch = substr($commitToSubmit, 0, 5) . $branch;
+  print "git -C $workRepository checkout -B $targetBranch $fromSha\n";
   passthru("git -C $workRepository checkout -B $targetBranch $fromSha 2>&1");
 }
 
 // Use `git format-patch | git am` to do the equivalent of a cherry-pick
 // between the two repositories. This should not fail, as we are applying
 // our changes on top of the commit this branch was built from.
+print "git -C $repositoryRoot format-patch --stdout {$commitToSubmit}~ | git -C $workRepository am\n";
 exec("git -C $repositoryRoot format-patch --stdout {$commitToSubmit}~ | git -C $workRepository am 2>&1", $output, $applyStatus);
 
 // Make sure that HEAD changed after 'git apply'
@@ -113,11 +120,12 @@ if ($appliedCommit != $remoteHead) {
 // If the apply worked, then push the commit back to the light repository.
 if (($applyStatus == 0) && ($appliedCommit != $remoteHead)) {
   // Push the new branch back to Pantheon
+  print "git -C $workRepository push $upstreamRepo $targetBranch\n";
   passthru("git -C $workRepository push $upstreamRepo $targetBranch 2>&1");
 }
 
 // Throw out the working repository.
-passthru("rm -rf $workRepository");
+// passthru("rm -rf $workRepository");
 
 // Post error to dashboard and exit if the merge fails.
 if ($applyStatus != 0) {
