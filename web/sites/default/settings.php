@@ -32,9 +32,9 @@ if (file_exists($local_settings)) {
 }
 
 /**
- * Always install the 'standard' profile to stop the installer from
+ * Set the profile setting to 'lightning' to stop the installer from
  * modifying settings.php.
  *
  * See: tests/installer-features/installer.feature
  */
-$settings['install_profile'] = 'standard';
+$settings['install_profile'] = 'lightning';
