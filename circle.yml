@@ -37,11 +37,10 @@ dependencies:
     - terminus --version
     - cgr "drush/drush:~8"
     - mkdir -p ~/.terminus/plugins
-    - composer create-project -n -d ~/.terminus/plugins pantheon-systems/terminus-build-tools-plugin:~1
+    - composer create-project -n -d ~/.terminus/plugins pantheon-systems/terminus-build-tools-plugin:dev-reuse-multidev
     - composer create-project -n -d ~/.terminus/plugins pantheon-systems/terminus-secrets-plugin:~1
   post:
     - terminus auth:login -n --machine-token="$TERMINUS_TOKEN"
-    - terminus env:delete -n "$TERMINUS_SITE.$TERMINUS_ENV" --yes || echo "$TERMINUS_SITE.$TERMINUS_ENV does not exist yet."
     - terminus build-env:delete:ci -n "$TERMINUS_SITE" --keep=2 --yes
     - composer -n build-assets
     - terminus env:wake -n "$TERMINUS_SITE.dev"
