@@ -29,5 +29,6 @@ Feature: Installer
     And I enter the value of the env var "ADMIN_EMAIL" for "edit-account-mail"
     And I press "Save and continue"
     And I wait 15 seconds
+    And I have run the drush command "cr"
     And I visit "/"
     Then I should see "No front page content has been created yet."
