@@ -1,0 +1,29 @@
+uuid: 44f1630e-0b8a-49b8-8174-727f340d8440
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - archived
+      - draft
+      - needs_review
+      - published
+    default_moderation_state: draft
+_core:
+  default_config_hash: 67_LfcMHgXFN6imPnJ0IXFTiJI1PnCo97Qz9-utlm14
+name: 'Landing page'
+type: landing_page
+description: 'A special page with its own one-off layout and content.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false
