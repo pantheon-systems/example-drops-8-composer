@@ -1,0 +1,25 @@
+uuid: 9ee00bde-dc5a-4fa9-9261-f8eb93ffd663
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_document_size
+    - media_entity.bundle.document
+_core:
+  default_config_hash: 2JHWRMjGki_C_rjDC7JUaQ3zSkvZqcvhTr-tO9F6wu0
+id: media.document.field_document_size
+field_name: field_document_size
+entity_type: media
+bundle: document
+label: Size
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: byte|bytes
+field_type: integer
