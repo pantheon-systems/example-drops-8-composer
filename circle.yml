@@ -57,6 +57,7 @@ dependencies:
     - cgr "drush/drush:~8"
     - mkdir -p ~/.terminus/plugins
     - composer create-project -n -d ~/.terminus/plugins pantheon-systems/terminus-build-tools-plugin:~1
+    - composer create-project -d ~/.terminus/plugins pantheon-systems/terminus-composer-plugin:~1
     - composer create-project -n -d ~/.terminus/plugins pantheon-systems/terminus-secrets-plugin:~1
   post:
     - terminus auth:login -n --machine-token="$TERMINUS_TOKEN"
@@ -64,12 +65,7 @@ dependencies:
     - composer -n build-assets
     - terminus env:wake -n "$TERMINUS_SITE.dev"
     - terminus build-env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --notify="$NOTIFY"
-    - |
-      if [ ! -f "config/system.site.yml" ] ; then
-        terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
-      else
-        terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD" --config-dir=../config
-      fi
+    - terminus composer cms-install
 test:
   override:
     - run-behat
