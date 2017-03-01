@@ -65,7 +65,7 @@ dependencies:
     - composer -n build-assets
     - terminus env:wake -n "$TERMINUS_SITE.dev"
     - terminus build-env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --notify="$NOTIFY"
-    - terminus composer cms-install
+    - terminus composer "$TERMINUS_SITE.$TERMINUS_ENV" cms-install
 test:
   override:
     - run-behat
