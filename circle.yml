@@ -62,11 +62,6 @@ test:
     - run-behat
   post:
     - terminus secrets:set -n "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
-    # If configuration was not imported during site install, then enable config_direct_save.
-    - |
-      if [ ! -f "config/system.site.yml" ] ; then
-        terminus drush -n "$TERMINUS_SITE.$TERMINUS_ENV" -- pm-enable --yes config_direct_save
-      fi
 
 deployment:
   build-assets:
