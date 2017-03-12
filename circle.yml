@@ -57,20 +57,17 @@ dependencies:
     - terminus build-env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --notify="$NOTIFY"
     - |
       if [ ! -f "config/system.site.yml" ] ; then
-        terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
+        terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install standard --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
+        terminus drush -n "$TERMINUS_SITE.$TERMINUS_ENV" -- pm-enable --yes config_direct_save
       else
-        terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD" --config-dir=../config
+        chmod +w web/sites/default web/sites/default/settings.php
+        terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install config_installer --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
       fi
 test:
   override:
     - run-behat
   post:
     - terminus secrets:set -n "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
-    # If configuration was not imported during site install, then enable config_direct_save.
-    - |
-      if [ ! -f "config/system.site.yml" ] ; then
-        terminus drush -n "$TERMINUS_SITE.$TERMINUS_ENV" -- pm-enable --yes config_direct_save
-      fi
 
 deployment:
   build-assets:
