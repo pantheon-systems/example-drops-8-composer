@@ -1,0 +1,14 @@
+uuid: 66da3d8a-bc99-499e-b414-dda5e5272fa3
+name: 'Example D8 Composer Test Site'
+mail: admin@example.com
+slogan: 'The best configuration ever'
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: AyT9s8OUcclfALRE_imByOMgtZ19eOlqdF6zI3p7yqo
