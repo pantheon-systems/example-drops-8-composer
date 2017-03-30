@@ -49,7 +49,7 @@ $ source credentials.sh
 
 A single Terminus command to set up the needed GitHub, Pantheon and Circle CI projects is [under development in a Build Tools Plugin pull request](https://github.com/pantheon-systems/terminus-build-tools-plugin/pull/3). See the [updated README](https://github.com/pantheon-systems/terminus-build-tools-plugin/blob/74a922665fd8034019782805bb58a7ecaf2c8cd6/README.md) for more information.
 
-You may also follow the instructions below to do the setup that the tool does automatically.
+You may also follow the instructions below to manually perform the same steps that the tool does.
 
 ### Fork this Project
 
