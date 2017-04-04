@@ -55,6 +55,7 @@ dependencies:
     - composer -n build-assets
     - terminus env:wake -n "$TERMINUS_SITE.dev"
     - terminus build-env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --clone-content --db-only --notify="$NOTIFY"
+    - terminus drush -n "$TERMINUS_SITE.dev" updatedb
     - |
       [ ! -f "config/system.site.yml" ] || terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- config-import --yes
       # Optional: replace line above with lines below to re-install Drupal for tests. Export and commit configuration first.
