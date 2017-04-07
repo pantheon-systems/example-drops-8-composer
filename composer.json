@@ -17,12 +17,9 @@
 
     "drupal/core": "~8",
 
-    "drupal/console": "^1.0.0-rc8",
     "drush/drush": "^8.1",
     "drupal/config_installer": "^1.0",
-    "drupal/config_direct_save": "^1.0",
-    "behat/transliterator": "^1.2",
-    "doctrine/common": "2.5.3"
+    "drupal/config_direct_save": "^1.0"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
