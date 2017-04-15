@@ -58,7 +58,8 @@ dependencies:
     - terminus drush -n "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
     - |
       [ ! -f "config/system.site.yml" ] || terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- config-import --yes
-      # Optional: replace line above with lines below to re-install Drupal for tests. Export and commit configuration first.
+      [ -f "config/system.site.yml" ] || terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- pm-enable config_direct_save --yes
+      # Optional: replace lines above with lines below to re-install Drupal for tests. Export and commit configuration first.
       # Remove `--clone-content --db-only` from terminus build-env:create, above, if you do this.
       #  chmod +w web/sites/default web/sites/default/settings.php
       #  terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- site-install config_installer --yes --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
