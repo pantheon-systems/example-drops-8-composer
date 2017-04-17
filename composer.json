@@ -76,7 +76,8 @@
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
     "build-env": {
-      "install-cms": "drush site-install --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes"
+      "install-cms": "drush site-install --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
+      "export-configuration": "drush config-export --yes"
     },
     "drupal-scaffold": {
       "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8/{version}/{path}",
