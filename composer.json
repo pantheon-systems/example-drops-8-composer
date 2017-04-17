@@ -19,6 +19,7 @@
     "webflo/drupal-core-strict": "^8",
 
     "drupal/console": "^1.0.0-rc8",
+    "dflydev/dot-access-configuration": "1.0.1 as dev-master",
     "drush/drush": "~8",
     "drupal/config_installer": "^1.0",
     "drupal/config_direct_save": "^1.0"
