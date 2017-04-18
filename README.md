@@ -66,6 +66,7 @@ $ composer install
 Since our goal is to use Pantheon, we should next [create a new site](https://pantheon.io/docs/create-sites/). Give it a name similar to the one you used for the GitHub repository you forked. You may use Terminus to create the nwe site:
 ```
 $ terminus site:create my-site "My Site" "Drupal 8" --org="My Team"
+$ terminus connection:set my-site.dev git
 ```
 
 Next, use Terminus to find out the URL to the Pantheon repository, and add a new remote to your local working copy of your canonical repository created in the previous step.
