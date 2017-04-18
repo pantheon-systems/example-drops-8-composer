@@ -27,15 +27,14 @@ To get started, first install [Terminus](https://pantheon.io/docs/terminus) and 
 
 The first thing that you need to do is set up credentials to access GitHub, Pantheon and Circle CI. Instructions on creating these credentials can be found on the pages listed below:
 
-- GitHub: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
 - Pantheon: https://pantheon.io/docs/machine-tokens/
-- Circle CI: https://circleci.com/docs/api/#authentication
+- GitHub: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
+- Circle CI: https://circleci.com/account/api
 
-These credentials should be exported as environment variables. For example:
+The Pantheon machine token should be used to log in to Pantheon via `terminus auth:login`. These other credentials should be exported as environment variables. For example in a file **credentials.sh**:
 ```
 #!/bin/bash
 export GITHUB_TOKEN=[REDACTED]
-export TERMINUS_TOKEN=[REDACTED]
 export CIRCLE_TOKEN=[REDACTED]
 ```
 If you choose to store these credentials in a bash script, be sure to protect the file to avoid unintentional exposure. Consider encrypting the file. Never commit these credentials to a repository, or place them on an unsecured web server.
@@ -47,7 +46,7 @@ $ source credentials.sh
 
 ### Create a New Project Quickstart
 
-A single Terminus command to set up the needed GitHub, Pantheon and Circle CI projects is [under development in a Build Tools Plugin pull request](https://github.com/pantheon-systems/terminus-build-tools-plugin/pull/3). See the [updated README](https://github.com/pantheon-systems/terminus-build-tools-plugin/blob/74a922665fd8034019782805bb58a7ecaf2c8cd6/README.md) for more information.
+An experimental feature in the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin/) can be used to automatically set up the needed GitHub, Pantheon and Circle CI projects. Follow the instructions in that project for the easiest setup experience.
 
 You may also follow the instructions below to do the setup that the tool does automatically.
 
