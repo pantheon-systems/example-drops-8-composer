@@ -48,7 +48,7 @@ $ source credentials.sh
 
 An experimental feature in the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin/) can be used to automatically set up the needed GitHub, Pantheon and Circle CI projects. Follow the instructions in that project for the easiest setup experience.
 
-You may also follow the instructions below to do the setup that the tool does automatically.
+You may also follow the instructions below to manually perform the same steps that the tool does.
 
 ### Fork this Project
 
