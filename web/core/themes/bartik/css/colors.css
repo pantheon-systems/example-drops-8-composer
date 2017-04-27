@@ -68,3 +68,6 @@ a:active,
   right: -20px;
   left: 0;
 }
+a {
+  color: red;
+}
