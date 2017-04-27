@@ -10,73 +10,22 @@ This repository can be used to set up a Composer-Managed Drupal 8 site on [Panth
 
 This project contains only the canonical resources used to build a Drupal site for use on Pantheon. There are two different ways that it can be used:
 
-- Create a separate canonical repository on GitHub; maintain using a pull request workflow.
+- Create a separate canonical repository on GitHub; maintain using a pull request workflow. **RECOMMENDED**
 - Build the full Drupal site and then install it on Pantheon; maintain using `terminus composer` and on-server development.
 
 The setup instructions vary based on which of these options you select.
 
 ## Pull Request Workflow
 
-When using a pull request workflow, only the canonical resources (code, configuration, etc.) exists in the master repository, stored on GitHub. A build step is used to create the full Drupal site and automatically deploy it to Pantheon. Pull requests are the primary means of doing site development; however, new pull requests can be created directly from your Pantheon dashboard in SFTP mode using on-server development. However, the Pantheon repository should be considered as "scratch space" only. The persistent project resources are maintained in the canonical repository; the Pantheon repository is only used to hold the build results to be served.
+When using a pull request workflow, only the canonical resources (code, configuration, etc.) exists in the master repository, stored on GitHub. A build step is used to create the full Drupal site and automatically deploy it to Pantheon. This is the recommended way to use this project.
 
-### Terminus Build Tools Plugin
+### Setup
 
-To get started, first install [Terminus](https://pantheon.io/docs/terminus) and the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin).
+For setup instructions, please see [Using GitHub Pull Requests with Composer and Drupal 8](https://pantheon.io/docs/guides/github-pull-requests/).
 
-### Credentials
+### Environment Variables
 
-The first thing that you need to do is set up credentials to access GitHub, Pantheon and Circle CI. Instructions on creating these credentials can be found on the pages listed below:
-
-- Pantheon: https://pantheon.io/docs/machine-tokens/
-- GitHub: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
-- Circle CI: https://circleci.com/account/api
-
-The Pantheon machine token should be used to log in to Pantheon via `terminus auth:login`. These other credentials should be exported as environment variables. For example in a file **credentials.sh**:
-```
-#!/bin/bash
-export GITHUB_TOKEN=[REDACTED]
-export CIRCLE_TOKEN=[REDACTED]
-```
-If you choose to store these credentials in a bash script, be sure to protect the file to avoid unintentional exposure. Consider encrypting the file. Never commit these credentials to a repository, or place them on an unsecured web server.
-
-To load these credentials:
-```
-$ source credentials.sh
-```
-
-### Create a New Project Quickstart
-
-An experimental feature in the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin/) can be used to automatically set up the needed GitHub, Pantheon and Circle CI projects. Follow the instructions in that project for the easiest setup experience.
-
-You may also follow the instructions below to do the setup that the tool does automatically.
-
-### Fork this Project
-
-First, [bring up this project in GitHub](https://github.com/pantheon-systems/example-drops-8-composer) and click on the "Fork" button. Pick a suitable name for your new site.
-
-Next, click on the "Clone or Download" button and make a local working copy of your new repository. This is where we will do most of our work. To start out, install the project assets with Composer:
-```
-$ cd my-site
-$ composer install
-```
-
-### Create a Pantheon Site
-
-Since our goal is to use Pantheon, we should next [create a new site](https://pantheon.io/docs/create-sites/). Give it a name similar to the one you used for the GitHub repository you forked. You may use Terminus to create the nwe site:
-```
-$ terminus site:create my-site "My Site" "Drupal 8" --org="My Team"
-$ terminus connection:set my-site.dev git
-```
-
-Next, use Terminus to find out the URL to the Pantheon repository, and add a new remote to your local working copy of your canonical repository created in the previous step.
-```
-$ PANTHEON_REPO=$(terminus connection:info my-site.dev --field=git_url)
-$ git remote add pantheon $PANTHEON_REPO
-$ git push --force pantheon master
-```
-### Enable Testing on Circle
-
-Enable the GitHub project for your site in Circle CI. Define the environment variables below in the "environment variables" section under "Project Settings”: 
+The [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin) automatically configures Circle CI to build your site. The following environment variables are defined:
 
 - TERMINUS_TOKEN: The Terminus Machine token previously created.
 - GITHUB_TOKEN: Used by CircleCI to post comments on pull requests.
@@ -86,11 +35,14 @@ Enable the GitHub project for your site in Circle CI. Define the environment var
 - ADMIN_PASSWORD: Used to set the password for the uid 1 user during site installation.
 - GIT_EMAIL: Used to configure the git user’s email address for commits we make.
 
-Also, create a [public/private key pair](https://pantheon.io/docs/ssh-keys/) and add the private key to Circle CI, and the public key to your Pantheon site. You may use Terminus to add the public key to your Pantheon site:
+If you need to modify any of these values, you may do so in the [Circle CI Environment Variable](https://circleci.com/docs/1.0/environment-variables/) configuration page.
+
+### SSH Keys
+
+A [public/private key pair](https://pantheon.io/docs/ssh-keys/) is created and added to Circle CI (the private key) and the Pantheon site (the public key). If you need to update your public key, you may do so with Terminus:
 ```
 $ terminus ssh-key:add ~/.ssh/id_rsa.pub
 ```
-At this point, you should be able to click "rebuild" on your last Circle CI build, and all of the tests should run and pass.
 
 ## Pantheon "Standalone" Development
 
