@@ -1,0 +1,4 @@
+config_direct_save.update:
+  route_name: config_direct_save.update_configuration_form
+  title: 'Update'
+  base_route: config.sync

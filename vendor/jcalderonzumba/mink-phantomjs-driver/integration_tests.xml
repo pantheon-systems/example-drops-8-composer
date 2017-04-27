@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true" bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="PhantomJS Driver test suite">
+            <!--<directory>tests/integration</directory>-->
+            <directory>vendor/mink/driver-testsuite/tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <var name="driver_config_factory" value="Behat\Mink\Tests\Driver\PhantomJSConfig::getInstance"/>
+        <!-- where driver will connect to -->
+        <server name="DRIVER_URL" value="http://127.0.0.1:8510/"/>
+        <server name="TEMPLATE_CACHE_DIR" value="/tmp/jcalderonzumba/phantomjs"/>
+    </php>
+
+    <filter>
+        <whitelist>
+            <directory>./src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Allows to export configuration after changes.
+ *
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function config_direct_save_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'config_direct_save.update_configuration_form':
+      $output = '';
+      $output .= '<p>' . t('Update the full configuration of this site in the sync directory.') . '</p>';
+      return $output;
+  }
+}

@@ -1,0 +1,12 @@
+description: 'Import module config.'
+help: ''
+options:
+  bundle: 'Bundle name'
+arguments:
+  packages: 'Package name'
+questions:
+  packages: 'Enter package name to import'
+messages:
+  no-packages: 'No packages available.'
+  not-available: 'Package %s, not available.'
+  importing: 'Importing package %s.'

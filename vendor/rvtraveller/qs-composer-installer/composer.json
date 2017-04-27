@@ -1,0 +1,22 @@
+{
+  "name": "rvtraveller/qs-composer-installer",
+  "description": "Install Quicksilver modules for Pantheon into custom locations.",
+  "type": "composer-plugin",
+  "license": "MIT",
+  "homepage": "https://github.com/rvtraveller/qs-composer-installer",
+  "autoload": {
+    "psr-4": {
+      "rvtraveller\\QuicksilverComposerInstaller\\": "src"
+    }
+  },
+  "extra": {
+    "class": "rvtraveller\\QuicksilverComposerInstaller\\QuicksilverComposerInstallerPlugin"
+  },
+  "require": {
+    "composer-plugin-api": "~1.0",
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+    "composer/composer": "~1.0@dev"
+  }
+}

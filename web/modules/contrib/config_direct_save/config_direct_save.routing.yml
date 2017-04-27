@@ -1,0 +1,7 @@
+config_direct_save.update_configuration_form:
+  path: '/admin/config/development/configuration/full/update'
+  defaults:
+    _form: '\Drupal\config_direct_save\Form\UpdateConfigurationForm'
+    _title: 'Update'
+  requirements:
+    _permission: 'export configuration'
