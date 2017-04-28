@@ -1,0 +1,10 @@
+# How to use
+# site:new --placeholder="directory:/path/to/drupal-project/" --placeholder="repository:acquia/lightning-project"
+command:
+  name: site:new
+  description: 'Download a new Drupal project'
+commands:
+  # Create Drupal project using DrupalComposer
+  - command: exec
+    arguments:
+      bin: composer create-project %{{repository|drupal-composer/drupal-project:8.x-dev}} %{{directory}} --prefer-dist --no-progress --no-interaction

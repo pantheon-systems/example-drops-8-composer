@@ -1,0 +1,37 @@
+{
+  "name": "drupal/drupal-driver",
+  "type": "library",
+  "description": "A collection of reusable Drupal drivers",
+  "keywords": ["drupal", "web", "test"],
+  "homepage": "http://github.com/jhedstrom/DrupalDriver",
+  "license": "GPL-2.0+",
+  "authors": [
+     {
+       "name": "Jonathan Hedstrom",
+       "email": "jhedstrom@gmail.com"
+     }
+  ],
+  "require": {
+    "symfony/process": "~2.5|~3.0",
+    "symfony/dependency-injection": "~2.6|~3.0"
+  },
+  "require-dev": {
+    "drupal/coder": "~8.2.0",
+    "phpspec/phpspec": "~2.0",
+    "phpunit/phpunit": "~4.0",
+    "mockery/mockery": "0.9.4",
+    "drush-ops/behat-drush-endpoint": "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Drupal\\Component": "src/",
+      "Drupal\\Driver": "src/",
+      "Drupal\\Tests\\Driver" : "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.2.x-dev"
+    }
+  }
+}

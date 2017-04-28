@@ -1,0 +1,25 @@
+{
+    "name": "drupal-composer/drupal-scaffold",
+    "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
+    "type": "composer-plugin",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.4.5",
+        "composer-plugin-api": "^1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DrupalComposer\\DrupalScaffold\\": "src/"
+        }
+    },
+    "extra": {
+        "class": "DrupalComposer\\DrupalScaffold\\Plugin",
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    },
+    "require-dev": {
+        "composer/composer": "dev-master",
+        "phpunit/phpunit": "^4.4.0"
+    }
+}

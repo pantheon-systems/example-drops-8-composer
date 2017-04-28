@@ -3,13 +3,17 @@
   "description": "Install drops-8 with Composer on Pantheon.",
   "type": "project",
   "license": "MIT",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    }
-  ],
-    "require": {
+  "repositories": {
+      "drupal": {
+          "type": "composer",
+          "url": "https://packages.drupal.org/8"
+      },
+      "commerce_base": {
+          "type": "vcs",
+          "url": "https://github.com/drupalcommerce/commerce_base"
+      }
+  },
+  "require": {
     "composer/installers": "^1.0.20",
     "rvtraveller/qs-composer-installer": "^1.1",
     "drupal-composer/drupal-scaffold": "^2.0.1",
@@ -40,7 +44,7 @@
   "conflict": {
       "drupal/drupal": "*"
   },
-  "minimum-stability": "alpha",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "classmap": [
@@ -76,7 +80,10 @@
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
     "build-env": {
-      "install-cms": "drush site-install --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
+      "install-cms": [
+        "drush site-install standard --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
+        "drush pm-enable config_direct_save --yes"
+      ],
       "export-configuration": "drush config-export --yes"
     },
     "drupal-scaffold": {

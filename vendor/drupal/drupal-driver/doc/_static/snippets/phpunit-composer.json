@@ -1,0 +1,6 @@
+{
+    "require": {
+        "aik099/phpunit-mink": "~2.0",
+        "drupal/drupal-driver": "~1.0"
+    }
+}
