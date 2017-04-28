@@ -1,0 +1,16 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+      base_url: http://seven.l
+    Drupal\DrupalExtension:
+      blackbox: ~
+      region_map:
+        footer: "#footer"

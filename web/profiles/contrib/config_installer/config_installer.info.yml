@@ -1,0 +1,12 @@
+name: 'Configuration installer'
+type: profile
+description: 'Use configuration from another Drupal site to install a Drupal instance. Suitable for advanced users.'
+# core: 8.x
+# Un comment to completely remove profile selection.
+#distribution: TRUE
+
+# Information added by Drupal.org packaging script on 2017-02-26
+version: '8.x-1.4'
+core: '8.x'
+project: 'config_installer'
+datestamp: 1488072486

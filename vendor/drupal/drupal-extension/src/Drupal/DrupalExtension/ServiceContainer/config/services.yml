@@ -1,0 +1,74 @@
+parameters:
+  # This overrides the class for the core version of this class
+  behat.definition.proposal.annotated.class: Drupal\DrupalExtension\Definition\Proposal\AnnotatedDefinitionProposal
+
+  # Drupal driver manager.
+  drupal.drupal.class: Drupal\DrupalDriverManager
+  drupal.drupal.default_session: blackbox
+  drupal.drupal.api_driver: drush
+
+  # Random generator.
+  drupal.random.class: Drupal\Component\Utility\Random
+
+  # Context initializer.
+  drupal.context.initializer.class: Drupal\DrupalExtension\Context\Initializer\DrupalAwareInitializer
+
+  # Environment reader.
+  drupal.context.environment.reader.class: Drupal\DrupalExtension\Context\Environment\Reader\Reader
+
+  # Event listeners.
+  drupal.listener.drivers.class: Drupal\DrupalExtension\Listener\DriverListener
+
+  # Hook loader.
+  drupal.context.annotation.reader.class: Drupal\DrupalExtension\Context\Annotation\Reader
+
+  # Region selector class.
+  drupal.context.region_selector.class: Drupal\DrupalExtension\Selector\RegionSelector
+
+  # Parameters.
+  drupal.parameters: {}
+  drupal.region_map: {}
+
+services:
+  drupal.drupal:
+    class: %drupal.drupal.class%
+    arguments:
+      - {}
+      - "@drupal.random"
+  drupal.random:
+    class: %drupal.random.class%
+  drupal.context.initializer:
+    class: %drupal.context.initializer.class%
+    arguments:
+      - "@drupal.drupal"
+      - %drupal.parameters%
+      - "@hook.dispatcher"
+    tags:
+      - { name: context.initializer }
+  drupal.context.environment.reader:
+    class: %drupal.context.environment.reader.class%
+    arguments:
+      - "@drupal.drupal"
+      - %drupal.parameters%
+    tags:
+      - { name: environment.reader }
+  drupal.context.loader.annotated:
+    class: %drupal.context.annotation.reader.class%
+    arguments:
+    tags:
+      - { name: context.annotation_reader }
+  drupal.listener.driver:
+    class: %drupal.listener.drivers.class%
+    arguments:
+      - "@drupal.drupal"
+      - %drupal.parameters%
+    tags:
+      - { name: event_dispatcher.subscriber, priority: 0 }
+  drupal.region_selector:
+    class: %drupal.context.region_selector.class%
+    arguments:
+      # inject the CSSSelector
+      - "@mink.selector.css"
+      - %drupal.region_map%
+    tags:
+      - { name: mink.selector, alias: region }

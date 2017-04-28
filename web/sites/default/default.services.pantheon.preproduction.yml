@@ -1,0 +1,15 @@
+#
+# Rename this file to 'services.pantheon.preproduction.yml' and
+# modify to suit.  It will then be loaded by settings.pantheon.php
+# on any dev or multidev environment (not on 'test' or 'live').
+#
+# If you would like to define any services or service parameters
+# that apply only to production environments ('test' and 'live'),
+# you may do so in a 'services.pantheon.production.yml' file.
+#
+# See 'default.services.yml' for information on useful settings to
+# put here.
+#
+parameters:
+  twig.config:
+    debug: true

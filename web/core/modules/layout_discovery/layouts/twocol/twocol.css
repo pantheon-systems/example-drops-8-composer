@@ -1,0 +1,13 @@
+.layout--twocol {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.layout--twocol > .layout-region {
+  flex: 0 1 50%;
+}
+
+.layout--twocol > .layout-region--fullwidth {
+  flex: 0 1 100%;
+}
