@@ -11,17 +11,16 @@
   ],
     "require": {
     "composer/installers": "^1.0.20",
-    "rvtraveller/qs-composer-installer": "^1.1",
-    "drupal-composer/drupal-scaffold": "^2.0.1",
     "cweagans/composer-patches": "^1.0",
-
-    "drupal/core": "^8",
-    "webflo/drupal-core-strict": "^8",
-
-    "drupal/console": "^1.0.0-rc8",
-    "drush/drush": "~8",
+    "drupal-composer/drupal-scaffold": "^2.0.1",
+    "drupal/config_direct_save": "^1.0",
     "drupal/config_installer": "^1.0",
-    "drupal/config_direct_save": "^1.0"
+    "drupal/console": "^1.0.0-rc8",
+    "drupal/core": "^8",
+    "drupal/simple_block": "^1.0@beta",
+    "drush/drush": "~8",
+    "rvtraveller/qs-composer-installer": "^1.1",
+    "webflo/drupal-core-strict": "^8"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
@@ -78,7 +77,8 @@
     "build-env": {
       "install-cms": [
         "drush site-install standard --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
-        "drush pm-enable config_direct_save --yes"
+        "drush pm-enable config_direct_save simple_block --yes",
+        "drush pm-uninstall block_content --yes"
       ],
       "export-configuration": "drush config-export --yes"
     },
