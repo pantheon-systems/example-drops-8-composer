@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a page wrapper.
+ *
+ * For consistent wrapping to {{ page }} render in all themes.
+ *
+ * Available variables:
+ * - children: Contains the child elements of the page.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if children %}
+  <div class="dialog-offcanvas__main-canvas" data-offcanvas-main-canvas >
+    {{ children }}
+  </div>
+{% endif %}

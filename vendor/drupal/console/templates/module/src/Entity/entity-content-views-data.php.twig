@@ -1,0 +1,32 @@
+{% extends "base/class.php.twig" %}
+
+{% block file_path %}
+\Drupal\{{ module }}\Entity\{{ entity_class }}.
+{% endblock %}
+
+{% block namespace_class %}
+namespace Drupal\{{ module }}\Entity;
+{% endblock %}
+
+{% block use_class %}
+use Drupal\views\EntityViewsData;
+{% endblock %}
+
+{% block class_declaration %}
+/**
+ * Provides Views data for {{ label }} entities.
+ */
+class {{ entity_class }}ViewsData extends EntityViewsData {% endblock %}
+{% block class_methods %}
+  /**
+   * {@inheritdoc}
+   */
+  public function getViewsData() {
+    $data = parent::getViewsData();
+
+    // Additional information for Views integration, such as table joins, can be
+    // put here.
+
+    return $data;
+  }
+{% endblock %}

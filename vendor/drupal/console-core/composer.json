@@ -1,0 +1,65 @@
+{
+    "name": "drupal/console-core",
+    "description": "Drupal Console Core",
+    "keywords": ["Drupal", "Console", "Development", "Symfony"],
+    "homepage": "http://drupalconsole.com/",
+    "type": "project",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name":      "David Flores",
+            "email":     "dmousex@gmail.com",
+            "homepage":  "http://dmouse.net"
+        },
+        {
+            "name":      "Jesus Manuel Olivas",
+            "email":     "jesus.olivas@gmail.com",
+            "homepage":  "http://jmolivas.com"
+        },
+        {
+            "name":      "Eduardo Garcia",
+            "email":     "enzo@enzolutions.com",
+            "homepage":  "http://enzolutions.com/"
+        },
+        {
+            "name":      "Omar Aguirre",
+            "email":     "omersguchigu@gmail.com"
+        },
+        {
+            "name":      "Drupal Console Contributors",
+            "homepage":  "https://github.com/hechoendrupal/DrupalConsole/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/hechoendrupal/DrupalConsole/issues",
+        "forum": "https://gitter.im/hechoendrupal/DrupalConsole",
+        "docs": "http://docs.drupalconsole.com/"
+    },
+    "require": {
+        "php": "^5.5.9 || ^7.0",
+        "drupal/console-en" : "1.0.0-rc16",
+        "dflydev/dot-access-configuration": "1.0.1",
+        "stecman/symfony-console-completion": "~0.7",
+        "symfony/console": ">=2.7 <3.0",
+        "symfony/debug": ">=2.6 <3.0",
+        "symfony/dependency-injection": ">=2.7 <3.0",
+        "symfony/config": ">=2.7 <3.0",
+        "symfony/filesystem": ">=2.7 <3.0",
+        "symfony/finder": ">=2.7 <3.0",
+        "symfony/process": ">=2.7 <3.0",
+        "symfony/translation": ">=2.7 <3.0",
+        "symfony/yaml": ">=2.7 <3.0",
+        "symfony/event-dispatcher": ">=2.7 <3.0",
+        "twig/twig": "^1.23.1",
+        "webflo/drupal-finder": "0.*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "files": [
+            "src/constants.php",
+            "src/functions.php"
+        ],
+        "psr-4": {"Drupal\\Console\\Core\\": "src"}
+    }
+}

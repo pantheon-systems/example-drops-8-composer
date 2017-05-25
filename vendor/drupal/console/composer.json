@@ -1,0 +1,63 @@
+{
+    "name": "drupal/console",
+    "description": "The Drupal CLI. A tool to generate boilerplate code, interact with and debug Drupal.",
+    "keywords": ["Drupal", "Console", "Development", "Symfony"],
+    "homepage": "http://drupalconsole.com/",
+    "type": "project",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name":      "David Flores",
+            "email":     "dmousex@gmail.com",
+            "homepage":  "http://dmouse.net"
+        },
+        {
+            "name":      "Jesus Manuel Olivas",
+            "email":     "jesus.olivas@gmail.com",
+            "homepage":  "http://jmolivas.com"
+        },
+        {
+            "name":      "Eduardo Garcia",
+            "email":     "enzo@enzolutions.com",
+            "homepage":  "http://enzolutions.com/"
+        },
+        {
+            "name":      "Omar Aguirre",
+            "email":     "omersguchigu@gmail.com"
+        },
+        {
+            "name":      "Drupal Console Contributors",
+            "homepage":  "https://github.com/hechoendrupal/DrupalConsole/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/hechoendrupal/DrupalConsole/issues",
+        "forum": "https://gitter.im/hechoendrupal/DrupalConsole",
+        "docs": "https://docs.drupalconsole.com/"
+    },
+    "require": {
+        "php": "^5.5.9 || ^7.0",
+        "drupal/console-core" : "1.0.0-rc16",
+        "drupal/console-extend-plugin": "~0",
+        "alchemy/zippy": "0.4.3",
+        "doctrine/collections":"1.3.0",
+        "composer/installers": "~1.0",
+        "symfony/css-selector": ">=2.7 <3.0",
+        "symfony/dom-crawler": ">=2.7 <3.3",
+        "symfony/http-foundation": ">=2.7 <3.0",
+        "guzzlehttp/guzzle": "~6.1",
+        "gabordemooij/redbean": "~4.3",
+        "doctrine/annotations": "1.2.*",
+        "symfony/expression-language": ">=2.7 <3.0",
+        "psy/psysh": "0.6.* || ~0.8"
+    },
+    "bin": ["bin/drupal"],
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {"Drupal\\Console\\": "src"}
+    }
+}
