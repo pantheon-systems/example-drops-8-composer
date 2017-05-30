@@ -72,7 +72,7 @@ deployment:
   build-assets:
     branch: master
     commands:
-      - terminus build:env:merge -n "$TERMINUS_SITE.$TERMINUS_ENV" --yes
+      - terminus build-env:merge -n "$TERMINUS_SITE.$TERMINUS_ENV" --yes
       - terminus drush -n $TERMINUS_SITE.dev -- updatedb --yes
       - |
         [ ! -f "config/system.site.yml" ] || terminus drush "$TERMINUS_SITE.dev" -- config-import --yes
