@@ -1,17 +1,29 @@
 {
-  "name": "pantheon-systems/example-drops-8-composer",
-  "description": "Install drops-8 with Composer on Pantheon.",
+  "name": "ucdavis/sitefarm-pantheon",
+  "description": "Install SiteFarm with Composer on Pantheon.",
   "type": "project",
-  "license": "MIT",
-  "repositories": [
-    {
+  "license": "proprietary",
+  "repositories": {
+    "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
+    },
+    "ucdavis/sitefarm": {
+      "type": "vcs",
+      "url": "git@bitbucket.org:ietwebdev/sitefarm.git"
+    },
+    "ucdavis/aggiefeed": {
+      "type": "vcs",
+      "url": "git@bitbucket.org:ietwebdev/aggiefeed-drupal-module.git"
+    },
+    "ucdavis/sitefarm_one": {
+      "type": "vcs",
+      "url": "git@bitbucket.org:ietwebdev/sitefarm-theme-one.git"
     }
-  ],
-    "require": {
+  },
+  "require": {
     "composer/installers": "^1.0.20",
-    "cweagans/composer-patches": "^1.0",
+    "cweagans/composer-patches": "1.*",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "drupal/config_direct_save": "^1.0",
     "drupal/config_installer": "^1.0",
@@ -20,6 +32,7 @@
     "drupal/simple_block": "^1.0@beta",
     "drush/drush": "~8",
     "rvtraveller/qs-composer-installer": "^1.1",
+    "ucdavis/sitefarm": "dev-8.x-1.x",
     "webflo/drupal-core-strict": "^8"
   },
   "require-dev": {
@@ -39,7 +52,7 @@
   "conflict": {
       "drupal/drupal": "*"
   },
-  "minimum-stability": "alpha",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "classmap": [
@@ -56,10 +69,14 @@
     "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
     "post-install-cmd": [
       "@drupal-scaffold",
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "cp -a web/profiles/contrib/sitefarm/libraries/. web/libraries/",
+      "rm -f web/robots.txt"
     ],
     "post-update-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "cp -a web/profiles/contrib/sitefarm/libraries/. web/libraries/",
+      "rm -f web/robots.txt"
     ],
     "post-create-project-cmd": [
       "@drupal-scaffold",
@@ -93,10 +110,10 @@
         ".editorconfig",
         ".eslintignore",
         ".eslintrc.json",
-        ".htaccess",
         "web.config"
       ]
-    }
+    },
+    "enable-patching": true
   },
   "config": {
     "optimize-autoloader": true,
