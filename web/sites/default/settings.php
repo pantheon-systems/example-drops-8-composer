@@ -23,6 +23,13 @@ $config_directories = array(
   CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
 );
 
+// Contenta configuration:
+// Ideally, we keep our config export in ../config, but it needs to
+// be here at first so that installation will work.
+// TODO: Better strategy going forward to support both installation and
+// relocated configuration directory.
+$config_directories['sync'] = 'profiles/contrib/contenta_jsonapi/config/sync';
+
 /**
  * If there is a local settings file, then include it
  */
