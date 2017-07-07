@@ -41,6 +41,6 @@ $ terminus ssh-key:add ~/.ssh/id_rsa.pub
 
 ### Install SiteFarm
 ```
-$ terminus build-env:create-project --stability=dev ucdavis/sitefarm my-sitefarm-site
+$ terminus build-env:create-project --stability=dev ucdavis/sitefarm-pantheon my-sitefarm-site
 ```
-("my-sitefarm-site" would be replaced with what you want your new Pantheon site to be.
+Replace "my-sitefarm-site" would your desired site machine name in Pantheon.
