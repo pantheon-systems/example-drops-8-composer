@@ -23,12 +23,15 @@ $config_directories = array(
   CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
 );
 
-// Contenta configuration:
-// Ideally, we keep our config export in ../config, but it needs to
-// be here at first so that installation will work.
-// TODO: Better strategy going forward to support both installation and
-// relocated configuration directory.
-$config_directories['sync'] = 'profiles/contrib/contenta_jsonapi/config/sync';
+// Check to see if we are serving an installer page.
+$is_installer_url = (strpos($_SERVER['SCRIPT_NAME'], '/core/install.php') === 0);
+if ($is_installer_url && !file_exists($config_directories[CONFIG_SYNC_DIRECTORY] . '/system.site.yml')) {
+  // Contenta configuration:
+  // Ideally, we keep our config export in ../config, but it needs to
+  // be here at first so that installation will work.
+  // TODO: Better strategy going forward for this.
+  $config_directories[CONFIG_SYNC_DIRECTORY] = 'profiles/contrib/contenta_jsonapi/config/sync';
+}
 
 /**
  * If there is a local settings file, then include it
@@ -39,9 +42,6 @@ if (file_exists($local_settings)) {
 }
 
 /**
- * Always install the 'standard' profile to stop the installer from
- * modifying settings.php.
- *
- * See: tests/installer-features/installer.feature
+ * We are going to install the contenta_jsonapi profile.
  */
 $settings['install_profile'] = 'contenta_jsonapi';
