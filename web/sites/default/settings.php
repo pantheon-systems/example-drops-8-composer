@@ -23,8 +23,15 @@ $config_directories = array(
   CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
 );
 
-// Check to see if we are serving an installer page.
+// Check to see if we are serving an installer page from the web server.
 $is_installer_url = (strpos($_SERVER['SCRIPT_NAME'], '/core/install.php') === 0);
+// Also check to see if we are calling the installer from a cli (e.g. Drush)
+if (php_sapi_name() == 'cli') {
+  global $install_state;
+  if (isset(($install_state))) {
+    $is_installer_url = true;
+  }
+}
 if ($is_installer_url && !file_exists($config_directories[CONFIG_SYNC_DIRECTORY] . '/system.site.yml')) {
   // Contenta configuration:
   // Ideally, we keep our config export in ../config, but it needs to
