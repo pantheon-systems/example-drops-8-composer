@@ -75,6 +75,8 @@ $ terminus dashboard:view $SITE
 ```
 Replace my-site with the name that you gave your Pantheon site. Customize the parameters of the `site:create` and `site-install` lines to suit.
 
+Type `terminus drush sitename.env -- uli` to get a user reset link to set a username and password for an admin.
+
 ### Installing Drupal
 
 Note that this example repository sets the installation profile to 'standard' in settings.php, so that the installer will not need to modify the settings file. If you would like to install a different profile, modify settings.php appropriately before installing your site.
