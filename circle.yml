@@ -41,6 +41,7 @@ dependencies:
       fi
     - git config --global user.email "$GIT_EMAIL"
     - git config --global user.name "Circle CI"
+    - git config --global core.fileMode false
   override:
     - composer global require -n "hirak/prestissimo:^0.3"
     - /usr/bin/env COMPOSER_BIN_DIR=$HOME/bin composer --working-dir=$HOME require pantheon-systems/terminus "^1"
@@ -51,16 +52,16 @@ dependencies:
     - composer create-project -n -d ~/.terminus/plugins pantheon-systems/terminus-secrets-plugin:^1
   post:
     - terminus auth:login -n --machine-token="$TERMINUS_TOKEN"
-    - terminus build-env:delete:ci -n "$TERMINUS_SITE" --keep=2 --yes
+    - terminus build:env:delete:ci -n "$TERMINUS_SITE" --keep=2 --yes
     - composer -n build-assets
     - terminus env:wake -n "$TERMINUS_SITE.dev"
-    - terminus build-env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --clone-content --db-only --notify="$NOTIFY"
+    - terminus build:env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --clone-content --db-only --notify="$NOTIFY"
     - terminus drush -n "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
     - |
       [ ! -f "config/system.site.yml" ] || terminus drush "$TERMINUS_SITE.$TERMINUS_ENV" -- config-import --yes
       # Optional: replace lines above with lines below to re-install Drupal for every test.
-      # - terminus build-env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --notify="$NOTIFY"
-      # - terminus build-env:site-install -n "$TERMINUS_SITE.$TERMINUS_ENV" --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
+      # - terminus build:env:create -n "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --notify="$NOTIFY"
+      # - terminus build:env:install -n "$TERMINUS_SITE.$TERMINUS_ENV" --site-name="$TEST_SITE_NAME" --account-mail="$ADMIN_EMAIL" --account-pass="$ADMIN_PASSWORD"
 
 test:
   override:
@@ -72,8 +73,8 @@ deployment:
   build-assets:
     branch: master
     commands:
-      - terminus build-env:merge -n "$TERMINUS_SITE.$TERMINUS_ENV" --yes
+      - terminus build:env:merge -n "$TERMINUS_SITE.$TERMINUS_ENV" --yes
       - terminus drush -n $TERMINUS_SITE.dev -- updatedb --yes
       - |
         [ ! -f "config/system.site.yml" ] || terminus drush "$TERMINUS_SITE.dev" -- config-import --yes
-      - terminus build-env:delete:pr -n "$TERMINUS_SITE" --yes
+      - terminus build:env:delete:pr -n "$TERMINUS_SITE" --yes
