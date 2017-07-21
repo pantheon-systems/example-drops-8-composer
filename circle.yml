@@ -44,7 +44,6 @@ dependencies:
     - git config --global core.fileMode false
   override:
     - composer global require -n "hirak/prestissimo:^0.3"
-    - composer global require -n "consolidation/cgr"
     - /usr/bin/env COMPOSER_BIN_DIR=$HOME/bin composer --working-dir=$HOME require pantheon-systems/terminus "^1"
     - terminus --version
     - /usr/bin/env COMPOSER_BIN_DIR=$HOME/bin composer --working-dir=$HOME require drush/drush "^8"
