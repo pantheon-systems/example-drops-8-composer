@@ -51,9 +51,6 @@ web/web.config
 ###
 
 # Ignore Drupal's file directory
-/web/sites/*/files/
-
-# Ignore Drupal's file directory
 web/sites/default/files
 
 # Pantheon commits a settings.php for environment-specific settings.
