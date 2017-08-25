@@ -35,6 +35,7 @@ dependencies:
     - ~/.composer/cache
   pre:
     - echo "Begin build for $CIRCLE_ENV${PR_ENV:+ for }$PR_ENV. Pantheon test environment is $TERMINUS_SITE.$TERMINUS_ENV"
+    - ratelimit_check
     - |
       if [ -n "$GITHUB_TOKEN" ] ; then
         composer -n config --global github-oauth.github.com $GITHUB_TOKEN
@@ -44,19 +45,31 @@ dependencies:
     - git config --global core.fileMode false
   override:
     - composer -n global require -n "hirak/prestissimo:^0.3"
+    - ratelimit_check
     - /usr/bin/env COMPOSER_BIN_DIR=$HOME/bin composer -n --working-dir=$HOME require pantheon-systems/terminus "^1"
+    - ratelimit_check
     - terminus -n --version
+    - ratelimit_check
     - /usr/bin/env COMPOSER_BIN_DIR=$HOME/bin composer -n --working-dir=$HOME require drush/drush "^8"
+    - ratelimit_check
     - mkdir -p ~/.terminus/plugins
     - composer -n create-project -d ~/.terminus/plugins pantheon-systems/terminus-build-tools-plugin:$BUILD_TOOLS_VERSION
+    - ratelimit_check
     - composer -n create-project -d ~/.terminus/plugins pantheon-systems/terminus-secrets-plugin:^1
+    - ratelimit_check
   post:
     - terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+    - ratelimit_check
     - terminus -n build:env:delete:ci "$TERMINUS_SITE" --keep=2 --yes
+    - ratelimit_check
     - composer -n build-assets
+    - ratelimit_check
     - terminus -n env:wake "$TERMINUS_SITE.dev"
+    - ratelimit_check
     - terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes --clone-content --db-only --notify="$NOTIFY"
+    - ratelimit_check
     - terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
+    - ratelimit_check
     - |
       [ ! -f "config/system.site.yml" ] || terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- config-import --yes
       # Optional: replace lines above with lines below to re-install Drupal for every test.
@@ -67,7 +80,9 @@ test:
   override:
     - run-behat
   post:
+    - ratelimit_check
     - terminus -n secrets:set "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
+    - ratelimit_check
 
 deployment:
   build-assets:
