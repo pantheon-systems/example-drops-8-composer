@@ -1,7 +1,7 @@
 # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 defaults: &defaults
   docker:
-    - image: quay/pantheon-public/build-tools-ci:latest
+    - image: quay.io/pantheon-public/build-tools-ci:latest
   working_directory: ~/example_drops_8_composer
   environment:
     #=========================================================================
@@ -108,7 +108,7 @@ jobs:
 
             - run:
                 name: dependencies
-                command: ./.circleci/scripts/00-set-enviornment
+                command: ./.circleci/scripts/00-set-environment
 
             - run:
                 name: prepare database for site-under test
