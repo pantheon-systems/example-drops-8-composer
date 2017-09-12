@@ -22,10 +22,6 @@ git config --global user.email "$GIT_EMAIL"
 git config --global user.name "Circle CI"
 git config --global core.fileMode false
 
-# Make symbolic links from the installed plugins to the Terminus plugins dir
-rm -rf ~/.terminus/plugins/*
-ln -s /usr/local/share/terminus-plugins/* ~/.terminus/plugins
-
 # Re-install the Terminus Build Tools plugin if requested
 if [ -n $BUILD_TOOLS_VERSION ] && [ "$BUILD_TOOLS_VERSION" -ne '^1' ]; then
   echo "Install Terminus Build Tools Plugin version $BUILD_TOOLS_VERSION"
