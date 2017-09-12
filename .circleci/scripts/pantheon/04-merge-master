@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eo pipefail
 
 #
 # This script handles all operations that must be done when a

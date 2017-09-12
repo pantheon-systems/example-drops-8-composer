@@ -67,6 +67,7 @@ jobs:
                 key: terminus-install
                 paths:
                     - $(TERMINUS_PLUGINS_DIR:-~/.terminus/plugins)
+                    - ~/.terminus/cache
 
             - persist_to_workspace:
                 # Must be relative path from working_directory

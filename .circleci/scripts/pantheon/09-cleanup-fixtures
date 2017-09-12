@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eo pipefail
 
 #
 # This script deletes any fixtures that may still be hanging around.

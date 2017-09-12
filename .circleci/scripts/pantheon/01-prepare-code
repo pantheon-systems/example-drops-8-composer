@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eo pipefail
 
 #
 # This script starts up the test process.
@@ -38,6 +38,7 @@ terminus -n build:env:delete:ci "$TERMINUS_SITE" --keep=2 --yes
 
 # Build our assets. If there is no `build-assets` step available,
 # then simply run `composer install`.
+set +e
 composer -h help build-assets >/dev/null 2>&1
 if [ $? == 0 ] ; then
   composer -n build-assets

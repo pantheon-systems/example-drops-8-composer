@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eo pipefail
 
 #
 # This script prepares the site-under-test by cloning the database from

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eo pipefail
 
 #
 # This script runs any post-test operations that may be needed.
