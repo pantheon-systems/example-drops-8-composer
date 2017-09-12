@@ -55,8 +55,8 @@ jobs:
                 command: ./.circleci/scripts/00-set-environment
 
             - run:
-                name: install dev dependencies, build assets, etc.
-                command: ./.circleci/scripts/pantheon/01-prepare-code
+                name: run composer install to get the vendor directory
+                command: composer install
 
             - save_cache:
                 key: composer-cache
@@ -109,6 +109,10 @@ jobs:
             - run:
                 name: dependencies
                 command: ./.circleci/scripts/00-set-environment
+
+            - run:
+                name: install dev dependencies, build assets, etc.
+                command: ./.circleci/scripts/pantheon/01-prepare-code
 
             - run:
                 name: prepare database for site-under test
