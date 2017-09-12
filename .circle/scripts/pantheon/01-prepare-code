@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#
+# This script starts up the test process.
+#
+# - Environment settings (e.g. git config) are initialized
+# - Terminus plugins are installed
+# - Any needed code updates are done
+# - The build step is run to prepare the code files for the site-under-test
+#
+echo "Begin build for $DEFAULT_ENV. Pantheon test environment is $TERMINUS_SITE.$TERMINUS_ENV"
+
+# Configure the GitHub Oauth token if it is available
+if [ -n "$GITHUB_TOKEN" ] ; then
+  composer -n config --global github-oauth.github.com $GITHUB_TOKEN
+fi
+
+# Set up our default git config settings.
+git config --global user.email "$GIT_EMAIL"
+git config --global user.name "Circle CI"
+git config --global core.fileMode false
+
+# Make symbolic links from the installed plugins to the Terminus plugins dir
+rm -rf ~/.terminus/plugins/*
+ln -s /usr/local/share/terminus-plugins/* ~/.terminus/plugins
+
+# Re-install the Terminus Build Tools plugin if requested
+if [ -n "$BUILD_TOOLS_VERSION" ] && [ "$BUILD_TOOLS_VERSION" -ne '^1' ]; then
+  rm -rf ~/.terminus/plugins/terminus-build-tools-plugin
+  composer -n create-project -d $(TERMINUS_PLUGINS_DIR:-~/.terminus/plugins) pantheon-systems/terminus-build-tools-plugin:$BUILD_TOOLS_VERSION
+fi
+
+# Log in via Terminus
+terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+
+# Delete leftover CI environments
+terminus -n build:env:delete:ci "$TERMINUS_SITE" --keep=2 --yes
+
+# Build our assets. If there is no `build-assets` step available,
+# then simply run `composer install`.
+composer -h help build-assets >/dev/null 2>&1
+if [ $? == 0 ] ; then
+  composer -n build-assets
+elif [ -f "composer.json" ] ; then
+  composer -n install
+fi

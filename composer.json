@@ -51,7 +51,8 @@
       "@prepare-for-pantheon",
       "composer install --optimize-autoloader"
     ],
-    "drupal-unit-tests": "cd web/core && ../../vendor/bin/phpunit --testsuite=unit --exclude-group Composer,DependencyInjection,PageCache",
+    "code-sniff": "echo 'No code sniff step defined.'",
+    "unit-test": "echo 'No unit test step defined.'",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
     "post-install-cmd": [
