@@ -1,3 +1,6 @@
+# Avoid ssh prompting when connecting to new ssh hosts
+mkdir -p $HOME/.ssh && echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
+
 # Set up environment variables
 
 # By default, we will make the environment name after the circle build number.
