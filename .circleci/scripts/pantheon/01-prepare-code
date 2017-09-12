@@ -27,8 +27,9 @@ rm -rf ~/.terminus/plugins/*
 ln -s /usr/local/share/terminus-plugins/* ~/.terminus/plugins
 
 # Re-install the Terminus Build Tools plugin if requested
-if [ -n "$BUILD_TOOLS_VERSION" ] && [ "$BUILD_TOOLS_VERSION" -ne '^1' ]; then
-  rm -rf ~/.terminus/plugins/terminus-build-tools-plugin
+if [ -n $BUILD_TOOLS_VERSION ] && [ "$BUILD_TOOLS_VERSION" -ne '^1' ]; then
+  echo "Install Terminus Build Tools Plugin version $BUILD_TOOLS_VERSION"
+  rm -rf $(TERMINUS_PLUGINS_DIR:-~/.terminus/plugins)/terminus-build-tools-plugin
   composer -n create-project -d $(TERMINUS_PLUGINS_DIR:-~/.terminus/plugins) pantheon-systems/terminus-build-tools-plugin:$BUILD_TOOLS_VERSION
 fi
 
