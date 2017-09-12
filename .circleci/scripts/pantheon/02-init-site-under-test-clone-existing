@@ -2,6 +2,9 @@
 
 set -eo pipefail
 
+# Log in via Terminus
+terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+
 #
 # This script prepares the site-under-test by cloning the database from
 # an existing site.
