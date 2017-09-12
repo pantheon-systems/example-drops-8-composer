@@ -142,7 +142,7 @@ jobs:
 
             - run:
                 name: run Behat tests
-                command: ./tests/scripts/run-behat
+                command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN" && ./tests/scripts/run-behat
 
             - run:
                 name: post-test actions
