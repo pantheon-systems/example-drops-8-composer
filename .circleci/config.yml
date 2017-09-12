@@ -52,7 +52,7 @@ jobs:
 
             - run:
                 name: environment
-                command: ./.circleci/scripts/00-set-enviornment
+                command: ./.circleci/scripts/00-set-environment
 
             - run:
                 name: install dev dependencies, build assets, etc.
@@ -134,7 +134,7 @@ jobs:
 
             - run:
                 name: dependencies
-                command: ./.circleci/scripts/00-set-enviornment
+                command: ./.circleci/scripts/00-set-environment
 
             - run:
                 name: run Behat tests
