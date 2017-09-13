@@ -2,9 +2,6 @@
 
 set -eo pipefail
 
-# Log in via Terminus
-terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-
 #
 # This script handles all operations that must be done when a
 # pull request is merged back into the master branch.

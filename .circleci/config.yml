@@ -68,25 +68,9 @@ jobs:
                 paths:
                     - $(TERMINUS_PLUGINS_DIR:-~/.terminus/plugins)
 
-            - persist_to_workspace:
-                # Must be relative path from working_directory
-                root: .
-                # Must be relative path from root
-                paths:
-                    - vendor
-
-    code_sniff_unit_test:
-        <<: *defaults
-        steps:
-            - checkout
-
-            - attach_workspace:
-                # Must be absolute path or relative path from working_directory
-                at: /tmp
-
             - run:
-                name: copy vendor/web
-                command: cp -r /tmp/vendor .
+                name: check coding standards
+                command: composer -n lint
 
             - run:
                 name: check coding standards
@@ -112,7 +96,11 @@ jobs:
 
             - run:
                 name: install dev dependencies, build assets, etc.
-                command: ./.circleci/scripts/pantheon/01-prepare-code
+                command: ./.circleci/scripts/pantheon/01-prepare
+
+            - run:
+                name: build assets
+                command: composer -n build-assets
 
             - run:
                 name: prepare database for site-under test
@@ -120,12 +108,20 @@ jobs:
                 # command: ./.circleci/scripts/pantheon/02-init-site-under-test-reinstall-new
 
             - run:
-                name: run Behat tests
-                command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN" && ./tests/scripts/run-behat
+                name: run functional tests with Behat
+                command: composer -n functional-test
 
             - run:
                 name: post-test actions
                 command: ./.circleci/scripts/pantheon/03-post-test
+
+            - run:
+                name: handle merge to master (if needed)
+                command: ./.circleci/scripts/pantheon/04-merge-master
+
+            - run:
+                name: remove transient test fixtures
+                command: ./.circleci/scripts/pantheon/09-cleanup-fixtures
 
     # TODO:
     # 04-merge-master
@@ -135,11 +131,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      # Install dev dependencies
+      # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
       - build
-      # Build deploy and test
+      # Build deploy and test on target platform
       - build_deploy_and_test
-      # Code sniff and unit text first
-      - code_sniff_unit_test:
-            requires:
-                - build

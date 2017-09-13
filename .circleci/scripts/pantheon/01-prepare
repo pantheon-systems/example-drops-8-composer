@@ -8,7 +8,6 @@ set -eo pipefail
 # - Environment settings (e.g. git config) are initialized
 # - Terminus plugins are installed
 # - Any needed code updates are done
-# - The build step is run to prepare the code files for the site-under-test
 #
 echo "Begin build for $DEFAULT_ENV. Pantheon test environment is $TERMINUS_SITE.$TERMINUS_ENV"
 
@@ -24,13 +23,3 @@ terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 
 # Delete leftover CI environments
 terminus -n build:env:delete:ci "$TERMINUS_SITE" --keep=2 --yes
-
-# Build our assets. If there is no `build-assets` step available,
-# then simply run `composer install`.
-set +e
-composer -h help build-assets >/dev/null 2>&1
-if [ $? == 0 ] ; then
-  composer -n build-assets
-elif [ -f "composer.json" ] ; then
-  composer -n install
-fi

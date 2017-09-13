@@ -2,10 +2,11 @@
 
 set -eo pipefail
 
-# Log in via Terminus
-# terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-
 #
-# This script deletes any fixtures that may still be hanging around.
+# This script deletes any fixtures that are no longer needed.
+#
+# Note that we allow the "ci-BUILD_NUMBER" and "pr-PULL_REQUEST_NUMBER"
+# multidev sites to persist until the next time the 'prepare' or
+# 'merge-master' scripts (respectively) are called.
 #
 
