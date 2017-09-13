@@ -34,14 +34,6 @@ export GITHUB_TOKEN=[REDACTED]
 export CIRCLE_TOKEN=[REDACTED]
 ```
 
-### One command setup:
-
-Once you have all of the prerequisites in place, you can create your copy of this repo with one command:
-
-```
-terminus build:project:create pantheon-systems/example-drops-8-composer my-new-site 
-```
-
 ### Install SiteFarm
 ```
 $ terminus build-env:create-project --stability=dev --team="University of California Davis" ucdavis/sitefarm-pantheon my-sitefarm-site
