@@ -48,3 +48,10 @@ BUILD_TOOLS_SCRIPTS="/build-tools-ci/scripts/pantheon"
   echo "export BUILD_TOOLS_SCRIPTS='$BUILD_TOOLS_SCRIPTS'"
 ) >> $BASH_ENV
 source $BASH_ENV
+
+# Re-install the Terminus Build Tools plugin if requested
+if [ -n $BUILD_TOOLS_VERSION ] && [ "$BUILD_TOOLS_VERSION" <> 'dev-master' ]; then
+  echo "Install Terminus Build Tools Plugin version $BUILD_TOOLS_VERSION"
+  rm -rf ${TERMINUS_PLUGINS_DIR:-~/.terminus/plugins}/terminus-build-tools-plugin
+  composer -n create-project -d ${TERMINUS_PLUGINS_DIR:-~/.terminus/plugins} pantheon-systems/terminus-build-tools-plugin:$BUILD_TOOLS_VERSION
+fi
