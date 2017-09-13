@@ -96,7 +96,7 @@ jobs:
                 name: run unit tests
                 command: composer -n unit-test
 
-    build_and_deploy:
+    build_deploy_and_test:
         <<: *defaults
         steps:
             - checkout
@@ -119,27 +119,6 @@ jobs:
                 command: ./.circleci/scripts/pantheon/02-init-site-under-test-clone-existing
                 # command: ./.circleci/scripts/pantheon/02-init-site-under-test-reinstall-new
 
-    behat_test:
-        <<: *defaults
-        steps:
-            - checkout
-
-            - attach_workspace:
-                # Must be absolute path or relative path from working_directory
-                at: /tmp
-
-            - restore_cache:
-                keys:
-                    - terminus-install
-
-            - run:
-                name: copy vendor
-                command: cp -r /tmp/vendor .
-
-            - run:
-                name: dependencies
-                command: ./.circleci/scripts/00-set-environment
-
             - run:
                 name: run Behat tests
                 command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN" && ./tests/scripts/run-behat
@@ -158,14 +137,9 @@ workflows:
     jobs:
       # Install dev dependencies
       - build
-      # Build and deploy
-      - build_and_deploy
+      # Build deploy and test
+      - build_deploy_and_test
       # Code sniff and unit text first
       - code_sniff_unit_test:
             requires:
                 - build
-      # Run Behat tests after deploy so they can be done on Pantheon
-      - behat_test:
-            requires:
-                - build
-                - build_and_deploy
