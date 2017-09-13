@@ -1,7 +1,5 @@
 # SiteFarm on Pantheon
 
-This repository can be used to set up a Composer-Managed Drupal 8 site on [Pantheon](https://pantheon.io).
-
 [![CircleCI](https://circleci.com/gh/pantheon-systems/example-drops-8-composer.svg?style=shield)](https://circleci.com/gh/pantheon-systems/example-drops-8-composer)
 [![Pantheon example-drops-8-composer](https://img.shields.io/badge/dashboard-drops_8-yellow.svg)](https://dashboard.pantheon.io/sites/c401fd14-f745-4e51-9af2-f30b45146a0c#dev/code) 
 [![Dev Site example-drops-8-composer](https://img.shields.io/badge/site-drops_8-blue.svg)](http://dev-example-drops-8-composer.pantheonsite.io/)
@@ -10,37 +8,78 @@ This repository can be used to set up a Composer-Managed Drupal 8 site on [Panth
 
 This project contains only the canonical resources used to build a SiteFarm Drupal site for use on Pantheon. 
 
-## Pull Request Workflow
+* GitHub repo
+* Free Pantheon sandbox site
+* A CircleCI configuration to run tests and push from the source repo (GitHub) to Pantheon.
 
-When using a pull request workflow, only the canonical resources (code, configuration, etc.) exists in the master repository, stored on GitHub. A build step is used to create the full Drupal site and automatically deploy it to Pantheon. This is the recommended way to use this project.
+For more background information on this style of workflow, see the [Pantheon documentation](https://pantheon.io/docs/guides/github-pull-requests/).
 
-### Setup
 
-For setup instructions, please see [Using GitHub Pull Requests with Composer and Drupal 8](https://pantheon.io/docs/guides/github-pull-requests/).
+## Installation
 
-### Environment Variables
+### Prerequisites
 
-The [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin) automatically configures Circle CI to build your site. The following environment variables are defined:
+Before running the `terminus build:project:create` command, make sure you have all of the prerequisites:
 
-- TERMINUS_TOKEN: The Terminus Machine token previously created.
-- GITHUB_TOKEN: Used by CircleCI to post comments on pull requests.
-- TERMINUS_SITE: The name of the Pantheon site that will be used to test your site.
-- TEST_SITE_NAME: Used to set the name of the test  site when installing Drupal.
-- ADMIN_EMAIL: Used to configure the email address to use when installing Drupal.
-- ADMIN_PASSWORD: Used to set the password for the uid 1 user during site installation.
-- GIT_EMAIL: Used to configure the git user’s email address for commits we make.
+* [A Pantheon account](https://dashboard.pantheon.io/register)
+* [Terminus, the Pantheon command line tool](https://pantheon.io/docs/terminus/install/)
+* [The Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin)
+* An account with GitHub and an authentication token capable of creating new repos.
+* An account with CircleCI and an authentication token.
 
-If you need to modify any of these values, you may do so in the [Circle CI Environment Variable](https://circleci.com/docs/1.0/environment-variables/) configuration page.
+You may find it easier to export the GitHub and CircleCI tokens as variables on your command line where the Build Tools Plugin can detect them automatically:
 
-### SSH Keys
-
-A [public/private key pair](https://pantheon.io/docs/ssh-keys/) is created and added to Circle CI (the private key) and the Pantheon site (the public key). If you need to update your public key, you may do so with Terminus:
 ```
-$ terminus ssh-key:add ~/.ssh/id_rsa.pub
+export GITHUB_TOKEN=[REDACTED]
+export CIRCLE_TOKEN=[REDACTED]
+```
+
+### One command setup:
+
+Once you have all of the prerequisites in place, you can create your copy of this repo with one command:
+
+```
+terminus build:project:create pantheon-systems/example-drops-8-composer my-new-site 
 ```
 
 ### Install SiteFarm
 ```
-$ terminus build-env:create-project --stability=dev ucdavis/sitefarm-pantheon my-sitefarm-site
+$ terminus build-env:create-project --stability=dev --team="University of California Davis" ucdavis/sitefarm-pantheon my-sitefarm-site
 ```
+
 Replace "my-sitefarm-site" would your desired site machine name in Pantheon.
+
+
+## Important files and directories
+
+### `/web`
+
+Pantheon will serve the site from the `/web` subdirectory due to the configuration in `pantheon.yml`, facilitating a Composer based workflow. Having your website in this subdirectory also allows for tests, scripts, and other files related to your project to be stored in your repo without polluting your web document root.
+
+#### `/config`
+
+One of the directories moved to the git root is `/config`. This directory holds Drupal's `.yml` configuration files. In more traditional repo structure these files would live at `/sites/default/config/`. Thanks to [this line in `settings.php`](https://github.com/pantheon-systems/example-drops-8-composer/blob/54c84275cafa66c86992e5232b5e1019954e98f3/web/sites/default/settings.php#L19), the config is moved entirely outside of the web root.
+
+### `composer.json`
+
+If you are just browsing this repository on GitHub, you may notice that the files of Drupal core itself are not included in this repo.  That is because Drupal core and contrib modules are installed via Composer and ignored in the `.gitignore` file. Specific contrib modules are added to the project via `composer.json` and `composer.lock` keeps track of the exact version of each modules (or other dependency). Modules, and themes are placed in the correct directories thanks to the `"installer-paths"` section of `composer.json`. `composer.json` also includes instructions for `drupal-scaffold` which takes care of placing some individual files in the correct places like `settings.pantheon.php`.
+
+## Behat tests
+
+So that CircleCI will have some test to run, this repository includes a configuration of Behat tests. You can add your own `.feature` files within `/tests/features/`.
+
+## Updating your site
+
+When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Updates can be applied either directly on Pantheon, by using Terminus, or on your local machine.
+
+#### Update with Terminus
+
+Install [Terminus 1](https://pantheon.io/docs/terminus/) and the [Terminus Composer plugin](https://github.com/pantheon-systems/terminus-composer-plugin).  Then, to update your site, ensure it is in SFTP mode, and then run:
+```
+terminus composer <sitename>.<dev> update
+```
+Other commands will work as well; for example, you may install new modules using `terminus composer <sitename>.<dev> require drupal/pathauto`.
+
+#### Update on your local machine
+
+You may also place your site in Git mode, clone it locally, and then run composer commands from there.  Commit and push your files back up to Pantheon as usual.
