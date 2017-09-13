@@ -14,11 +14,11 @@ Feature: Content
 
   @api
   Scenario: Create many nodes
-    Given "page" content:
+    Given "sf_page" content:
     | title    |
     | Page one |
     | Page two |
-    And "article" content:
+    And "sf_article" content:
     | title          |
     | First article  |
     | Second article |
@@ -51,8 +51,8 @@ Feature: Content
   @api
   Scenario: Create users
     Given users:
-    | name     | mail            | status |
-    | Joe User | joe@example.com | 1      |
+    | name     | mail            | status | roles |
+    | Joe User | joe@example.com | 1      | contributor |
     And I am logged in as a user with the "administrator" role
     When I visit "admin/people"
     Then I should see the link "Joe User"
@@ -60,8 +60,8 @@ Feature: Content
   @api
   Scenario: Login as a user created during this scenario
     Given users:
-    | name      | status | mail             |
-    | Test user |      1 | test@example.com |
+    | name      | mail             | status | roles |
+    | Test user | test@example.com | 1      | contributor |
     When I am logged in as "Test user"
     Then I should see the link "Log out"
 
@@ -75,21 +75,21 @@ Feature: Content
 
   @api
   Scenario: Create many terms
-    Given "tags" terms:
+    Given "sf_tags" terms:
     | name    |
     | Tag one |
     | Tag two |
     And I am logged in as a user with the "administrator" role
-    When I go to "admin/structure/taxonomy/manage/tags/overview"
+    When I go to "admin/structure/taxonomy/manage/sf_tags/overview"
     Then I should see "Tag one"
     And I should see "Tag two"
 
   @api
   Scenario: Create nodes with specific authorship
     Given users:
-    | name     | mail            | status |
-    | Joe User | joe@example.com | 1      |
-    And "article" content:
+    | name     | mail            | status | roles |
+    | Joe User | joe@example.com | 1      | contributor |
+    And "sf_article" content:
     | title          | author   | promote |
     | Article by Joe | Joe User | 1       |
     When I am logged in as a user with the "administrator" role

@@ -1,0 +1,19 @@
+imports:
+    - behat.common.yml
+
+default:
+  extensions:
+    Drupal\DrupalExtension:
+      api_driver: 'drupal'
+      drupal:
+        drupal_root: '../web'
+    Behat\MinkExtension:
+      # Edit the base_url to use your localhost domain
+      base_url: 'http://sitefarm-pantheon.local'
+      # Edit the show_cmd path to the browser you want to open for debugging
+      show_cmd: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %s'
+      # Uncomment if you would prefer to run tests in chrome
+      # Requires the chrome driver
+      selenium2:
+        browser: chrome
+        capabilities: {"browser": "chrome", "browserName": "chrome", "browserVersion": "ANY", "version": "ANY"}

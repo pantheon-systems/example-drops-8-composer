@@ -1,0 +1,74 @@
+default:
+  autoload:
+      '': %paths.base%/features/bootstrap
+  suites:
+    default:
+      paths:
+        - %paths.base%/features
+      filters:
+        tags: "~@chrome"
+      contexts:
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\DrushContext
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+      files_path: %paths.base%/files
+    Drupal\DrupalExtension:
+      blackbox: ~
+      subcontexts:
+        paths:
+          - %paths.base%
+      selectors:
+        message_selector: '.alert, .messages'
+        error_message_selector: '.alert--error, .messages--error'
+        success_message_selector: '.alert--success, .messages--status'
+      region_map:
+        # Main content area usually overridden by Panels
+        Content: ".l-content"
+        # Regular Drupal Block regions (not panels)
+        Header Region: ".region-header"
+        Navigation Region: ".region-navigation"
+        Quick Links Region: ".region-quick-links"
+        Page Title Region: ".region-page-title"
+        Pre Content Region: ".region-pre-content"
+        Top Content 1 Region: ".region-top-content-first"
+        Top Content 2 Region: ".region-top-content-second"
+        Top Content 3 Region: ".region-top-content-third"
+        Top Content 4 Region: ".region-top-content-fourth"
+        Sidebar First Region: ".l-sidebar-first"
+        Sidebar Second Region: ".l-sidebar-second"
+        Bottom Content 1 Region: ".region-bottom-content-first"
+        Bottom Content 2 Region: ".region-bottom-content-second"
+        Bottom Content 3 Region: ".region-bottom-content-third"
+        Bottom Content 4 Region: ".region-bottom-content-fourth"
+        Footer Region: ".region-footer"
+        Footer Credits Region: ".region-footer-credits"
+        # Custom areas rendered in the template
+        Header: ".l-header"
+        Navbar: ".l-navbar"
+        Quick Links: ".l-quick-links"
+        Search Popup: ".l-search-popup"
+        Footer: ".l-footer"
+        # Seven Theme
+        Admin Content: ".region-content"
+        # Page Elements
+        Page Title: ".page-title"
+        Article Page Title: ".page-title--plain"
+        Breadcrumb: ".breadcrumbs"
+
+# Setup for Google Chrome only tests.
+chrome:
+  suites:
+    default:
+      filters:
+        tags: "@chrome"
+  extensions:
+    Behat\MinkExtension:
+      selenium2:
+        browser: chrome
+        capabilities: {"browser": "chrome", "browserName": "chrome", "browserVersion": "ANY", "version": "ANY"}
