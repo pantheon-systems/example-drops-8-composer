@@ -1,7 +1,7 @@
 # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 defaults: &defaults
   docker:
-    - image: quay.io/pantheon-public/build-tools-ci:latest
+    - image: quay.io/pantheon-public/build-tools-ci:1.x
   working_directory: ~/example_drops_8_composer
   environment:
     #=========================================================================
@@ -30,7 +30,6 @@ defaults: &defaults
     # See: https://discuss.circleci.com/t/environment-variable-expansion-in-working-directory/11322
     # See: https://discuss.circleci.com/t/circle-2-0-global-environment-variables/8681
     #======================================================================================================================================
-    # See 00-set-environment for more environment variables
 
     NOTIFY: 'scripts/github/add-commit-comment {project} {sha} "Created multidev environment [{site}#{env}]({dashboard-url})." {site-url}'
     ADMIN_USERNAME: admin
@@ -51,8 +50,10 @@ jobs:
                     - terminus-install
 
             - run:
+                # Set TERMINUS_ENV and related environment variables.
+                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/1.x/scripts/set-environment
                 name: environment
-                command: ./.circleci/scripts/00-set-environment
+                command: /build-tools-ci/scripts/set-environment
 
             - run:
                 name: run composer install to get the vendor directory
@@ -91,8 +92,10 @@ jobs:
                     - terminus-install
 
             - run:
+                # Set TERMINUS_ENV and related environment variables.
+                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/1.x/scripts/set-environment
                 name: dependencies
-                command: ./.circleci/scripts/00-set-environment
+                command: /build-tools-ci/scripts/set-environment
 
             - run:
                 name: install dev dependencies, build assets, etc.
