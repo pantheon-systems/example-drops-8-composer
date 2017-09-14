@@ -17,6 +17,7 @@
     "drupal/config_installer": "^1.0",
     "drupal/console": "^1.0.0-rc8",
     "drupal/core": "^8",
+    "contentacms/contenta_jsonapi": "dev-8.x-1.x",
     "drupal/simple_block": "^1.0@beta",
     "drush/drush": "~8",
     "rvtraveller/qs-composer-installer": "^1.1",
@@ -39,7 +40,7 @@
   "conflict": {
       "drupal/drupal": "*"
   },
-  "minimum-stability": "alpha",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "classmap": [
@@ -78,7 +79,7 @@
     },
     "build-env": {
       "install-cms": [
-        "drush site-install standard --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
+        "drush site-install contenta_jsonapi --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
         "drush pm-enable config_direct_save simple_block --yes",
         "drush pm-uninstall block_content --yes"
       ],
@@ -98,7 +99,8 @@
         ".htaccess",
         "web.config"
       ]
-    }
+    },
+    "enable-patching": true
   },
   "config": {
     "optimize-autoloader": true,
