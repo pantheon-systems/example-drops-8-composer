@@ -47,17 +47,16 @@ class ScriptHandler
     }
   }
 
-  // This is called by the QuickSilver deploy hook to convert from
-  // a 'lean' repository to a 'fat' repository. This should only be
-  // called when using this repository as a custom upstream, and
-  // updating it with `terminus composer <site>.<env> update`. This
-  // is not used in the GitHub PR workflow.
-  public static function prepareForPantheon()
+  // Pantheon requires that we commit our composer-installed projects
+  // to the Pantheon repository for deployment. Development versions of
+  // projects will be installed via git, which will create a .git directory,
+  // which prevents git from adding the contents of that directory to our
+  // repository. Using `"prefer-stable": true` in our composer.json avoids
+  // this problem, unless no stable version is available, or a dev version
+  // is forced. This function removes these .git directories to prevent this
+  // sort of problem.
+  public static function preventSubmodules()
   {
-    // Get rid of any .git directories that Composer may have added.
-    // n.b. Ideally, there are none of these, as removing them may
-    // impair Composer's ability to update them later. However, leaving
-    // them in place prevents us from pushing to Pantheon.
     $dirsToDelete = [];
     $finder = new Finder();
     foreach (
@@ -73,6 +72,14 @@ class ScriptHandler
     }
     $fs = new Filesystem();
     $fs->remove($dirsToDelete);
+  }
+
+  // Adjust the .gitignore file so that it no longer ignores composer-installed
+  // projects. This is necessary prior to pusing to Pantheon so that On Server
+  // Development mode (aka SFTP mode) will work correctly.
+  public static function prepareForPantheon()
+  {
+    static::preventSubmodules();
 
     // Fix up .gitignore: remove everything above the "::: cut :::" line
     $gitignoreFile = getcwd() . '/.gitignore';

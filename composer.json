@@ -9,7 +9,7 @@
       "url": "https://packages.drupal.org/8"
     }
   ],
-    "require": {
+  "require": {
     "composer/installers": "^1.0.20",
     "cweagans/composer-patches": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.1",
@@ -58,14 +58,17 @@
     "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
     "post-install-cmd": [
       "@drupal-scaffold",
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "DrupalProject\\composer\\ScriptHandler::preventSubmodules"
     ],
     "post-update-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "DrupalProject\\composer\\ScriptHandler::preventSubmodules"
     ],
     "post-create-project-cmd": [
       "@drupal-scaffold",
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "DrupalProject\\composer\\ScriptHandler::preventSubmodules"
     ]
   },
   "extra": {
