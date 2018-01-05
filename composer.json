@@ -11,6 +11,7 @@
   ],
     "require": {
     "composer/installers": "^1.0.20",
+    "contentacms/contenta_jsonapi": "^1.447",
     "cweagans/composer-patches": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "drupal/config_direct_save": "^1.0",
@@ -39,7 +40,7 @@
   "conflict": {
       "drupal/drupal": "*"
   },
-  "minimum-stability": "alpha",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "classmap": [
@@ -75,6 +76,12 @@
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
       "web/themes/contrib/{$name}": ["type:drupal-theme"],
       "drush/contrib/{$name}": ["type:drupal-drush"]
+    },
+    "enable-patching": true,
+    "patches":{
+      "asm89/stack-cors": {
+        "(November 29 2017 06:22:06 PM: See issue #223 on contentacms/contenta_jsonapi) Add origin matcher for wildcard matching": "https://raw.githubusercontent.com/contentacms/contenta_jsonapi_project/8.x-1.x/patches/asm89_stack-cors/pull_request_42.patch"
+      }
     },
     "build-env": {
       "install-cms": [
