@@ -29,7 +29,7 @@ $config_directories = array(
 // what the sync dir should be during normal usage.
 $drush_args = drush_get_arguments();
 if (!empty($drush_args[0])  && 'site-install' === $drush_args[0]) {
-  unset($config_directories[CONFIG_SYNC_DIRECTORY]);
+    $config_directories['sync'] = 'profiles/contrib/contenta_jsonapi/config/sync';
 }
 
 /**
