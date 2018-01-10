@@ -19,9 +19,18 @@ include __DIR__ . "/settings.pantheon.php";
 /**
  * Place the config directory outside of the Drupal root.
  */
-//$config_directories = array(
-//  CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
-//);
+$config_directories = array(
+  CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
+);
+
+// This is a silly way to detect if site install is happening and toggle the
+// sync dir accordingly. @todo, I hope to think of a better option.
+// Contenta install will fail if the sync dir is set to `/config`. But that is
+// what the sync dir should be during normal usage.
+$drush_args = drush_get_arguments();
+if (!empty($drush_args[0])  && 'site-install' === $drush_args[0]) {
+  unset($config_directories[CONFIG_SYNC_DIRECTORY]);
+}
 
 /**
  * If there is a local settings file, then include it
