@@ -23,6 +23,7 @@ $config_directories = array(
   CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
 );
 
+
 // This is a silly way to detect if site install is happening and toggle the
 // sync dir accordingly. @todo, I hope to think of a better option.
 // Contenta install will fail if the sync dir is set to `/config`. But that is
@@ -34,7 +35,6 @@ if (function_exists('drush_get_arguments')) {
   }
 }
 
-
 /**
  * If there is a local settings file, then include it
  */
@@ -44,9 +44,6 @@ if (file_exists($local_settings)) {
 }
 
 /**
- * Always install the 'standard' profile to stop the installer from
- * modifying settings.php.
- *
- * See: tests/installer-features/installer.feature
+ * We are going to install the contenta_jsonapi profile.
  */
 $settings['install_profile'] = 'contenta_jsonapi';
