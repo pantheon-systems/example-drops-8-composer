@@ -8,7 +8,7 @@ defaults: &defaults
     # In addition to the environment variables defined in this file, also
     # add the following variables in the Circle CI UI.
     #
-    # See: https://circleci.com/docs/2.0/environment-variables/
+    # See: https://circleci.com/docs/2.0/env-vars/
     #
     # TERMINUS_SITE:  Name of the Pantheon site to run tests on, e.g. my_site
     # TERMINUS_TOKEN: The Pantheon machine token
