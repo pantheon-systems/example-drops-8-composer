@@ -23,6 +23,8 @@ $config_directories = array(
   CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
 );
 
+
+
 // Check to see if we are serving an installer page from the web server.
 $is_installer_url = (strpos($_SERVER['SCRIPT_NAME'], '/core/install.php') === 0);
 // Also check to see if we are calling the installer from a cli (e.g. Drush)

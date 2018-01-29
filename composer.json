@@ -11,13 +11,13 @@
   ],
     "require": {
     "composer/installers": "^1.0.20",
+    "contentacms/contenta_jsonapi": "^1.447",
     "cweagans/composer-patches": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "drupal/config_direct_save": "^1.0",
     "drupal/config_installer": "^1.0",
-    "drupal/console": "^1.0.0-rc8",
+    "drupal/console": "^1",
     "drupal/core": "^8",
-    "contentacms/contenta_jsonapi": "dev-8.x-1.x",
     "drupal/simple_block": "^1.0@beta",
     "drush/drush": "~8",
     "rvtraveller/qs-composer-installer": "^1.1",
@@ -52,7 +52,9 @@
       "@prepare-for-pantheon",
       "composer install --optimize-autoloader"
     ],
-    "drupal-unit-tests": "cd web/core && ../../vendor/bin/phpunit --testsuite=unit --exclude-group Composer,DependencyInjection,PageCache",
+    "lint": "find web/modules/custom web/themes/custom -name '*.php' -exec php -l {} \\;",
+    "code-sniff": "echo 'No code sniff step defined.'",
+    "unit-test": "echo 'No unit test step defined.'",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
     "post-install-cmd": [
@@ -75,11 +77,15 @@
       "web/themes/contrib/{$name}": ["type:drupal-theme"],
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
+    "enable-patching": true,
+    "patches":{
+      "asm89/stack-cors": {
+        "(November 29 2017 06:22:06 PM: See issue #223 on contentacms/contenta_jsonapi) Add origin matcher for wildcard matching": "https://raw.githubusercontent.com/contentacms/contenta_jsonapi_project/8.x-1.x/patches/asm89_stack-cors/pull_request_42.patch"
+      }
+    },
     "build-env": {
       "install-cms": [
-        "drush site-install contenta_jsonapi --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
-        "drush pm-enable config_direct_save simple_block --yes",
-        "drush pm-uninstall block_content --yes"
+        "drush site-install contenta_jsonapi --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes"
       ],
       "export-configuration": "drush config-export --yes"
     },
@@ -97,12 +103,14 @@
         ".htaccess",
         "web.config"
       ]
-    },
-    "enable-patching": true
+    }
   },
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "7.0"
+    }
   }
 }
