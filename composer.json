@@ -18,7 +18,7 @@
     "drupal/console": "^1",
     "drupal/core": "^8",
     "drupal/simple_block": "^1.0@beta",
-    "drush/drush": "~8",
+    "drush/drush": "^9",
     "rvtraveller/qs-composer-installer": "^1.1",
     "webflo/drupal-core-strict": "^8"
   },
