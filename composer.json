@@ -9,7 +9,7 @@
       "url": "https://packages.drupal.org/8"
     }
   ],
-    "require": {
+  "require": {
     "composer/installers": "^1.0.20",
     "cweagans/composer-patches": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.1",
@@ -23,6 +23,7 @@
     "webflo/drupal-core-strict": "^8"
   },
   "require-dev": {
+    "php": ">=7.1.0",
     "mikey179/vfsstream": "^1.2",
     "behat/behat": "3.*",
     "behat/mink": "^1.7",
@@ -103,9 +104,6 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true,
-    "platform": {
-      "php": "7.0"
-    }
+    "sort-packages": true
   }
 }
