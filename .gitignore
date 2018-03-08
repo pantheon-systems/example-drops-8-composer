@@ -18,6 +18,7 @@ web/.eslintignore
 web/.eslintrc
 web/.gitattributes
 web/.htaccess
+web/.ht.router.php
 web/autoload.php
 web/index.php
 web/robots.txt
