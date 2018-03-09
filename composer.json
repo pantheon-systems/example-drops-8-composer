@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.0.8",
     "composer/installers": "^1.0.20",
     "cweagans/composer-patches": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.1",
@@ -104,6 +104,9 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "7.0.8"
+    }
   }
 }
