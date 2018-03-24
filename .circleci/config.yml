@@ -100,8 +100,8 @@ jobs:
             - run:
                 # Set permissions for scripts that get changed during clone
                 name: change script permissions
-                command: cd /root/example_drops_8_composer/.circleci/scripts/pantheon/ && find . -type f | xargs chmod 755 && \
-                         cd /root/example_drops_8_composer/tests/scripts/ && find . -type f | xargs chmod 755
+                command: find /root/example_drops_8_composer/.circleci/scripts/pantheon/ -type f | xargs chmod 755 && \
+                         find /root/example_drops_8_composer/tests/scripts/ -type f | xargs chmod 755
 
             - run:
                 name: install dev dependencies, build assets, etc.
