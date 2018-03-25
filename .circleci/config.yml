@@ -98,12 +98,6 @@ jobs:
                 command: /build-tools-ci/scripts/set-environment
 
             - run:
-                # Set permissions for scripts that get changed during clone
-                name: change script permissions
-                command: find /root/example_drops_8_composer/.circleci/scripts/pantheon/ -type f | xargs chmod 755 && \
-                         find /root/example_drops_8_composer/tests/scripts/ -type f | xargs chmod 755
-
-            - run:
                 name: install dev dependencies, build assets, etc.
                 command: ./.circleci/scripts/pantheon/01-prepare
 
