@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "08f22690d429f0040ba19f2da7f16742",
+    "content-hash": "39207996935145e83c7a6949628c240a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1729,6 +1729,38 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_block"
             }
+        },
+        {
+            "name": "drush-ops/behat-drush-endpoint",
+            "version": "dev-no-phpunit",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
+                "reference": "54aa39c07dae0f8bf0d4f11e116206e6a5aefb8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/54aa39c07dae0f8bf0d4f11e116206e6a5aefb8c",
+                "reference": "54aa39c07dae0f8bf0d4f11e116206e6a5aefb8c",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.3.0"
+            },
+            "type": "drupal-drush",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Drush commandfile for use with drupal/drupal-driver.",
+            "homepage": "https://github.com/drush-ops/behat-drush-endpoint",
+            "keywords": [
+                "Behat",
+                "Drush",
+                "testing"
+            ],
+            "time": "2018-03-30T02:30:19+00:00"
         },
         {
             "name": "drush/drush",
@@ -5541,39 +5573,6 @@
             "time": "2017-12-06T20:35:40+00:00"
         },
         {
-            "name": "drush-ops/behat-drush-endpoint",
-            "version": "0.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "aba768db7338b2fe1f17693421760baadb37a39e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/aba768db7338b2fe1f17693421760baadb37a39e",
-                "reference": "aba768db7338b2fe1f17693421760baadb37a39e",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "~1.0",
-                "drupal/drupal-driver": "*",
-                "php": ">=5.3.0"
-            },
-            "type": "drupal-drush",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPLv2"
-            ],
-            "description": "Drush commandfile for use with drupal/drupal-driver.",
-            "homepage": "https://github.com/drush-ops/behat-drush-endpoint",
-            "keywords": [
-                "Behat",
-                "Drush",
-                "testing"
-            ],
-            "time": "2015-11-11T07:34:40+00:00"
-        },
-        {
             "name": "fabpot/goutte",
             "version": "v3.2.2",
             "source": {
@@ -6897,7 +6896,8 @@
     "aliases": [],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "drupal/simple_block": 10
+        "drupal/simple_block": 10,
+        "drush-ops/behat-drush-endpoint": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
