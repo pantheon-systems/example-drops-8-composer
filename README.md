@@ -67,12 +67,49 @@ So that CircleCI will have some test to run, this repository includes a configur
 
 ## Updating your site
 
-When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Ensure your site is in Git mode, clone it locally, and then run composer commands from there.  Commit and push your files back up to Pantheon as usual.
+When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Ensure your site is in Git mode, clone it locally, and then run update your site from there.  
 
+```
+git clone git@github.com:username-or-org/example-site.git
+cd example-site
+composer update drupal/core --with-dependencies
+```
 
+When done, commit and push your files back up to Pantheon as usual.
 
+### Troubleshooting
 
+Sometimes, Composer will not update to the most recent version of `drupal/core` that is available. There are various reasons why this might happen. To diagnose the problem, use `composer prohibits` with the version of the component that you wish to install.
 
+```
+composer prohibits drupal/core:^8.5.1
+```
 
+In some instances, Composer may inform you that there is some conflicting component that is not required, but is installed.
 
+```
+drupal/core                   8.5.1  requires          symfony/routing (~3.4.0)
+username-or-org/example-site  1.0.0  does not require  symfony/routing (but v2.8.15 is installed)  
+```
+
+If this happens, you may instruct Composer to also update the installed components that are holding back the update:
+
+```
+composer update drupal/core symfony/* --with-dependencies
+```
+
+Finally, is is also possible to simply tell Composer to update everything:
+
+```
+composer update
+```
+
+This project already depends on the project `webflo/drupal-core-strict`, which ensures that all of Drupal's dependencies will always be instaled at the exact version that were tested with the corresponding release of `drupal/core`. This makes it safe to do unconstrained updates of the entire project contents.
+
+Finaly, if correcting an update problem by diagnosising problems via `composer prohibits` is too complicated or simply not working for some reason, as a final resort you may wish to simply re-install everything in the project from scratch.
+
+```
+rm -rf composer.lock vendor
+composer update
+```
 
