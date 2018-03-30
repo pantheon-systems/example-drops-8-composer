@@ -67,7 +67,7 @@ So that CircleCI will have some test to run, this repository includes a configur
 
 ## Updating your site
 
-When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Ensure your site is in Git mode, clone it locally, and then run update your site from there.  
+When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Ensure your site is in Git mode, clone it locally, and then update your site from there.  
 
 ```
 git clone git@github.com:username-or-org/example-site.git
