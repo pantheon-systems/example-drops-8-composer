@@ -58,7 +58,7 @@ web/sites/default/files
 # Place local settings in settings.local.php
 web/sites/*/settings.local.php
 web/sites/*/services*.yml
-!web/sites/*/services.pantheon.*.yml 
+!web/sites/*/services.pantheon.*.yml
 
 # Ignore SimpleTest multi-site environment.
 web/sites/simpletest
@@ -100,6 +100,3 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
-
-# Things in the core directory that Drupal 8 commits in the repository.
-!web/core/**/*.gz
