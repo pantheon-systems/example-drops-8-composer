@@ -89,6 +89,8 @@ web/sites/simpletest
 .DS_Store*
 ehthumbs.db
 Icon
+!web/core/lib/Drupal/Core/Layout/Icon
+!web/core/lib/Drupal/Core/Layout/Icon/*
 
 Thumbs.db
 ._*
