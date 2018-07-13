@@ -130,10 +130,6 @@ jobs:
                 name: remove transient test fixtures
                 command: ./.circleci/scripts/pantheon/09-cleanup-fixtures
 
-    # TODO:
-    # 04-merge-master
-    # 09-cleanup-fixtures
-
 workflows:
   version: 2
   build_and_test:
