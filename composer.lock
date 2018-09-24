@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd94ecb58bd9798d0b4f1d80e89dce0e",
+    "content-hash": "286334e8b3a4b5955bd5fda426d23e99",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1690,21 +1690,24 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "9.2.2",
+            "version": "dev-drush8-bc",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "c32bcc22bced413c5be4b401719d60d932240098"
+                "reference": "2db82bccf6cbccbea107c247f465efb79a7ae5e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/c32bcc22bced413c5be4b401719d60d932240098",
-                "reference": "c32bcc22bced413c5be4b401719d60d932240098",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/2db82bccf6cbccbea107c247f465efb79a7ae5e0",
+                "reference": "2db82bccf6cbccbea107c247f465efb79a7ae5e0",
                 "shasum": ""
             },
             "require": {
-                "drupal/drupal-driver": "^1",
+                "drupal/drupal-driver": "*",
                 "php": ">=5.3.0"
+            },
+            "conflict": {
+                "drush/drush": "<9.5.0 || >=10.0"
             },
             "type": "drupal-drush",
             "notification-url": "https://packagist.org/downloads/",
@@ -1718,7 +1721,7 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2018-09-20T22:58:29+00:00"
+            "time": "2018-09-24T04:11:51+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -6568,7 +6571,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/simple_block": 10
+        "drupal/simple_block": 10,
+        "drush-ops/behat-drush-endpoint": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
