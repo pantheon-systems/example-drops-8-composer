@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "286334e8b3a4b5955bd5fda426d23e99",
+    "content-hash": "64df3d83455ae2bf0ee10c618d647746",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1694,12 +1694,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "8ab52a9f1879e42d5437a3087fb175a8f3c00a02"
+                "reference": "ddb368173a567038eb4325b9de6f1b8b1cf50336"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/8ab52a9f1879e42d5437a3087fb175a8f3c00a02",
-                "reference": "8ab52a9f1879e42d5437a3087fb175a8f3c00a02",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/ddb368173a567038eb4325b9de6f1b8b1cf50336",
+                "reference": "ddb368173a567038eb4325b9de6f1b8b1cf50336",
                 "shasum": ""
             },
             "require": {
@@ -1724,7 +1724,7 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2018-09-24T19:17:11+00:00"
+            "time": "2018-09-24T20:03:45+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
