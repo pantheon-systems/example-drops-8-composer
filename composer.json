@@ -17,9 +17,10 @@
         "drupal/config_direct_save": "^1.0",
         "drupal/config_installer": "^1.0",
         "drupal/console": "^1",
+        "drush/drush": "dev-preserve-contrib-dir-backport",
         "drupal/core": "^8",
         "drupal/simple_block": "^1.0@beta",
-        "drush-ops/behat-drush-endpoint": "^8",
+        "drush-ops/behat-drush-endpoint": "dev-allow-8",
         "pantheon-systems/quicksilver-pushback": "~1",
         "rvtraveller/qs-composer-installer": "^1.1",
         "webflo/drupal-core-strict": "^8"
