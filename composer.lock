@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d062b4e18b0a9b163ad65604bdc4044",
+    "content-hash": "a13cc64b544953bb81ee97c8486cb83c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1832,16 +1832,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "dev-preserve-contrib-dir-backport",
+            "version": "8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "7f7aecbb06ec8c4e124154873288cabf2917f236"
+                "reference": "65f2f32b91fa0c00b060fb43642c5d3ae612a491"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/7f7aecbb06ec8c4e124154873288cabf2917f236",
-                "reference": "7f7aecbb06ec8c4e124154873288cabf2917f236",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/65f2f32b91fa0c00b060fb43642c5d3ae612a491",
+                "reference": "65f2f32b91fa0c00b060fb43642c5d3ae612a491",
                 "shasum": ""
             },
             "require": {
@@ -1937,7 +1937,7 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
-            "time": "2018-09-25T05:13:00+00:00"
+            "time": "2018-09-27T15:36:20+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -2003,16 +2003,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "1.2.14",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "5642614492f0ca2064c01d60cc33284cc2f731a9"
+                "reference": "758a77525bdaabd6c0f5669176bd4361cb2dda9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/5642614492f0ca2064c01d60cc33284cc2f731a9",
-                "reference": "5642614492f0ca2064c01d60cc33284cc2f731a9",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/758a77525bdaabd6c0f5669176bd4361cb2dda9e",
+                "reference": "758a77525bdaabd6c0f5669176bd4361cb2dda9e",
                 "shasum": ""
             },
             "require": {
@@ -2051,7 +2051,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2017-02-03T22:48:59+00:00"
+            "time": "2018-09-25T20:59:41+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

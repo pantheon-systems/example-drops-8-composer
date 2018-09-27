@@ -39,7 +39,7 @@ defaults: &defaults
 version: 2
 jobs:
     # @todo: common initialization: 'composer install' for the site-under-test
-    build:
+    lint:
         <<: *defaults
         steps:
             - checkout
@@ -81,7 +81,7 @@ jobs:
                 name: run unit tests
                 command: composer -n unit-test
 
-    build_deploy_and_test:
+    functional:
         <<: *defaults
         steps:
             - checkout
@@ -132,9 +132,9 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  test:
     jobs:
       # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
-      - build
+      - lint
       # Build deploy and test on target platform
-      - build_deploy_and_test
+      - functional
