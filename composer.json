@@ -21,9 +21,10 @@
         "drupal/simple_block": "^1.0@beta",
         "drush/drush": "~8",
         "rvtraveller/qs-composer-installer": "^1.1",
-        "drush-ops/behat-drush-endpoint": "^0.0.5",
+        "drush-ops/behat-drush-endpoint": "^8",
         "pantheon-systems/quicksilver-pushback": "~1",
-        "webflo/drupal-core-strict": "^8"
+        "webflo/drupal-core-strict": "^8",
+        "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "require-dev": {
         "mikey179/vfsstream": "^1.2",
