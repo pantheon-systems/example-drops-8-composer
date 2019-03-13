@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93702ac1a0493a5c7de2aaf04739d27e",
+    "content-hash": "e1283701db29577609e179d75490ae2a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1842,29 +1842,23 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "8.2.4",
+            "version": "9.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "2dfa934284cbb19efda5f879011879e7ee67ef2e"
+                "reference": "c32bcc22bced413c5be4b401719d60d932240098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/2dfa934284cbb19efda5f879011879e7ee67ef2e",
-                "reference": "2dfa934284cbb19efda5f879011879e7ee67ef2e",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/c32bcc22bced413c5be4b401719d60d932240098",
+                "reference": "c32bcc22bced413c5be4b401719d60d932240098",
                 "shasum": ""
             },
             "require": {
-                "drupal/drupal-driver": "*",
+                "drupal/drupal-driver": "^1",
                 "php": ">=5.3.0"
             },
-            "conflict": {
-                "drush/drush": "<8.0 || >=10.0"
-            },
             "type": "drupal-drush",
-            "extra": {
-                "installer-name": "BehatDrushEndpoint"
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
@@ -1876,7 +1870,7 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2018-09-24T22:42:22+00:00"
+            "time": "2018-09-20T22:58:29+00:00"
         },
         {
             "name": "drush/drush",
