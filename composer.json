@@ -12,6 +12,7 @@
     "require": {
         "php": ">=7.0.8",
         "composer/installers": "^1.0.20",
+        "consolidation/site-alias": "^3.0.0@stable",
         "cweagans/composer-patches": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.1",
         "drupal/config_direct_save": "^1.0",
@@ -19,10 +20,11 @@
         "drupal/console": "^1",
         "drupal/core": "^8",
         "drupal/simple_block": "^1.0@beta",
-        "drush/drush": "^9.6.0-rc6",
-        "rvtraveller/qs-composer-installer": "^1.1",
         "drush-ops/behat-drush-endpoint": "^9",
+        "drush/drush": "^9.6.0-rc6",
+        "drush/example-drush-extension": "dev-master",
         "pantheon-systems/quicksilver-pushback": "~1",
+        "rvtraveller/qs-composer-installer": "^1.1",
         "webflo/drupal-core-strict": "^8",
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
