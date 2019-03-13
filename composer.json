@@ -21,7 +21,7 @@
         "drupal/console": "^1",
         "drupal/core": "8.6.5",
         "drupal/simple_block": "^1.0@beta",
-        "drush-ops/behat-drush-endpoint": "^9",
+        "drush-ops/behat-drush-endpoint": "^8",
         "drush/drush": "^8.2",
         "drush/example-drush-extension": "dev-master",
         "pantheon-systems/quicksilver-pushback": "~1",
