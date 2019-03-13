@@ -12,6 +12,8 @@
     "require": {
         "php": ">=7.0.8",
         "composer/installers": "^1.0.20",
+        "consolidation/annotated-command": "^2.12.0",
+        "consolidation/site-alias": "^3.0.0@stable",
         "cweagans/composer-patches": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.1",
         "drupal/config_direct_save": "^1.0",
@@ -20,7 +22,7 @@
         "drupal/core": "^8",
         "drupal/simple_block": "^1.0@beta",
         "drush-ops/behat-drush-endpoint": "^9",
-        "drush/drush": "~8",
+        "drush/drush": "^9.6.0-rc6",
         "pantheon-systems/quicksilver-pushback": "~1",
         "rvtraveller/qs-composer-installer": "^1.1",
         "webflo/drupal-core-strict": "^8",
