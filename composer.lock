@@ -1880,16 +1880,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "8.1.18",
+            "version": "8.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "799e4135ad7161f1a4668164ff8a6e5bcd779fc7"
+                "reference": "7d76d775a085ffd4076391aec4234cff80a7559b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/799e4135ad7161f1a4668164ff8a6e5bcd779fc7",
-                "reference": "799e4135ad7161f1a4668164ff8a6e5bcd779fc7",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/7d76d775a085ffd4076391aec4234cff80a7559b",
+                "reference": "7d76d775a085ffd4076391aec4234cff80a7559b",
                 "shasum": ""
             },
             "require": {
@@ -1904,6 +1904,7 @@
                 "symfony/finder": "~2.7|^3",
                 "symfony/var-dumper": "~2.7|^3",
                 "symfony/yaml": "~2.3|^3",
+                "webflo/drupal-finder": "^1.1.0",
                 "webmozart/path-util": "~2"
             },
             "require-dev": {
@@ -1985,7 +1986,7 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
-            "time": "2018-11-21T22:57:06+00:00"
+            "time": "2019-03-11T05:01:39+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -4652,11 +4653,6 @@
         {
             "name": "webflo/drupal-core-strict",
             "version": "8.0.0-beta15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webflo/drupal-core-strict.git",
-                "reference": "1eb044b722ebe44bc6af86a03888415d7f31c057"
-            },
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6549,6 +6545,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
