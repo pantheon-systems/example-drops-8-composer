@@ -19,10 +19,10 @@
         "drupal/console": "^1",
         "drupal/core": "^8",
         "drupal/simple_block": "^1.0@beta",
+        "drush-ops/behat-drush-endpoint": "^9",
         "drush/drush": "~8",
-        "rvtraveller/qs-composer-installer": "^1.1",
-        "drush-ops/behat-drush-endpoint": "^8",
         "pantheon-systems/quicksilver-pushback": "~1",
+        "rvtraveller/qs-composer-installer": "^1.1",
         "webflo/drupal-core-strict": "^8",
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
@@ -78,7 +78,7 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"]
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
         },
         "build-env": {
             "install-cms": [

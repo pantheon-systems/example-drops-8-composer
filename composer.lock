@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93702ac1a0493a5c7de2aaf04739d27e",
+    "content-hash": "e1283701db29577609e179d75490ae2a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1842,29 +1842,23 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "8.2.4",
+            "version": "9.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "2dfa934284cbb19efda5f879011879e7ee67ef2e"
+                "reference": "c32bcc22bced413c5be4b401719d60d932240098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/2dfa934284cbb19efda5f879011879e7ee67ef2e",
-                "reference": "2dfa934284cbb19efda5f879011879e7ee67ef2e",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/c32bcc22bced413c5be4b401719d60d932240098",
+                "reference": "c32bcc22bced413c5be4b401719d60d932240098",
                 "shasum": ""
             },
             "require": {
-                "drupal/drupal-driver": "*",
+                "drupal/drupal-driver": "^1",
                 "php": ">=5.3.0"
             },
-            "conflict": {
-                "drush/drush": "<8.0 || >=10.0"
-            },
             "type": "drupal-drush",
-            "extra": {
-                "installer-name": "BehatDrushEndpoint"
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
@@ -1876,20 +1870,20 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2018-09-24T22:42:22+00:00"
+            "time": "2018-09-20T22:58:29+00:00"
         },
         {
             "name": "drush/drush",
-            "version": "8.1.18",
+            "version": "8.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "799e4135ad7161f1a4668164ff8a6e5bcd779fc7"
+                "reference": "7d76d775a085ffd4076391aec4234cff80a7559b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/799e4135ad7161f1a4668164ff8a6e5bcd779fc7",
-                "reference": "799e4135ad7161f1a4668164ff8a6e5bcd779fc7",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/7d76d775a085ffd4076391aec4234cff80a7559b",
+                "reference": "7d76d775a085ffd4076391aec4234cff80a7559b",
                 "shasum": ""
             },
             "require": {
@@ -1904,6 +1898,7 @@
                 "symfony/finder": "~2.7|^3",
                 "symfony/var-dumper": "~2.7|^3",
                 "symfony/yaml": "~2.3|^3",
+                "webflo/drupal-finder": "^1.1.0",
                 "webmozart/path-util": "~2"
             },
             "require-dev": {
@@ -1985,7 +1980,7 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
-            "time": "2018-11-21T22:57:06+00:00"
+            "time": "2019-03-11T05:01:39+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -4652,11 +4647,6 @@
         {
             "name": "webflo/drupal-core-strict",
             "version": "8.0.0-beta15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webflo/drupal-core-strict.git",
-                "reference": "1eb044b722ebe44bc6af86a03888415d7f31c057"
-            },
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6549,6 +6539,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
