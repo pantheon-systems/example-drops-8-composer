@@ -27,15 +27,18 @@
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "require-dev": {
-        "mikey179/vfsstream": "^1.2",
         "behat/behat": "3.*",
         "behat/mink": "^1.7",
         "behat/mink-extension": "^2.2",
         "behat/mink-goutte-driver": "^1.2",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+        "drupal/coder": "^8.3.1",
+        "drupal/drupal-extension": "^3.1",
         "jcalderonzumba/gastonjs": "^1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "^0.3.1",
-        "drupal/drupal-extension": "^3.1",
+        "mikey179/vfsstream": "^1.2",
         "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "^3.4.0",
         "symfony/css-selector": "^2.8"
     },
     "conflict": {
@@ -54,7 +57,12 @@
             "composer install --optimize-autoloader --no-dev"
         ],
         "lint": "find web/modules/custom web/themes/custom -name '*.php' -exec php -l {} \\;",
-        "code-sniff": "echo 'No code sniff step defined.'",
+        "code-sniff": [
+            "./vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md --ignore=node_modules,bower_components,vendor ./web/modules/custom",
+            "./vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md --ignore=node_modules,bower_components,vendor ./web/themes/custom",
+            "./vendor/bin/phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md --ignore=node_modules,bower_components,vendor ./web/modules/custom",
+            "./vendor/bin/phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md --ignore=node_modules,bower_components,vendor ./web/themes/custom"
+        ],
         "unit-test": "echo 'No unit test step defined.'",
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
