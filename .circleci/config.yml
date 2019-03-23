@@ -120,7 +120,7 @@ jobs:
 
             - run:
                 name: cleanup Behat tetst
-                command: ./.ci.behat-test-cleanup.sh
+                command: ./.ci/behat-test-cleanup.sh
 
             - run:
                 name: post-test actions
