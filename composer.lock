@@ -339,11 +339,7 @@
                 "validation",
                 "versioning"
             ],
-<<<<<<< HEAD
-            "time": "2016-08-30 16:08:34"
-=======
             "time": "2019-03-19T17:25:45+00:00"
->>>>>>> upstream/master
         },
         {
             "name": "consolidation/annotated-command",
@@ -1819,11 +1815,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-<<<<<<< HEAD
-            "time": "2019-03-14 22:08:21"
-=======
             "time": "2019-03-20T06:01:19+00:00"
->>>>>>> upstream/master
         },
         {
             "name": "drupal/drupal-driver",
