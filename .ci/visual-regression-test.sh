@@ -13,13 +13,41 @@ fi
 
 echo -e "\nProcessing pull request #$PR_NUMBER"
 
-COMPOSER_LOCK_COMMIT=$(git log -1 --format=format:%H --full-diff composer.lock)
-LATEST_COMMIT=$(git rev-parse HEAD)
+LAST_GIT_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 
-if [ $COMPOSER_LOCK_COMMIT != $LATEST_COMMIT ];
+GIT_FILE_MODIFIED()
+{
+    # Stash list of changed files
+    GIT_FILES_CHANGED="$(git diff master --name-only)"
+
+    while read -r changedFile; do
+        if [[ "${changedFile}" == "$1" ]]
+        then
+            return 0;
+        fi
+    done <<< "$GIT_FILES_CHANGED"
+
+    return 1;
+}
+
+# Always run visual tests if "visual regression test" is in the last commit message
+if [[ ${LAST_GIT_COMMIT_MESSAGE} != *"visual regression test"*]];
 then
-    echo -e "\nVisual regression tests will only run when composer.lock has changed"
-    exit 0;
+
+    # Skip visual tests if there hasn't been a modification to composer.lock
+    if [ ! GIT_FILE_MODIFIED 'composer.lock' ];
+    then
+        echo -e "\nSkipping visual regression tests since composer.lock has NOT changed"
+        exit 0;
+    fi
+
+    # Skip visual tests if has been a modification to composer.json
+    if [ GIT_FILE_MODIFIED 'composer.json' ];
+    then
+        echo -e "\nSkipping visual regression tests since composer.json has changed"
+        exit 0;
+    fi
+
 fi
 
 # Stash site URLs
