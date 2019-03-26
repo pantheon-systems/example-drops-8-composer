@@ -56,7 +56,7 @@ fi
 
 # Make artifacts directory
 echo "export ARTIFACTS_DIR='artifacts'" >> $BASH_ENV
-echo "export ARTIFACTS_FULL_DIR='/tmp/${ARTIFACTS_DIR}'" >> $BASH_ENV
+echo "export ARTIFACTS_FULL_DIR='/tmp/artifacts'" >> $BASH_ENV
 source $BASH_ENV
 mkdir -p $ARTIFACTS_FULL_DIR
 
