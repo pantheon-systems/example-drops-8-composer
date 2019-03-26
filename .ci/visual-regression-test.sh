@@ -117,7 +117,7 @@ fi
 
 # Post the image back to the pull request on GitHub
 echo -e "\nPosting visual regression results back to PR #$PR_NUMBER "
-curl -i -u "$CIRCLE_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments
+curl -s -i -u "$CIRCLE_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments > /dev/null
 
 if [[ ${VISUAL_REGRESSION_RESULTS} == *"Mismatch errors found"* ]]
 then
