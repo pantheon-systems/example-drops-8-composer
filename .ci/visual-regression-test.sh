@@ -35,14 +35,14 @@ if [[ ${LAST_GIT_COMMIT_MESSAGE} != *"visual regression test"* ]]
 then
 
     # Skip visual tests if there hasn't been a modification to composer.lock
-    if [ ! GIT_FILE_MODIFIED 'composer.lock' ]
+    if ! GIT_FILE_MODIFIED 'composer.lock'
     then
         echo -e "\nSkipping visual regression tests since composer.lock has NOT changed"
         exit 0
     fi
 
     # Skip visual tests if has been a modification to composer.json
-    if [ GIT_FILE_MODIFIED 'composer.json' ]
+    if GIT_FILE_MODIFIED 'composer.json'
     then
         echo -e "\nSkipping visual regression tests since composer.json has changed"
         exit 0
