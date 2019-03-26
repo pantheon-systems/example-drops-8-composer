@@ -167,5 +167,5 @@ workflows:
       - build_deploy_and_test
       # Deploy before running visual test
       - visual_regression_test:
-        requires:
-          - build_deploy_and_test
+            requires:
+                - build_deploy_and_test
