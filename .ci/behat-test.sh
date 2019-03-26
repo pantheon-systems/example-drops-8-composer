@@ -18,9 +18,6 @@ echo "Behat test site: $TERMINUS_SITE.$TERMINUS_ENV"
 echo "::::::::::::::::::::::::::::::::::::::::::::::::"
 echo
 
-# Create a backup before running Behat tests
-terminus -n backup:create $TERMINUS_SITE.$TERMINUS_ENV
-
 # Clear site cache
 terminus -n env:clear-cache $TERMINUS_SITE.$TERMINUS_ENV
 
