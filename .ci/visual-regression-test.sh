@@ -19,7 +19,7 @@ LATEST_COMMIT=$(git rev-parse HEAD)
 if [ $COMPOSER_LOCK_COMMIT != $LATEST_COMMIT ];
 then
     echo -e "\nVisual regression tests will only run when composer.lock has changed"
-    # exit 0;
+    exit 0;
 fi
 
 # Stash site URLs
@@ -44,9 +44,10 @@ fi
 # Backstop visual regression
 echo -e "\nRunning backstop reference..."
 
+echo -e "\nRunning backstop reference on ${LIVE_SITE_URL}..."
 backstop reference
 
-echo -e "\nRunning backstop test..."
+echo -e "\nRunning backstop test on ${MULTIDEV_SITE_URL}..."
 VISUAL_REGRESSION_RESULTS=$(backstop test || echo 'true')
 
 echo "${VISUAL_REGRESSION_RESULTS}"

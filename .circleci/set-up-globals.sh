@@ -35,6 +35,7 @@ then
 	PR_NUMBER=${CI_PR_URL##*/}
 	PR_BRANCH="pr-${PR_NUMBER}"
 	echo "export DEFAULT_ENV=pr-${PR_NUMBER}" >> $BASH_ENV
+	echo "export PR_NUMBER=${PR_NUMBER}" >> $BASH_ENV
 else
 	# otherwise make the branch name multidev friendly
 	if [[ $CURRENT_BRANCH == "master" ]]
