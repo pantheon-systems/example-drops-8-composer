@@ -30,9 +30,10 @@ terminus -n drush $TERMINUS_SITE.$TERMINUS_ENV -- version
 # Verbose mode and exit on errors
 set -ex
 
+# If you are using JavaScript based tests, you can start Headless Chrome below.
 # Start headless Chrome
-echo "\n Starting Chrome in headless mode ..."
-google-chrome-unstable --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 --no-sandbox </dev/null &>/dev/null &
+#echo "\n Starting Chrome in headless mode ..."
+#google-chrome-unstable --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 --no-sandbox </dev/null &>/dev/null &
 
 # Create a drush alias file so that Behat tests can be executed against Pantheon.
 terminus alpha:aliases --no-db-url --only=$TERMINUS_SITE
