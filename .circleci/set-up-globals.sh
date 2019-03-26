@@ -68,11 +68,6 @@ source $BASH_ENV
 # End EXPORTing needed environment variables
 #===========================================
 
-# Add a Git token for Composer
-if [ -n "$GITHUB_TOKEN" ] ; then
-  composer config --global github-oauth.github.com $GITHUB_TOKEN
-fi
-
 # Disable host checking
 mkdir -p $HOME/.ssh && echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
 
