@@ -137,13 +137,9 @@ jobs:
     visual_regression_test:
         <<: *defaults
         docker:
-            - image: backstopjs/backstopjs:latest
+            - image: ataylorme/docker-node-advanced-wordpress-on-pantheon:backstop-js
         steps:
             - checkout
-
-            - run:
-                name: install jq
-                command: apt-get install -y jq
 
             - run:
                 name: set up globals
