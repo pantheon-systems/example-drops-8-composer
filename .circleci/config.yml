@@ -134,6 +134,29 @@ jobs:
                 name: remove transient test fixtures
                 command: ./.circleci/scripts/pantheon/09-cleanup-fixtures
 
+    visual_regression_test:
+    <<: *defaults
+    docker:
+        - image: backstopjs/backstopjs:latest
+    steps:
+        - checkout
+
+        - run:
+            name: install jq
+            command: apt-get update && apt-get install -y jq
+
+        - run:
+            name: set up globals
+            command: ./.circleci/set-up-globals.sh
+
+        - run:
+            name: visual regression test
+            command: ./.ci/visual-regression-test.sh
+
+        - store_artifacts:
+            path: /tmp/artifacts
+            destination: artifacts
+
 workflows:
   version: 2
   build_and_test:
@@ -142,3 +165,6 @@ workflows:
       - build
       # Build deploy and test on target platform
       - build_deploy_and_test
+      - visual_regression_test
+        requires:
+            - build_deploy_and_test
