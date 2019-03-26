@@ -116,7 +116,11 @@ jobs:
 
             - run:
                 name: run functional tests with Behat
-                command: ./tests/scripts/run-behat
+                command: ./.ci/behat-test.sh
+
+            - run:
+                name: cleanup Behat tetst
+                command: ./.ci/behat-test-cleanup.sh
 
             - run:
                 name: post-test actions
