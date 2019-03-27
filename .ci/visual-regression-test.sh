@@ -31,7 +31,7 @@ GIT_FILE_MODIFIED()
 }
 
 # Always run visual tests if "[vr]" is in the last commit message
-if [[ ${LAST_GIT_COMMIT_MESSAGE} != *"\[vr]"* ]]
+if [[ ${LAST_GIT_COMMIT_MESSAGE} != *"[vr]"* ]]
 then
 
     # Skip visual tests if there hasn't been a modification to composer.lock
