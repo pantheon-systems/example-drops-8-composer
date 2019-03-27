@@ -82,9 +82,10 @@ VISUAL_REGRESSION_RESULTS=$(backstop test --config=.ci/backstop.json || echo 'tr
 
 echo "${VISUAL_REGRESSION_RESULTS}"
 
-# Move backstop_data files to ARTIFACTS_FULL_DIR
-echo -e "\nMoving backstop_data files to $ARTIFACTS_FULL_DIR..."
-mv backstop_data $ARTIFACTS_FULL_DIR/
+# Copy backstop_data files to ARTIFACTS_FULL_DIR
+echo -e "\nCopying backstop_data files to $ARTIFACTS_FULL_DIR..."
+rm -rf $ARTIFACTS_FULL_DIR/backstop_data
+cp -r backstop_data $ARTIFACTS_FULL_DIR/
 
 DIFF_IMAGE=$(find ./backstop_data -type f -name "*.png" | grep diff | grep desktop | head -n 1)
 
