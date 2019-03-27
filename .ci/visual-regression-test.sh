@@ -44,10 +44,12 @@ then
     # Skip visual tests if has been a modification to composer.json
     if GIT_FILE_MODIFIED 'composer.json'
     then
-        echo -e "\nSkipping visual regression tests since composer.json has changed"
+        echo -e "\nSkipping visual regression tests since composer.json HAS changed"
         exit 0
     fi
 
+else
+    echo -e "\nRunning visual regression tests because the latest commit message demands it"
 fi
 
 # Stash site URLs
