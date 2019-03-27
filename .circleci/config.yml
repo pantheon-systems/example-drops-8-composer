@@ -137,7 +137,7 @@ jobs:
     visual_regression_test:
         <<: *defaults
         docker:
-            - image: ataylorme/docker-node-advanced-wordpress-on-pantheon:backstop-js
+            - image: backstopjs/backstopjs:latest
         steps:
             - checkout
 

@@ -68,17 +68,17 @@ curl -I "$LIVE_SITE_URL" >/dev/null
 if [ ! -f backstop.json ]; then
 	# Create Backstop config file with dynamic URLs
 	echo -e "\nCreating backstop.js config file..."
-	cat backstop.json.default | jq ".scenarios[0].url = \"$LIVE_SITE_URL\" | .scenarios[0].referenceUrl = \"$MULTIDEV_SITE_URL\" " > backstop.json
+	node .ci/create-backstop-json-from-default.js
 fi
 
 # Backstop visual regression
 echo -e "\nRunning backstop reference..."
 
 echo -e "\nRunning backstop reference on ${LIVE_SITE_URL}..."
-backstop reference
+backstop reference --config=.ci/backstop.json
 
 echo -e "\nRunning backstop test on ${MULTIDEV_SITE_URL}..."
-VISUAL_REGRESSION_RESULTS=$(backstop test || echo 'true')
+VISUAL_REGRESSION_RESULTS=$(backstop test --config=.ci/backstop.json || echo 'true')
 
 echo "${VISUAL_REGRESSION_RESULTS}"
 
