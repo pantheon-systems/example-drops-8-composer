@@ -53,8 +53,8 @@ else
 fi
 
 # Stash site URLs
-MULTIDEV_SITE_URL="https://$TERMINUS_ENV-$TERMINUS_SITE.pantheonsite.io/"
-LIVE_SITE_URL="https://live-$TERMINUS_SITE.pantheonsite.io/"
+export MULTIDEV_SITE_URL="https://$TERMINUS_ENV-$TERMINUS_SITE.pantheonsite.io/"
+export LIVE_SITE_URL="https://live-$TERMINUS_SITE.pantheonsite.io/"
 
 # Ping the multidev environment to wake it from sleep
 echo -e "\nPinging the ${TERMINUS_ENV} multidev environment to wake it from sleep..."
@@ -65,7 +65,7 @@ echo -e "\nPinging the live environment to wake it from sleep..."
 curl -I "$LIVE_SITE_URL" >/dev/null
 
 # Check for custom backstop.json
-if [ ! -f backstop.json ]; then
+if [ ! -f ./.ci/backstop.json ]; then
 	# Create Backstop config file with dynamic URLs
 	echo -e "\nCreating backstop.js config file..."
 	node .ci/create-backstop-json-from-default.js
