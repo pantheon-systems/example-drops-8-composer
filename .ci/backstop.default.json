@@ -41,8 +41,8 @@
     "compare_data": "backstop_data/bitmaps_test/compare.json",
     "casper_scripts": "backstop_data/casper_scripts"
   },
-  "engine": "chrome",
-  "report": [ "CI" ],
+  "engine": "puppeteer",
+  "report": ["browser", "CI"],
   "casperFlags": [],
   "debug": false,
   "port": 3001
