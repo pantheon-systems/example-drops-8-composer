@@ -10,7 +10,7 @@ set -eo pipefail
 # 'merge-master' scripts (respectively) are called.
 #
 
-if [[ ${CURRENT_BRANCH} != "master" && -z ${PR_NUMBER} ]];
+if [[ ${CI_BRANCH} != "master" && -z ${PR_NUMBER} ]];
 then
   echo -e "CI will only deploy to Pantheon if on the master branch or creating a pull requests.\n"
   exit 0;
