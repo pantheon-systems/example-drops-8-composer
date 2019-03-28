@@ -13,8 +13,6 @@ fi
 
 echo -e "\nProcessing pull request #$PR_NUMBER"
 
-LAST_GIT_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-
 GIT_FILE_MODIFIED()
 {
     # Stash list of changed files
@@ -29,6 +27,8 @@ GIT_FILE_MODIFIED()
 
     return 1;
 }
+
+LAST_GIT_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 
 # Always run visual tests if "[vr]" is in the last commit message
 if [[ ${LAST_GIT_COMMIT_MESSAGE} != *"[vr]"* ]]
