@@ -160,7 +160,7 @@ jobs:
     visual_regression_test:
         <<: *defaults
         docker:
-            - image: backstopjs/backstopjs:3.9.13
+            - image: backstopjs/backstopjs:3.9.5
         steps:
             - checkout
 
@@ -169,7 +169,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: /tmp/workspace/set-environment
+                command: /tmp/workspace/set-environment && source $BASH_ENV
 
             - run:
                 name: visual regression test
