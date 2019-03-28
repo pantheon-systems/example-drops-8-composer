@@ -184,6 +184,8 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      # Set up environment variables
+      - configure_env_vars
       # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
       - build:
             requires:
