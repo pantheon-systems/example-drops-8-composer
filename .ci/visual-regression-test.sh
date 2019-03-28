@@ -52,10 +52,6 @@ else
     echo -e "\nRunning visual regression tests because the latest commit message demands it"
 fi
 
-# Stash site URLs
-export MULTIDEV_SITE_URL="https://$TERMINUS_ENV-$TERMINUS_SITE.pantheonsite.io/"
-export LIVE_SITE_URL="https://live-$TERMINUS_SITE.pantheonsite.io/"
-
 # Ping the multidev environment to wake it from sleep
 echo -e "\nPinging the ${TERMINUS_ENV} multidev environment to wake it from sleep..."
 curl -I "$MULTIDEV_SITE_URL" >/dev/null
@@ -76,6 +72,9 @@ echo -e "\nRunning backstop reference..."
 
 echo -e "\nRunning backstop reference on ${LIVE_SITE_URL}..."
 backstop reference --config=.ci/backstop.json
+
+# Kill any zombie Chrome instances
+pkill -f "(chrome)?(--headless)"
 
 echo -e "\nRunning backstop test on ${MULTIDEV_SITE_URL}..."
 VISUAL_REGRESSION_RESULTS=$(backstop test --config=.ci/backstop.json || echo 'true')
