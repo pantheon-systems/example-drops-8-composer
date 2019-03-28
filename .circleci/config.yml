@@ -53,14 +53,9 @@ jobs:
                 name: environment
                 command: /build-tools-ci/scripts/set-environment
 
-            - run:
-                name: copy-environment
-                command: cp /build-tools-ci/scripts/set-environment ./set-environment
-
             - persist_to_workspace:
-                root: /tmp/workspace
+                root: /build-tools-ci/scripts
                 paths:
-                    - $BASH_ENV
                     - set-environment
 
     # @todo: common initialization: 'composer install' for the site-under-test
