@@ -53,6 +53,7 @@ jobs:
                 name: environment
                 command: /build-tools-ci/scripts/set-environment
 
+            # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
                 root: /build-tools-ci/scripts
                 paths:
