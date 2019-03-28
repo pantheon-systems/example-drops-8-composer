@@ -68,14 +68,16 @@ if [ ! -f ./.ci/backstop.json ]; then
 fi
 
 # Backstop visual regression
-echo -e "\nRunning backstopjs reference on ${LIVE_SITE_URL}..."
-backstopjs reference --config=.ci/backstop.json
+echo -e "\nRunning backstop reference..."
+
+echo -e "\nRunning backstop reference on ${LIVE_SITE_URL}..."
+backstop reference --config=.ci/backstop.json
 
 # Kill any zombie Chrome instances
 pkill -f "(chrome)?(--headless)"
 
-echo -e "\nRunning backstopjs test on ${MULTIDEV_SITE_URL}..."
-VISUAL_REGRESSION_RESULTS=$(backstopjs test --config=.ci/backstop.json || echo 'true')
+echo -e "\nRunning backstop test on ${MULTIDEV_SITE_URL}..."
+VISUAL_REGRESSION_RESULTS=$(backstop test --config=.ci/backstop.json || echo 'true')
 
 echo "${VISUAL_REGRESSION_RESULTS}"
 
