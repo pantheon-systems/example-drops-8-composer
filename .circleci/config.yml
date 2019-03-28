@@ -38,9 +38,31 @@ defaults: &defaults
 
 version: 2
 jobs:
+    configure_env_vars:
+        <<: *defaults
+
+        docker:
+            - image: quay.io/pantheon-public/build-tools-ci:visual-regression-vars
+
+        steps:
+            - checkout
+
+            - run:
+                # Set TERMINUS_ENV and related environment variables.
+                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/4.x/scripts/set-environment
+                name: environment
+                command: /build-tools-ci/scripts/set-environment
+
+            - persist_to_workspace:
+                root: /tmp/workspace
+                paths:
+                    - $BASH_ENV
+                    - /build-tools-ci/scripts/set-environment
+
     # @todo: common initialization: 'composer install' for the site-under-test
     build:
         <<: *defaults
+
         steps:
             - checkout
 
@@ -49,11 +71,12 @@ jobs:
                     - composer-cache
                     - terminus-install
 
+            attach_workspace:
+                at: /tmp/workspace
+
             - run:
-                # Set TERMINUS_ENV and related environment variables.
-                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/1.x/scripts/set-environment
-                name: environment
-                command: /build-tools-ci/scripts/set-environment
+                name: setup-environment-vars
+                command: /tmp/workspace/set-environment
 
             - run:
                 name: run composer install to get the vendor directory
@@ -91,11 +114,12 @@ jobs:
                     - composer-cache
                     - terminus-install
 
+            attach_workspace:
+                at: /tmp/workspace
+
             - run:
-                # Set TERMINUS_ENV and related environment variables.
-                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/1.x/scripts/set-environment
-                name: dependencies
-                command: /build-tools-ci/scripts/set-environment
+                name: setup-environment-vars
+                command: /tmp/workspace/set-environment
 
             - run:
                 name: install dev dependencies, build assets, etc.
@@ -141,9 +165,12 @@ jobs:
         steps:
             - checkout
 
+            attach_workspace:
+                at: /tmp/workspace
+
             - run:
-                name: set up globals
-                command: ./.circleci/set-up-globals.sh
+                name: setup-environment-vars
+                command: /tmp/workspace/set-environment
 
             - run:
                 name: visual regression test
@@ -158,10 +185,15 @@ workflows:
   build_and_test:
     jobs:
       # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
-      - build
+      - build:
+            requires:
+                - configure_env_vars
       # Build deploy and test on target platform
-      - build_deploy_and_test
+      - build_deploy_and_test:
+            requires:
+                - configure_env_vars
       # Deploy before running visual test
       - visual_regression_test:
             requires:
+                - configure_env_vars
                 - build_deploy_and_test
