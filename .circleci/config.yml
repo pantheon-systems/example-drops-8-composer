@@ -1,3 +1,4 @@
+# https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 defaults: &defaults
   docker:
     - image: quay.io/pantheon-public/build-tools-ci:4.x
@@ -52,7 +53,6 @@ jobs:
                 name: environment
                 command: /build-tools-ci/scripts/set-environment
 
-            # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
                 root: /tmp/workspace
                 paths:
