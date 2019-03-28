@@ -2,10 +2,10 @@
 
 # Variables
 BUILD_DIR=$(pwd)
-GITHUB_API_URL="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+GITHUB_API_URL="https://api.github.com/repos/$CI_PROJECT_USERNAME/$CI_PROJECT_REPONAME"
 
 # Check if we are NOT on the master branch and this is a PR
-if [[ ${CURRENT_BRANCH} != "master" && -z ${CI_PR_URL} ]];
+if [[ ${CI_BRANCH} != "master" && -z ${CI_PR_URL} ]];
 then
   echo -e "\nVisual regression tests will only run if we are not on the master branch and making a pull request"
   exit 0;
@@ -120,7 +120,7 @@ fi
 
 # Post the image back to the pull request on GitHub
 echo -e "\nPosting visual regression results back to PR #$PR_NUMBER "
-curl -s -i -u "$CIRCLE_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments > /dev/null
+curl -s -i -u "$CI_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments > /dev/null
 
 if [[ ${VISUAL_REGRESSION_RESULTS} == *"Mismatch errors found"* ]]
 then
