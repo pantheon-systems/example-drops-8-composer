@@ -169,7 +169,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: /tmp/workspace/set-environment && source $BASH_ENV
+                command: /tmp/workspace/set-environment
 
             - run:
                 name: visual regression test
