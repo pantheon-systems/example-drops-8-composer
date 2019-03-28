@@ -160,7 +160,7 @@ jobs:
     visual_regression_test:
         <<: *defaults
         docker:
-            - image: backstopjs/backstopjs:latest
+            - image: backstopjs/backstopjs:3.9.13
         steps:
             - checkout
 
