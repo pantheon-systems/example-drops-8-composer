@@ -168,7 +168,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: cat /tmp/workspace/bash_env.txt && source /tmp/workspace/bash_env.txt
+                command: cp /tmp/workspace/bash_env.txt $BASH_ENV && source $BASH_ENV
 
             - run:
                 name: visual regression test
