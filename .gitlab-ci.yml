@@ -1,10 +1,10 @@
-# Build tools Dockerfile v3
+# Build tools Dockerfile
 image: quay.io/pantheon-public/build-tools-ci:4.x
 
 # Default Variables
 variables:
-  BASH_ENV: $HOME/.bashrc
-  CI_BUILD_NUMBER: $CI_JOB_ID
+  CI_BUILD_NUMBER: $CI_PIPELINE_IID
+  DEFAULT_SITE: $CI_PROJECT_NAME
   PR_NUMBER: $CI_MERGE_REQUEST_IID
   CI_BRANCH: $CI_COMMIT_REF_NAME
 
@@ -17,38 +17,39 @@ cache:
   - $HOME/.composer/cache
 
 stages:
+- prepare
 - build
 - test
 - cleanup
 
 before_script:
+- export PATH="$PATH:$CI_PROJECT_DIR/.ci/scripts"
+- export BASH_ENV="$HOME/.envvarsrc"
 - /build-tools-ci/scripts/set-environment
 - source $BASH_ENV
-- echo "Target site.env is $TERMINUS_SITE.$TERMINUS_ENV"
 # See https://docs.gitlab.com/ee/ci/ssh_keys/README.html
 - eval $(ssh-agent -s) && ssh-add <(echo "$SSH_PRIVATE_KEY")
-- ./ci/scripts/01-prepare
-- composer -n build-assets
+- terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 
-deploy:multidev:
-  stage: build
-  environment:
-    name: review/pr-$CI_MERGE_REQUEST_IID
-    url: https://pr-$CI_MERGE_REQUEST_IID-$TERMINUS_SITE.pantheonsite.io/
+prepare:
+  stage: prepare
   script:
-  - echo "Target site.env is $TERMINUS_SITE.$TERMINUS_ENV"
-  - ./.ci/scripts/02-init-site-under-test-clone-existing
+  - 01-prepare
+  - composer -n build-assets
   only:
   - merge_requests
+  - master
 
-deploy:dev:
+deploy:
   stage: build
   environment:
-    name: dev
-    url: https://dev-$TERMINUS_SITE.pantheonsite.io/
+    name: deploy/$TERMINUS_ENV
+    url: https://$TERMINUS_ENV-$TERMINUS_SITE.pantheonsite.io/
   script:
-  - terminus build-env:push-code $TERMINUS_SITE.dev
+  - echo "Target site.env is $TERMINUS_SITE.$TERMINUS_ENV"
+  - 02-init-site-under-test-clone-existing
   only:
+  - merge_requests
   - master
 
 test:code_sniff_unit_test:
@@ -68,7 +69,8 @@ test:behat:
   stage: test
   script:
   - composer install --no-ansi --no-interaction --optimize-autoloader --no-progress
-  - ./.ci/scripts/03-test
+  - 03-test
+  - 04-post-test
   only:
   - merge_requests
   - master
@@ -77,8 +79,8 @@ test:behat:cleanup:
   stage: cleanup
   when: always
   script:
-  - ./.ci/scripts/05-merge-master
-  - ./.ci/scripts/09-cleanup-fixtures
+  - 05-merge-master
+  - 09-cleanup-fixtures
   only:
   - merge_requests
   - master
