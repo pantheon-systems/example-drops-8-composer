@@ -39,7 +39,7 @@ defaults: &defaults
 version: 2
 jobs:
     # @todo: common initialization: 'composer install' for the site-under-test
-    build:
+    unit:
         <<: *defaults
         steps:
             - checkout
@@ -47,7 +47,6 @@ jobs:
             - restore_cache:
                 keys:
                     - composer-cache
-                    - terminus-install
 
             - run:
                 # Set TERMINUS_ENV and related environment variables.
@@ -64,11 +63,6 @@ jobs:
                 paths:
                     - $HOME/.composer/cache
 
-            - save_cache:
-                key: terminus-install
-                paths:
-                    - $(TERMINUS_PLUGINS_DIR:-~/.terminus/plugins)
-
             - run:
                 name: lint php code for syntax errors
                 command: composer -n lint
@@ -81,7 +75,7 @@ jobs:
                 name: run unit tests
                 command: composer -n unit-test
 
-    build_deploy_and_test:
+    functional:
         <<: *defaults
         steps:
             - checkout
@@ -89,7 +83,6 @@ jobs:
             - restore_cache:
                 keys:
                     - composer-cache
-                    - terminus-install
 
             - run:
                 # Set TERMINUS_ENV and related environment variables.
@@ -98,8 +91,12 @@ jobs:
                 command: /build-tools-ci/scripts/set-environment
 
             - run:
+                name: log in
+                command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+
+            - run:
                 name: install dev dependencies, build assets, etc.
-                command: ./.circleci/scripts/pantheon/01-prepare
+                command: ./.ci/scripts/01-prepare
 
             - run:
                 name: build assets
@@ -107,8 +104,8 @@ jobs:
 
             - run:
                 name: prepare database for site-under test
-                command: ./.circleci/scripts/pantheon/02-init-site-under-test-clone-existing
-                # command: ./.circleci/scripts/pantheon/02-init-site-under-test-reinstall-new
+                command: ./.ci/scripts/02-init-site-under-test-clone-existing
+                # command: ./.ci/scripts/02-init-site-under-test-reinstall-new
 
             - run:
                 name: run composer install again to get dev dependencies
@@ -116,29 +113,25 @@ jobs:
 
             - run:
                 name: run functional tests with Behat
-                command: ./.ci/behat-test.sh
-
-            - run:
-                name: cleanup Behat tetst
-                command: ./.ci/behat-test-cleanup.sh
+                command: ./.ci/scripts/03-test
 
             - run:
                 name: post-test actions
-                command: ./.circleci/scripts/pantheon/03-post-test
+                command: ./.ci/scripts/04-post-test
 
             - run:
                 name: handle merge to master (if needed)
-                command: ./.circleci/scripts/pantheon/04-merge-master
+                command: ./.ci/scripts/05-merge-master
 
             - run:
                 name: remove transient test fixtures
-                command: ./.circleci/scripts/pantheon/09-cleanup-fixtures
+                command: ./.ci/scripts/09-cleanup-fixtures
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
-      - build
+      - unit
       # Build deploy and test on target platform
-      - build_deploy_and_test
+      - functional

@@ -9,10 +9,10 @@ set -eo pipefail
 # - Terminus plugins are installed
 # - Any needed code updates are done
 #
-echo "Begin build for $DEFAULT_ENV. Pantheon test environment is $TERMINUS_SITE.$TERMINUS_ENV"
+echo "Begin build for $TERMINUS_ENV. Pantheon test environment is $TERMINUS_SITE.$TERMINUS_ENV"
 
-# Log in via Terminus
-terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+# Report installed version of Terminus
+terminus --version
 
 # Delete leftover CI environments
 terminus -n build:env:delete:ci "$TERMINUS_SITE" --keep=2 --yes
