@@ -50,14 +50,18 @@ jobs:
             - run:
                 # Set TERMINUS_ENV and related environment variables.
                 # https://github.com/pantheon-systems/docker-build-tools-ci/blob/4.x/scripts/set-environment
-                name: environment
+                name: setup-environment-vars
                 command: /build-tools-ci/scripts/set-environment
+
+            - run:
+                name: clone-bash-env
+                command: cp $BASH_ENV ./.bashrc
 
             # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
-                root: /build-tools-ci/scripts
+                root: .
                 paths:
-                    - set-environment
+                    - .bashrc
 
     # @todo: common initialization: 'composer install' for the site-under-test
     build:
@@ -76,7 +80,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: /tmp/workspace/set-environment
+                command: source /tmp/workspace/.bashrc
 
             - run:
                 name: run composer install to get the vendor directory
@@ -119,7 +123,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: /tmp/workspace/set-environment
+                command: source /tmp/workspace/.bashrc
 
             - run:
                 name: install dev dependencies, build assets, etc.
@@ -169,7 +173,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: /tmp/workspace/set-environment
+                command: source /tmp/workspace/.bashrc
 
             - run:
                 name: visual regression test
