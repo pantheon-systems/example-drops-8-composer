@@ -185,11 +185,11 @@ workflows:
       # Set up environment variables
       - configure_env_vars
       # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
-      #- build
+      - build
       # Build deploy and test on target platform
-      #- build_deploy_and_test
+      - build_deploy_and_test
       # Deploy before running visual test
       - visual_regression_test:
             requires:
                 - configure_env_vars
-                #- build_deploy_and_test
+                - build_deploy_and_test
