@@ -55,13 +55,13 @@ jobs:
 
             - run:
                 name: clone-bash-env
-                command: cp $BASH_ENV ./.bashrc
+                command: cp $BASH_ENV bashrc
 
             # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
                 root: .
                 paths:
-                    - .bashrc
+                    - bashrc
 
     # @todo: common initialization: 'composer install' for the site-under-test
     build:
@@ -168,7 +168,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: source /tmp/workspace/.bashrc
+                command: source /tmp/workspace/bashrc
 
             - run:
                 name: visual regression test
