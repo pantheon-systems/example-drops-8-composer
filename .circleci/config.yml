@@ -55,17 +55,13 @@ jobs:
 
             - run:
                 name: clone-bash-env
-                command: mkdir bash_env && cp $BASH_ENV bash_env/.bashrc
-
-            - run:
-                name: cat-bash-env
-                command: cat bash_env/.bashrc
+                command: cp $BASH_ENV bash_env.txt
 
             # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
-                root: ./bash_env
+                root: .
                 paths:
-                    - .bashrc
+                    - bash_env.txt
 
     # @todo: common initialization: 'composer install' for the site-under-test
     build:
@@ -172,7 +168,7 @@ jobs:
 
             - run:
                 name: setup-environment-vars
-                command: cat /tmp/workspace/bash_env/.bashrc && source /tmp/workspace/bash_env/.bashrc
+                command: cat /tmp/workspace/bash_env.txt && source /tmp/workspace/bash_env.txt
 
             - run:
                 name: visual regression test
