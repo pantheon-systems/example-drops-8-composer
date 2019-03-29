@@ -59,7 +59,7 @@ jobs:
 
             # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
-                root: $CIRCLE_WORKING_DIRECTORY
+                root: .
                 paths:
                     - bash_env.txt
 
