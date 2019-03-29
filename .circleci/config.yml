@@ -42,7 +42,7 @@ jobs:
         <<: *defaults
 
         docker:
-            - image: quay.io/pantheon-public/build-tools-ci:visual-regression-vars
+            - image: quay.io/pantheon-public/build-tools-ci:4.x
 
         steps:
             - checkout
