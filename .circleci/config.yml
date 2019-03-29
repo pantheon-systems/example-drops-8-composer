@@ -57,9 +57,13 @@ jobs:
                 name: clone-bash-env
                 command: mkdir bash_env && cp $BASH_ENV bash_env/.bashrc
 
+            - run:
+                name: cat-bash-env
+                command: cat bash_env/.bashrc
+
             # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
             - persist_to_workspace:
-                root: bash_env
+                root: ./bash_env
                 paths:
                     - .bashrc
 
