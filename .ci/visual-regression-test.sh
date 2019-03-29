@@ -81,6 +81,11 @@ VISUAL_REGRESSION_RESULTS=$(backstop test --config=.ci/backstop.json || echo 'tr
 
 echo "${VISUAL_REGRESSION_RESULTS}"
 
+# Create the artifacts directory if needed
+if [ ! -d "$ARTIFACTS_FULL_DIR" ]; then
+  mkdir -p $ARTIFACTS_FULL_DIR
+fi
+
 # Copy backstop_data files to ARTIFACTS_FULL_DIR
 echo -e "\nCopying backstop_data files to $ARTIFACTS_FULL_DIR..."
 rm -rf $ARTIFACTS_FULL_DIR/backstop_data
