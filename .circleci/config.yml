@@ -38,9 +38,35 @@ defaults: &defaults
 
 version: 2
 jobs:
+    configure_env_vars:
+        <<: *defaults
+
+        docker:
+            - image: quay.io/pantheon-public/build-tools-ci:4.x
+
+        steps:
+            - checkout
+
+            - run:
+                # Set TERMINUS_ENV and related environment variables.
+                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/4.x/scripts/set-environment
+                name: setup-environment-vars
+                command: /build-tools-ci/scripts/set-environment
+
+            - run:
+                name: clone-bash-env
+                command: cp $BASH_ENV bash_env.txt
+
+            # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
+            - persist_to_workspace:
+                root: .
+                paths:
+                    - bash_env.txt
+
     # @todo: common initialization: 'composer install' for the site-under-test
     unit:
         <<: *defaults
+
         steps:
             - checkout
 
@@ -49,9 +75,7 @@ jobs:
                     - composer-cache
 
             - run:
-                # Set TERMINUS_ENV and related environment variables.
-                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/1.x/scripts/set-environment
-                name: environment
+                name: setup-environment-vars
                 command: /build-tools-ci/scripts/set-environment
 
             - run:
@@ -85,9 +109,7 @@ jobs:
                     - composer-cache
 
             - run:
-                # Set TERMINUS_ENV and related environment variables.
-                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/1.x/scripts/set-environment
-                name: dependencies
+                name: setup-environment-vars
                 command: /build-tools-ci/scripts/set-environment
 
             - run:
@@ -127,11 +149,41 @@ jobs:
                 name: remove transient test fixtures
                 command: ./.ci/scripts/09-cleanup-fixtures
 
+    visual_regression_test:
+        <<: *defaults
+        docker:
+            - image: backstopjs/backstopjs:3.9.5
+        steps:
+            - checkout
+
+            - attach_workspace:
+                at: /tmp/workspace
+
+            - run: cp /tmp/workspace/bash_env.txt $BASH_ENV
+            - run: echo "export CI_BUILD_URL='${CIRCLE_BUILD_URL}'" >> $BASH_ENV
+            - run: echo "export CI_NODE_INDEX='${CIRCLE_NODE_INDEX}'" >> $BASH_ENV
+            - run: source $BASH_ENV
+
+            - run:
+                name: visual regression test
+                command: ./.ci/visual-regression-test.sh
+
+            - store_artifacts:
+                path: /tmp/artifacts
+                destination: artifacts
+
 workflows:
   version: 2
   build_and_test:
     jobs:
+      # Set up environment variables
+      - configure_env_vars
       # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
       - unit
       # Build deploy and test on target platform
       - functional
+      # Deploy before running visual test
+      - visual_regression_test:
+            requires:
+                - configure_env_vars
+                - functional
