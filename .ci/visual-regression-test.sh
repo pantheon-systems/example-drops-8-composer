@@ -88,6 +88,8 @@ if [ ! -d "$ARTIFACTS_FULL_DIR" ]; then
   mkdir -p $ARTIFACTS_FULL_DIR
 fi
 
+export ARTIFACTS_DIR_URL="${CI_BUILD_URL}/artifacts/${CI_NODE_INDEX}/artifacts"
+
 # Copy backstop_data files to ARTIFACTS_FULL_DIR
 echo -e "\nCopying backstop_data files to $ARTIFACTS_FULL_DIR..."
 rm -rf $ARTIFACTS_FULL_DIR/backstop_data
