@@ -62,20 +62,22 @@ curl -I "$LIVE_SITE_URL" >/dev/null
 
 # Check for custom backstop.json
 if [ ! -f ./.ci/backstop.json ]; then
-	# Create Backstop config file with dynamic URLs
-	echo -e "\nCreating backstop.js config file..."
-	node .ci/create-backstop-json-from-default.js
+	# Create Backstop config file from template if needed
+	echo -e "\nCloning backstop.default json to backstop.json..."
+	cp .ci/backstop.default.json .ci/backstop.json
 fi
 
-# Backstop visual regression
-echo -e "\nRunning backstop reference..."
+# Dynamically set URLs in backstop.json
+node .ci/dynamic-backstop-json-urls.js
 
+# Backstop visual regression
 echo -e "\nRunning backstop reference on ${LIVE_SITE_URL}..."
 backstop reference --config=.ci/backstop.json
 
 # Kill any zombie Chrome instances
 pkill -f "(chrome)?(--headless)"
 
+# Backstop test
 echo -e "\nRunning backstop test on ${MULTIDEV_SITE_URL}..."
 VISUAL_REGRESSION_RESULTS=$(backstop test --config=.ci/backstop.json || echo 'true')
 
