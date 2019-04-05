@@ -158,21 +158,9 @@ jobs:
                 name: setup-environment-vars
                 command: /build-tools-ci/scripts/set-environment
 
-            # Set environment variables
-            - run: echo "export CLU_REPO_URL='https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${CI_PROJECT_USERNAME}/${CI_PROJECT_REPONAME}.git'" >> $BASH_ENV
-            - run: echo "export PATH='$HOME/.composer/vendor/bin:$PATH'" >> $BASH_ENV
-            - run: source $BASH_ENV
-
-            # Install CLU and hub
-            - run: composer global require danielbachhuber/composer-lock-updater
-            - run: wget -O hub.tgz https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz
-    tar -zxvf hub.tgz
-            - run: echo "export PATH='$PATH:$PWD/hub-linux-amd64-2.2.9/bin/'" >> $BASH_ENV
-            - run: source $BASH_ENV
-
             - run:
-                name: run CLU
-                command: clu $CLU_REPO_URL
+                name: run composer lock updater
+                command: ./.ci/composer-lock-updater.sh
 
     visual_regression_test:
         <<: *defaults
@@ -201,25 +189,26 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      # Set up environment variables
-      - configure_env_vars
-      # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
-      - unit
-      # Build deploy and test on target platform
-      - functional
-      # Deploy before running visual test
-      - visual_regression_test:
+        # Set up environment variables
+        - configure_env_vars
+        # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
+        - unit
+        # Build deploy and test on target platform
+        - functional
+        # Deploy before running visual test
+        - visual_regression_test:
             requires:
                 - configure_env_vars
                 - functional
-      - composer_lock_updater
-  #auto_update_dependencies:
-  #  triggers:
-  #      - schedule:
-  #          cron: "5 4 * * *"
-  #          filters:
-  #              branches:
-  #              only:
-  #                  - master
-  #  jobs:
-  #      - composer_lock_updater
+        # Composer lock updater
+        - composer_lock_updater
+#  auto_update_dependencies:
+#    triggers:
+#        - schedule:
+#            cron: "5 4 * * *"
+#            filters:
+#                branches:
+#                only:
+#                    - master
+#    jobs:
+#        - composer_lock_updater
