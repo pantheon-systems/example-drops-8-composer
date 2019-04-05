@@ -16,7 +16,7 @@ echo -e "\nProcessing pull request #$PR_NUMBER"
 GIT_FILE_MODIFIED()
 {
     # Stash list of changed files
-    GIT_FILES_CHANGED="$(git diff master --name-only)"
+    GIT_FILES_CHANGED="$(git diff origin/master --name-only)"
 
     while read -r changedFile; do
         if [[ "${changedFile}" == "$1" ]]
