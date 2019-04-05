@@ -207,7 +207,7 @@ workflows:
 #  auto_update_dependencies:
 #    triggers:
 #        - schedule:
-#            cron: "5 4 * * *"
+#            cron: "0 * * * *"
 #            filters:
 #                branches:
 #                only:
