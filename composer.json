@@ -71,9 +71,8 @@
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "find .circleci/scripts/pantheon/ -type f | xargs chmod 755",
-            "find tests/scripts/ -type f | xargs chmod 755"
+            "@drupal-scaffold",
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
         "post-create-project-cmd": [
             "@drupal-scaffold",
