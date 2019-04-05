@@ -151,8 +151,6 @@ jobs:
 
     composer_lock_updater:
         <<: *defaults
-        docker:
-            - image: quay.io/pantheon-public/build-tools-ci:add-composer-lock-updater
         steps:
             - checkout
 
