@@ -151,6 +151,8 @@ jobs:
 
     composer_lock_updater:
         <<: *defaults
+        docker:
+            - image: quay.io/pantheon-public/build-tools-ci:add-composer-lock-updater
         steps:
             - checkout
 
@@ -160,7 +162,7 @@ jobs:
 
             - run:
                 name: run composer lock updater
-                command: ./.ci/composer-lock-updater.sh
+                command: set -e && clu https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${CI_PROJECT_USERNAME}/${CI_PROJECT_REPONAME}.git
 
     visual_regression_test:
         <<: *defaults
