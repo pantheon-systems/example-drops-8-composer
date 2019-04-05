@@ -151,12 +151,16 @@ jobs:
 
     composer_lock_updater:
         <<: *defaults
+        docker:
+            - image: quay.io/pantheon-public/build-tools-ci:4.x
         steps:
             - checkout
 
             - run:
                 name: setup-environment-vars
                 command: /build-tools-ci/scripts/set-environment
+
+            - run: source $BASH_ENV
 
             - run:
                 name: run composer lock updater
