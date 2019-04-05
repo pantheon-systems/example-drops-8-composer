@@ -149,6 +149,31 @@ jobs:
                 name: remove transient test fixtures
                 command: ./.ci/scripts/09-cleanup-fixtures
 
+    composer_lock_updater:
+        <<: *defaults
+        steps:
+            - checkout
+
+            - run:
+                name: setup-environment-vars
+                command: /build-tools-ci/scripts/set-environment
+
+            # Set environment variables
+            - run: echo "export CLU_REPO_URL='https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${CI_PROJECT_USERNAME}/${CI_PROJECT_REPONAME}.git'" >> $BASH_ENV
+            - run: echo "export PATH='$HOME/.composer/vendor/bin:$PATH'" >> $BASH_ENV
+            - run: source $BASH_ENV
+
+            # Install CLU and hub
+            - run: composer global require danielbachhuber/composer-lock-updater
+            - run: wget -O hub.tgz https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz
+    tar -zxvf hub.tgz
+            - run: echo "export PATH='$PATH:$PWD/hub-linux-amd64-2.2.9/bin/'" >> $BASH_ENV
+            - run: source $BASH_ENV
+
+            - run:
+                name: run CLU
+                command: clu $CLU_REPO_URL
+
     visual_regression_test:
         <<: *defaults
         docker:
@@ -187,3 +212,14 @@ workflows:
             requires:
                 - configure_env_vars
                 - functional
+      - composer_lock_updater
+  #auto_update_dependencies:
+  #  triggers:
+  #      - schedule:
+  #          cron: "5 4 * * *"
+  #          filters:
+  #              branches:
+  #              only:
+  #                  - master
+  #  jobs:
+  #      - composer_lock_updater
