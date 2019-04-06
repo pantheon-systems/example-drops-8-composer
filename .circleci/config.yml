@@ -202,15 +202,13 @@ workflows:
             requires:
                 - configure_env_vars
                 - functional
-        # Composer lock updater
+  auto_update_dependencies:
+    triggers:
+        - schedule:
+            cron: "0 0 * * *"
+            filters:
+                branches:
+                only:
+                    - master
+    jobs:
         - composer_lock_updater
-#  auto_update_dependencies:
-#    triggers:
-#        - schedule:
-#            cron: "0 0 * * *"
-#            filters:
-#                branches:
-#                only:
-#                    - master
-#    jobs:
-#        - composer_lock_updater
