@@ -162,7 +162,7 @@ jobs:
 
             - run:
                 name: run composer lock updater
-                command: set -e && clu https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${CI_PROJECT_USERNAME}/${CI_PROJECT_REPONAME}.git
+                command: set -e && clu https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${CI_PROJECT_USERNAME}/${CI_PROJECT_REPONAME}.git | sed -e "s/${GITHUB_TOKEN}/[REDACTED]/g"
 
     visual_regression_test:
         <<: *defaults
@@ -207,7 +207,7 @@ workflows:
 #  auto_update_dependencies:
 #    triggers:
 #        - schedule:
-#            cron: "0 * * * *"
+#            cron: "0 0 * * *"
 #            filters:
 #                branches:
 #                only:
