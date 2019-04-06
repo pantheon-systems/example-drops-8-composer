@@ -17,7 +17,6 @@ cache:
   - $HOME/.composer/cache
 
 stages:
-- prepare
 - build
 - test
 - cleanup
@@ -31,14 +30,6 @@ before_script:
 - eval $(ssh-agent -s) && ssh-add <(echo "$SSH_PRIVATE_KEY")
 - terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 
-prepare:
-  stage: prepare
-  script:
-  - 01-prepare
-  only:
-  - merge_requests
-  - master
-
 deploy:
   stage: build
   environment:
@@ -46,6 +37,7 @@ deploy:
     url: https://$TERMINUS_ENV-$TERMINUS_SITE.pantheonsite.io/
   script:
   - echo "Target site.env is $TERMINUS_SITE.$TERMINUS_ENV"
+  - 01-prepare
   - composer -n build-assets
   - 02-init-site-under-test-clone-existing
   only:
