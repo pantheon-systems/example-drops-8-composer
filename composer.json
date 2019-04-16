@@ -18,7 +18,6 @@
         "drupal/config_installer": "^1.0",
         "drupal/console": "^1",
         "drupal/core": "^8",
-        "drupal/simple_block": "^1.0@beta",
         "drush-ops/behat-drush-endpoint": "^9.3",
         "drush/drush": "~8",
         "pantheon-systems/quicksilver-pushback": "~1",
