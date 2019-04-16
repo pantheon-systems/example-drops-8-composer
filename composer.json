@@ -88,9 +88,7 @@
         },
         "build-env": {
             "install-cms": [
-                "drush site-install standard --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
-                "drush pm-enable config_direct_save simple_block --yes",
-                "drush pm-uninstall block_content --yes"
+                "drush site-install standard --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes"
             ],
             "export-configuration": "drush config-export --yes"
         },
