@@ -1,7 +1,7 @@
 # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 defaults: &defaults
   docker:
-    - image: quay.io/pantheon-public/build-tools-ci:4.x
+    - image: quay.io/pantheon-public/build-tools-ci:5.x
   working_directory: ~/example_drops_8_composer
   environment:
     #=========================================================================
@@ -42,14 +42,14 @@ jobs:
         <<: *defaults
 
         docker:
-            - image: quay.io/pantheon-public/build-tools-ci:4.x
+            - image: quay.io/pantheon-public/build-tools-ci:5.x
 
         steps:
             - checkout
 
             - run:
                 # Set TERMINUS_ENV and related environment variables.
-                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/4.x/scripts/set-environment
+                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/5.x/scripts/set-environment
                 name: setup-environment-vars
                 command: /build-tools-ci/scripts/set-environment
 
@@ -152,7 +152,7 @@ jobs:
     composer_lock_updater:
         <<: *defaults
         docker:
-            - image: quay.io/pantheon-public/build-tools-ci:4.x
+            - image: quay.io/pantheon-public/build-tools-ci:5.x
         steps:
             - checkout
 
