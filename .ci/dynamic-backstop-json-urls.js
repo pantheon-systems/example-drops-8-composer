@@ -20,7 +20,7 @@ var multidevURL = process.env.MULTIDEV_SITE_URL.replace(/\/$/, "");
 var newScenarios = fileContents.scenarios.map(function (scenario) {
 
   // If the url of the scenario is empty
-  if (scenario.url.legth == 0) {
+  if (scenario.url.length == 0) {
     // Set it to the multidev URL
     scenario.url = multidevURL;
     // If the url of the scenario is relative
