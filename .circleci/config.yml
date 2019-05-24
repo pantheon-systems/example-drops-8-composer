@@ -152,7 +152,14 @@ workflows:
   build_and_test:
     jobs:
         # Set up environment variables
-        - pantheon/push
+        - pantheon/push:
+            checkout: false
+            pre-steps:
+              - checkout
+              - run: composer -n install --optimize-autoloader --ignore-platform-reqs --no-dev
+              - run: composer prepare-for-pantheon
+              - run: cat .gitignore
+              - run: git status
         # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
         - unit
         # Build deploy and test on target platform
