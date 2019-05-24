@@ -88,10 +88,13 @@ jobs:
             - restore_cache:
                 keys:
                     - composer-cache
-
             - run:
                 name: run composer install again to get dev dependencies
                 command: composer install
+
+            - run:
+                name: log in
+                command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 
             - run:
                 name: run functional tests with Behat
@@ -182,4 +185,4 @@ workflows:
       - composer_lock_updater
 
 orbs:
-  pantheon: pantheon-systems/pantheon@dev:master
+  pantheon: pantheon-systems/pantheon@0.0.1
