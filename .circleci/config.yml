@@ -38,31 +38,6 @@ defaults: &defaults
 
 version: 2
 jobs:
-    configure_env_vars:
-        <<: *defaults
-
-        docker:
-            - image: quay.io/pantheon-public/build-tools-ci:5.x
-
-        steps:
-            - checkout
-
-            - run:
-                # Set TERMINUS_ENV and related environment variables.
-                # https://github.com/pantheon-systems/docker-build-tools-ci/blob/5.x/scripts/set-environment
-                name: setup-environment-vars
-                command: /build-tools-ci/scripts/set-environment
-
-            - run:
-                name: clone-bash-env
-                command: cp $BASH_ENV bash_env.txt
-
-            # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
-            - persist_to_workspace:
-                root: .
-                paths:
-                    - bash_env.txt
-
     # @todo: common initialization: 'composer install' for the site-under-test
     unit:
         <<: *defaults
@@ -104,30 +79,15 @@ jobs:
         steps:
             - checkout
 
+            - attach_workspace:
+                at: /tmp/workspace
+
+            - run: cp /tmp/workspace/bash_env.txt $BASH_ENV
+            - run: source $BASH_ENV
+
             - restore_cache:
                 keys:
                     - composer-cache
-
-            - run:
-                name: setup-environment-vars
-                command: /build-tools-ci/scripts/set-environment
-
-            - run:
-                name: log in
-                command: terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-
-            - run:
-                name: install dev dependencies, build assets, etc.
-                command: ./.ci/scripts/01-prepare
-
-            - run:
-                name: build assets
-                command: composer -n build-assets
-
-            - run:
-                name: prepare database for site-under test
-                command: ./.ci/scripts/02-init-site-under-test-clone-existing
-                # command: ./.ci/scripts/02-init-site-under-test-reinstall-new
 
             - run:
                 name: run composer install again to get dev dependencies
@@ -187,20 +147,24 @@ jobs:
                 path: /tmp/artifacts
                 destination: artifacts
 
+orbs:
+  pantheon: pantheon-systems/pantheon@dev:master
+
 workflows:
   version: 2
   build_and_test:
     jobs:
         # Set up environment variables
-        - configure_env_vars
+        - pantheon/push
         # Install dev dependencies and do simple tests (sniff, unit tests, etc.)
         - unit
         # Build deploy and test on target platform
-        - functional
+        - functional:
+            requires:
+            - pantheon/push
         # Deploy before running visual test
         - visual_regression_test:
             requires:
-                - configure_env_vars
                 - functional
   scheduled_update_check:
     triggers:
