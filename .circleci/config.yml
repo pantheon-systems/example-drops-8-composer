@@ -150,6 +150,9 @@ jobs:
                 path: /tmp/artifacts
                 destination: artifacts
 
+orbs:
+  pantheon: pantheon-systems/pantheon@0.0.1
+
 workflows:
   version: 2
   build_and_test:
@@ -183,6 +186,3 @@ workflows:
                  - master
     jobs:
       - composer_lock_updater
-
-orbs:
-  pantheon: pantheon-systems/pantheon@0.0.1
