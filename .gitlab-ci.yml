@@ -17,6 +17,7 @@ cache:
   - $HOME/.composer/cache
 
 stages:
+- prepare
 - build
 - test
 - cleanup
@@ -29,6 +30,20 @@ before_script:
 # See https://docs.gitlab.com/ee/ci/ssh_keys/README.html
 - eval $(ssh-agent -s) && ssh-add <(echo "$SSH_PRIVATE_KEY")
 - terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+
+prepare:environment:
+  stage: prepare
+  variables:
+    GIT_STRATEGY: none
+  script: cp $BASH_ENV bash_env.txt
+  artifacts:
+    paths:
+      - bash_env.txt
+    name: "$CI_COMMIT_REF_NAME-bash_env"
+    expire_in: 6 hours
+  only:
+    - merge_requests
+    - master
 
 deploy:
   stage: build
@@ -56,6 +71,9 @@ test:code_sniff_unit_test:
   only:
   - merge_requests
   - master
+  artifacts:
+    reports:
+      junit: phpcs--*.xml
 
 test:behat:
   stage: test
@@ -66,6 +84,31 @@ test:behat:
   only:
   - merge_requests
   - master
+  artifacts:
+    reports:
+      junit: behat-tests/*.xml
+
+test:visual_regression:
+  image: backstopjs/backstopjs:3.9.5
+  before_script:
+    - export BASH_ENV="$HOME/.envvarsrc"
+  stage: test
+  variables:
+    CI_BUILD_URL: "$CI_PROJECT_DIR"
+  script:
+    - cp bash_env.txt $BASH_ENV
+    - source $BASH_ENV
+    - ./.ci/visual-regression-test.sh
+  only:
+    - merge_requests
+    - master
+  artifacts:
+    paths:
+      - "$CI_PROJECT_DIR/backstop_data/html_report"
+    name: "$CI_COMMIT_REF_NAME-visual_regression"
+    expire_in: 1 week
+    reports:
+      junit: backstop_data/ci_report/xunit.xml
 
 test:behat:cleanup:
   stage: cleanup

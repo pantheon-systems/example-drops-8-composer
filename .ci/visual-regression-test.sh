@@ -5,10 +5,20 @@ BUILD_DIR=$(pwd)
 GITHUB_API_URL="https://api.github.com/repos/$CI_PROJECT_USERNAME/$CI_PROJECT_REPONAME"
 
 # Check if we are NOT on the master branch and this is a PR
-if [[ ${CI_BRANCH} != "master" && -z ${CI_PR_URL} ]];
+if [[ ${CIRCLECI} ]];
 then
-  echo -e "\nVisual regression tests will only run if we are not on the master branch and making a pull request"
-  exit 0;
+  if [[ ${CI_BRANCH} != "master" && -z ${CI_PR_URL} ]];
+  then
+    echo -e "\nVisual regression tests will only run if we are not on the master branch and making a pull request"
+    exit 0;
+  fi
+elif [[ ${GITLAB_CI} ]];
+then
+  if [[ ${CI_COMMIT_REF_SLUG} != "master" && -z ${CI_MERGE_REQUEST_ID} ]];
+  then
+    echo -e "\nVisual regression tests will only run if we are not on the master branch and making a merge request"
+    exit 0;
+  fi
 fi
 
 echo -e "\nProcessing pull request #$PR_NUMBER"
@@ -88,7 +98,13 @@ if [ ! -d "$ARTIFACTS_FULL_DIR" ]; then
   mkdir -p $ARTIFACTS_FULL_DIR
 fi
 
-export ARTIFACTS_DIR_URL="${CI_BUILD_URL}/artifacts/${CI_NODE_INDEX}/artifacts"
+if [[ ${CIRCLECI} ]];
+then
+    export ARTIFACTS_DIR_URL="${CI_BUILD_URL}/artifacts/${CI_NODE_INDEX}/artifacts"
+elif [[ ${GITLAB_CI} ]];
+then
+    export ARTIFACTS_DIR_URL="${CI_JOB_URL}/artifacts/file"
+fi
 
 # Copy backstop_data files to ARTIFACTS_FULL_DIR
 echo -e "\nCopying backstop_data files to $ARTIFACTS_FULL_DIR..."
@@ -126,11 +142,19 @@ else
 	PR_MESSAGE="Visual regression test passed! $REPORT_LINK"
 fi
 
-# Post the image back to the pull request on GitHub
-echo -e "\nPosting visual regression results back to PR #$PR_NUMBER "
-curl -s -i -u "$CI_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments > /dev/null
+if [[ ${CIRCLECI} ]];
+then
+    # Post the image back to the pull request on GitHub
+    echo -e "\nPosting visual regression results back to PR #$PR_NUMBER "
+    curl -s -i -u "$CI_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments > /dev/null
+elif [[ ${GITLAB_CI} ]];
+then
+    echo -e "\nPosting visual regression results back to MR #$CI_MERGE_REQUEST_IID"
+    curl -s -i --header "Private-Token: $GITLAB_TOKEN" --header "Content-Type: application/json" -d "{\"body\": \"$PR_MESSAGE\"}" $CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes > /dev/null
+fi
 
 if [[ ${VISUAL_REGRESSION_RESULTS} == *"Mismatch errors found"* ]]
 then
     exit 1
 fi
+
