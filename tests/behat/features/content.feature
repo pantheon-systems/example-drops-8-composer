@@ -24,6 +24,7 @@ Feature: Content
     | Second article |
     And I am logged in as a user with the "administrator" role
     When I go to "admin/content"
+    And I take a screenshot
     Then I should see "Page one"
     And I should see "Page two"
     And I should see "First article"
@@ -55,6 +56,7 @@ Feature: Content
     | Joe User | joe@example.com | 1      |
     And I am logged in as a user with the "administrator" role
     When I visit "admin/people"
+    And I take a screenshot
     Then I should see the link "Joe User"
 
   @api
@@ -63,6 +65,7 @@ Feature: Content
     | name      | status | mail             |
     | Test user |      1 | test@example.com |
     When I am logged in as "Test user"
+    And I take a screenshot
     Then I should see the link "Log out"
 
 # Similarly, 'When I am viewing a ... term' also uses bad characters.
@@ -81,6 +84,7 @@ Feature: Content
     | Tag two |
     And I am logged in as a user with the "administrator" role
     When I go to "admin/structure/taxonomy/manage/tags/overview"
+    And I take a screenshot
     Then I should see "Tag one"
     And I should see "Tag two"
 
@@ -94,8 +98,10 @@ Feature: Content
     | Article by Joe | Joe User | 1       |
     When I am logged in as a user with the "administrator" role
     And I am on the homepage
+    And I take a screenshot
     Then I should see the link "Article by Joe"
     When I follow "Article by Joe"
+    And I take a screenshot
     Then I should see the text "Article by Joe"
     # Todo: The node is created by 'Anonymous', but it should be created by 'Joe User'
     # And I should see the link "Joe User"

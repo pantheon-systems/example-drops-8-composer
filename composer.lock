@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c830a45ca6d27689031edcdec34d0692",
+    "content-hash": "345d8d9e7b7f8632d1cffae946e0d6f0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1271,7 +1271,7 @@
             "description": "This module allow you to export configuration after changes",
             "homepage": "https://www.drupal.org/project/config_direct_save",
             "support": {
-                "source": "https://git.drupalcode.org/project/config_direct_save"
+                "source": "http://cgit.drupalcode.org/config_direct_save"
             }
         },
         {
@@ -1317,7 +1317,7 @@
             ],
             "homepage": "https://www.drupal.org/project/config_installer",
             "support": {
-                "source": "https://git.drupalcode.org/project/config_installer"
+                "source": "http://cgit.drupalcode.org/config_installer"
             }
         },
         {
@@ -4062,7 +4062,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4916,16 +4916,16 @@
         },
         {
             "name": "webflo/drupal-core-strict",
-            "version": "8.7.3",
+            "version": "8.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webflo/drupal-core-strict.git",
-                "reference": "d1c13f088843cf43ab4fd73407e7420ac321829b"
+                "reference": "903b46f029cd2d4281d89d649de43fcf2ca0e3c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webflo/drupal-core-strict/zipball/d1c13f088843cf43ab4fd73407e7420ac321829b",
-                "reference": "d1c13f088843cf43ab4fd73407e7420ac321829b",
+                "url": "https://api.github.com/repos/webflo/drupal-core-strict/zipball/903b46f029cd2d4281d89d649de43fcf2ca0e3c2",
+                "reference": "903b46f029cd2d4281d89d649de43fcf2ca0e3c2",
                 "shasum": ""
             },
             "require": {
@@ -5023,7 +5023,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Locked core dependencies",
-            "time": "2019-06-05T19:30:53+00:00"
+            "time": "2019-07-04T08:00:49+00:00"
         },
         {
             "name": "webflo/drupal-finder",
@@ -6237,6 +6237,54 @@
                 "scraper"
             ],
             "time": "2018-06-29T15:13:57+00:00"
+        },
+        {
+            "name": "genesis/behat-fail-aid",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/forceedge01/behat-fail-aid.git",
+                "reference": "b61ca028bb23a8dc1dfda7314320d47c0d974c04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/forceedge01/behat-fail-aid/zipball/b61ca028bb23a8dc1dfda7314320d47c0d974c04",
+                "reference": "b61ca028bb23a8dc1dfda7314320d47c0d974c04",
+                "shasum": ""
+            },
+            "require": {
+                "behat/mink": "*@stable",
+                "behat/mink-extension": "~2.0@stable",
+                "behat/mink-selenium2-driver": "^1.3"
+            },
+            "require-dev": {
+                "behat/behat": "^3.5",
+                "behat/mink-goutte-driver": "^1.2",
+                "ciaranmcnulty/behat-localwebserverextension": "^1.1",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FailAid\\": "bootstrap/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Abdul Wahhab Qureshi"
+                }
+            ],
+            "description": "Get more out of your test suite by getting it to work with you when tests fail. Works with Goutte and MinkExtension (Selenium2Driver)",
+            "keywords": [
+                "Behat",
+                "behat-error",
+                "behat-exception",
+                "behat-fail",
+                "error",
+                "fail"
+            ],
+            "time": "2019-06-15T17:44:23+00:00"
         },
         {
             "name": "instaclick/php-webdriver",

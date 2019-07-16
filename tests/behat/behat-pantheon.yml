@@ -11,6 +11,7 @@ default:
         - FeatureContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
+        - FailAid\Context\FailureContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
@@ -19,3 +20,7 @@ default:
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drush'
+    FailAid\Extension:
+      screenshot:
+        directory: behat-screenshots/
+        autoClean: false
