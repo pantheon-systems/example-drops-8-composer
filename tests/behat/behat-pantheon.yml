@@ -22,5 +22,5 @@ default:
       api_driver: 'drush'
     FailAid\Extension:
       screenshot:
-        directory: behat-screenshots/
+        directory: ./behat-screenshots/
         autoClean: false
