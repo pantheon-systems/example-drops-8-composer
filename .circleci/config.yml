@@ -167,6 +167,8 @@ jobs:
 
   behat_test:
     <<: *defaults
+    environment:
+      CI_WORKING_DIR: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
 
@@ -175,8 +177,6 @@ jobs:
             - composer-cache-{{ checksum "composer.lock" }}
             - composer-cache-
 
-      - environment:
-          CI_WORKING_DIR: $CIRCLE_WORKING_DIRECTORY
       - run:
           # Set TERMINUS_ENV and related environment variables.
           # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
