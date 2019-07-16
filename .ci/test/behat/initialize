@@ -17,7 +17,7 @@ composer install --no-ansi --no-interaction --optimize-autoloader --no-progress
 terminus -n env:wake $TERMINUS_SITE.$TERMINUS_ENV
 
 # Ping Drush to start ssh with the app server
-terminus -n drush $TERMINUS_SITE.$TERMINUS_ENV -- cli version
+terminus -n drush $TERMINUS_SITE.$TERMINUS_ENV -- version
 
 # Update Drupal database
 terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
