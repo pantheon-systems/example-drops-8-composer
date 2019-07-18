@@ -12,12 +12,7 @@ set -eo pipefail
 # Create a new multidev site to test on
 terminus -n env:wake "$TERMINUS_SITE.dev"
 if [[ $TERMINUS_ENV != "dev" ]] ; then
-  terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes
-  # If you need your new environment to also clone the files directory from the
-  # dev environment, for example if you are using a secrets.json file that is
-  # necessary, remove the --files-only option to ensure the files directory is 
-  # cloned from dev to the new environment.
-  terminus -n env:clone-content "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --files-only --yes
+  terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --clone-content --yes
 fi
 
 # Run updatedb to ensure that the cloned database is updated for the new code.
