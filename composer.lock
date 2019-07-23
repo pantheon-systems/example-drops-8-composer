@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "345d8d9e7b7f8632d1cffae946e0d6f0",
+    "content-hash": "ea8c040fc72b8aa7b315e55a985f3bcc",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1271,7 +1271,7 @@
             "description": "This module allow you to export configuration after changes",
             "homepage": "https://www.drupal.org/project/config_direct_save",
             "support": {
-                "source": "http://cgit.drupalcode.org/config_direct_save"
+                "source": "https://git.drupalcode.org/project/config_direct_save"
             }
         },
         {
@@ -1317,7 +1317,7 @@
             ],
             "homepage": "https://www.drupal.org/project/config_installer",
             "support": {
-                "source": "http://cgit.drupalcode.org/config_installer"
+                "source": "https://git.drupalcode.org/project/config_installer"
             }
         },
         {
@@ -1881,16 +1881,16 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "9.3.0",
+            "version": "8.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "06e290cd5f477186d9df8501b1991ebd80f652fc"
+                "reference": "1a32b4f2b11f5f928f55368fa74c11a30bcd3bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/06e290cd5f477186d9df8501b1991ebd80f652fc",
-                "reference": "06e290cd5f477186d9df8501b1991ebd80f652fc",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/1a32b4f2b11f5f928f55368fa74c11a30bcd3bf8",
+                "reference": "1a32b4f2b11f5f928f55368fa74c11a30bcd3bf8",
                 "shasum": ""
             },
             "require": {
@@ -1898,9 +1898,12 @@
                 "php": ">=5.3.0"
             },
             "conflict": {
-                "drush/drush": "<8.2 || >=9.0 <9.6.0 || >=10.0"
+                "drush/drush": "<8.0 || >=9.0"
             },
             "type": "drupal-drush",
+            "extra": {
+                "installer-name": "BehatDrushEndpoint"
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
@@ -1912,7 +1915,7 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2019-03-29T17:31:34+00:00"
+            "time": "2019-03-29T17:19:24+00:00"
         },
         {
             "name": "drush/drush",
