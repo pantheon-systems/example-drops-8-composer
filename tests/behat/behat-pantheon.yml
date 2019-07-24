@@ -11,7 +11,7 @@ default:
         - FeatureContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
-	- FailAid\Context\FailureContext
+        - FailAid\Context\FailureContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
