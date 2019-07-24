@@ -52,13 +52,6 @@ configure:env-vars:
   - merge_requests
   - master
 
-configure:create-multidev:
-  stage: configure-and-build
-  script:
-  - ./.ci/deploy/pantheon/create-multidev
-  only:
-  - merge_requests
-
 test:static:
   stage: configure-and-build
   script:
@@ -89,14 +82,13 @@ deploy:pantheon:
   - ./.ci/deploy/pantheon/dev-multidev
   dependencies:
   - build:php
-  - configure:create-multidev
   only:
   - merge_requests
   - master
 
 test:visual-regression:
   stage: visual-test
-  image: 
+  image:
     name: backstopjs/backstopjs:4.1.9
     entrypoint: [""]
   variables:
