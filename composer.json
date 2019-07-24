@@ -33,7 +33,6 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "drupal/coder": "^8.3.1",
         "drupal/drupal-extension": "^3.1",
-        "genesis/behat-fail-aid": "^2.1",
         "jcalderonzumba/gastonjs": "^1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "^0.3.1",
         "mikey179/vfsstream": "^1.2",
