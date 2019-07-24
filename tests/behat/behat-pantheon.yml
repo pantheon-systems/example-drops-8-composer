@@ -21,4 +21,4 @@ default:
       blackbox: ~
       api_driver: 'drush'
       drush:
-        alias: 'self'
+        alias: '@self'
