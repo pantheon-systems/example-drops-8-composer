@@ -27,7 +27,5 @@ default:
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drush'
-      drush:
-        alias: 'self'
 
     DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
