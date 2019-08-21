@@ -18,8 +18,8 @@
         "drupal/config_installer": "^1.0",
         "drupal/console": "^1",
         "drupal/core": "^8.6.15",
-        "drush-ops/behat-drush-endpoint": "^8.3",
-        "drush/drush": "~8",
+        "drush-ops/behat-drush-endpoint": "^9.3",
+        "drush/drush": "~8.3",
         "pantheon-systems/quicksilver-pushback": "~1",
         "rvtraveller/qs-composer-installer": "^1.1",
         "webflo/drupal-core-strict": "^8.6.15",
@@ -82,6 +82,7 @@
     "extra": {
         "installer-paths": {
             "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],

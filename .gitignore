@@ -11,6 +11,7 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 /web/private/scripts/quicksilver
+/console/
 
 # Ignore scaffold files
 web/.csslintrc
@@ -90,8 +91,6 @@ web/sites/simpletest
 ######################
 .DS_Store*
 ehthumbs.db
-Icon
-
 Thumbs.db
 ._*
 
