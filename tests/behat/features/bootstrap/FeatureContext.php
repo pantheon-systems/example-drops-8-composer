@@ -28,6 +28,20 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
   {
       $environment = $scope->getEnvironment();
       $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
+      // Start a session if needed
+      $session = $this->getSession();
+      if (! $session->isStarted() ) {
+          $session->start();
+      }
+
+      // Stash the current URL
+      $current_url = $session->getCurrentUrl();
+
+      // If we aren't on a valid page
+      if ('about:blank' === $current_url ) {
+          // Go to the home page
+          $session->visit($this->getMinkParameter('base_url'));
+      }
   }
 //
 // Place your definition and hook methods here:
