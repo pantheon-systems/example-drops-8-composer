@@ -47,6 +47,14 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
     }
   }
 
+  /**
+   * @BeforeStep
+   */
+  public function beforeStep(BeforeStepScope $scope)
+  {
+    $this->startSession();
+  }
+
   /** @BeforeScenario */
   public function gatherContexts(BeforeScenarioScope $scope)
   {
