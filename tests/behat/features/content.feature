@@ -3,6 +3,9 @@ Feature: Content
   As a website user
   I need to be able to see that the Drupal and Drush drivers are working
 
+  Background:
+    Given I am on the homepage
+
   @api
   Scenario: Create many nodes
     Given "page" content:
