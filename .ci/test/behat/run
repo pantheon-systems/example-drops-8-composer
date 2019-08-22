@@ -13,6 +13,10 @@ source $BASH_ENV
 # Verbose mode and exit on errors
 set -ex
 
+# Verify Drush
+ls drush
+ls drush/Commands/contrib/behat-drush-endpoint/
+
 # Create a drush alias file so that Behat tests can be executed against Pantheon.
 terminus alpha:aliases --no-db-url --only=$TERMINUS_SITE
 drush sa @pantheon.$TERMINUS_SITE.$TERMINUS_ENV
