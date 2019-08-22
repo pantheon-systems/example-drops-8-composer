@@ -151,8 +151,6 @@ jobs:
 
   behat_test:
     <<: *defaults
-    docker:
-      - image: quay.io/pantheon-public/build-tools-ci:5.x
     environment:
       CI_WORKING_DIR: $CIRCLE_WORKING_DIRECTORY
     steps:
