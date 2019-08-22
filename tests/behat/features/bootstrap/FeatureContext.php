@@ -15,9 +15,6 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
  * Define application features from the specific context.
  */
 class FeatureContext extends RawDrupalContext implements Context, SnippetAcceptingContext {
-  /** @var \Drupal\DrupalExtension\Context\MinkContext */
-  private $minkContext;
-
   /**
    * Initializes context.
    * Every scenario gets its own context object.
@@ -27,9 +24,10 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
    */
   public function __construct(array $parameters = []) {
     // Initialize your context here
-    $environment = $scope->getEnvironment();
-    $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
   }
+
+  /** @var \Drupal\DrupalExtension\Context\MinkContext */
+  private $minkContext;
 
   private function startSession()
   {
@@ -49,17 +47,11 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
     }
   }
 
-  /**
-   * @BeforeStep
-   */
-  public function beforeStep(BeforeStepScope $scope)
-  {
-    $this->startSession();
-  }
-
   /** @BeforeScenario */
   public function gatherContexts(BeforeScenarioScope $scope)
   {
+    $environment = $scope->getEnvironment();
+    $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
     $this->startSession();
   }
 
