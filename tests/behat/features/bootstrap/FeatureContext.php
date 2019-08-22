@@ -7,6 +7,7 @@ use Drupal\DrupalExtension\Context\MinkContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Hook\Scope\AfterStepScope;
+use Behat\Behat\Hook\Scope\BeforeStepScope;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
@@ -23,6 +24,29 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
    */
   public function __construct(array $parameters = []) {
     // Initialize your context here
+  }
+  /**
+   * @BeforeStep
+   *
+   * @var Behat\Behat\Hook\Scope\BeforeStepScope
+   */
+  public function beforeStep(BeforeStepScope $scope)
+  {
+
+      // Start a session if needed
+      $session = $this->getSession();
+      if (! $session->isStarted() ) {
+          $session->start();
+      }
+
+      // Stash the current URL
+      $current_url = $session->getCurrentUrl();
+
+      // If we aren't on a valid page
+      if ('about:blank' === $current_url ) {
+          // Go to the home page
+          $session->visit($this->getMinkParameter('base_url'));
+      }
   }
 
   /** @var \Drupal\DrupalExtension\Context\MinkContext */

@@ -10,6 +10,9 @@ terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 # Source $BASH_ENV
 source $BASH_ENV
 
+# Verbose mode and exit on errors
+set -ex
+
 # Create a drush alias file so that Behat tests can be executed against Pantheon.
 terminus alpha:aliases --no-db-url --only=$TERMINUS_SITE
 drush sa @pantheon.$TERMINUS_SITE.$TERMINUS_ENV
@@ -19,9 +22,6 @@ echo "\$options['strict'] = 0;" >> ~/.drush/pantheon.aliases.drushrc.php
 
 # Dynamically set Behat configuration parameters
 export BEHAT_PARAMS='{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "https://'$TERMINUS_ENV'-'$TERMINUS_SITE'.pantheonsite.io/"}, "Drupal\\DrupalExtension" : {"drush" :   {  "alias":  "@pantheon.'$TERMINUS_SITE'.'$TERMINUS_ENV'" }}}}'
-
-# Verbose mode and exit on errors
-set -ex
 
 # Start headless Chrome
 echo "\n Starting Chrome in headless mode ..."
