@@ -1,12 +1,11 @@
 <?php
-use Behat\MinkExtension\Context\MinkContext;
-use Behat\Mink\Exception\ExpectationException;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 use FailAid\Context\FailureContext;
 
 /**
  * Define application features from the specific context.
  */
-class FeatureContext extends MinkContext
+class FeatureContext extends RawDrupalContext
 {
     /**
      * @BeforeStep
