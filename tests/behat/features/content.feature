@@ -19,6 +19,7 @@ Feature: Content
     And I should see "Page two"
     And I should see "First article"
     And I should see "Second article"
+    And I take a Chrome screenshot "post-create-content.png"
 
   @api
   Scenario: Create users
@@ -26,8 +27,10 @@ Feature: Content
     | name     | mail            | status |
     | Joe User | joe@example.com | 1      |
     And I am logged in as a user with the "administrator" role
+    And I take a Chrome screenshot "logged-in-as-admin.png"
     When I visit "admin/people"
     Then I should see the link "Joe User"
+    And I take a Chrome screenshot "post-create-users.png"
 
   @api
   Scenario: Login as a user created during this scenario
@@ -47,6 +50,7 @@ Feature: Content
     When I go to "admin/structure/taxonomy/manage/tags/overview"
     Then I should see "Tag one"
     And I should see "Tag two"
+    And I take a Chrome screenshot "post-create-terms.png"
 
   @api
   Scenario: Create nodes with specific authorship
@@ -61,3 +65,4 @@ Feature: Content
     Then I should see the link "Article by Joe"
     When I follow "Article by Joe"
     Then I should see the text "Article by Joe"
+    And I take a Chrome screenshot "post-create-author-nodes.png"
