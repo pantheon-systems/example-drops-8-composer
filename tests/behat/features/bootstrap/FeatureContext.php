@@ -15,6 +15,9 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
  * Define application features from the specific context.
  */
 class FeatureContext extends RawDrupalContext implements Context, SnippetAcceptingContext {
+  /** @var \Drupal\DrupalExtension\Context\MinkContext */
+  private $minkContext;
+
   /**
    * Initializes context.
    * Every scenario gets its own context object.
@@ -24,38 +27,40 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
    */
   public function __construct(array $parameters = []) {
     // Initialize your context here
+    $environment = $scope->getEnvironment();
+    $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
   }
+
+  private function startSession()
+  {
+    // Start a session if needed
+    $session = $this->getSession();
+    if (! $session->isStarted() ) {
+        $session->start();
+    }
+
+    // Stash the current URL
+    $current_url = $session->getCurrentUrl();
+
+    // If we aren't on a valid page
+    if ('about:blank' === $current_url ) {
+        // Go to the home page
+        $session->visit($this->getMinkParameter('base_url'));
+    }
+  }
+
   /**
    * @BeforeStep
-   *
-   * @var Behat\Behat\Hook\Scope\BeforeStepScope
    */
   public function beforeStep(BeforeStepScope $scope)
   {
-
-      // Start a session if needed
-      $session = $this->getSession();
-      if (! $session->isStarted() ) {
-          $session->start();
-      }
-
-      // Stash the current URL
-      $current_url = $session->getCurrentUrl();
-
-      // If we aren't on a valid page
-      if ('about:blank' === $current_url ) {
-          // Go to the home page
-          $session->visit($this->getMinkParameter('base_url'));
-      }
+    $this->startSession();
   }
 
-  /** @var \Drupal\DrupalExtension\Context\MinkContext */
-  private $minkContext;
   /** @BeforeScenario */
   public function gatherContexts(BeforeScenarioScope $scope)
   {
-      $environment = $scope->getEnvironment();
-      $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
+    $this->startSession();
   }
 
 //
