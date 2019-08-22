@@ -50,9 +50,9 @@ class FeatureContext extends RawDrupalContext implements Context, SnippetAccepti
   /** @BeforeScenario */
   public function gatherContexts(BeforeScenarioScope $scope)
   {
+    $this->startSession();
     $environment = $scope->getEnvironment();
     $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
-    $this->startSession();
   }
 
 //
