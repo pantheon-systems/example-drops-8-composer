@@ -15,9 +15,7 @@ terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 composer run prepare-for-pantheon
 
 # Verify .gitignore
-git diff .gitignore
-echo -e "\n\n"
-cat .gitignore
+git diff .gitignores
 
 if [[ $CI_BRANCH != $DEFAULT_BRANCH ]]
 then
