@@ -118,7 +118,6 @@ jobs:
           paths:
             - web
             - vendor
-            - .gitignore
 
   deploy_to_pantheon:
     <<: *defaults
@@ -134,11 +133,6 @@ jobs:
           # https://github.com/pantheon-systems/docker-build-tools-ci/blob/6.x/scripts/set-environment
           name: setup-environment-vars
           command: /build-tools-ci/scripts/set-environment
-
-      # Copy .gitignore
-      - run:
-          name: copy .gitignore
-          command: cp /tmp/.gitignore .gitignore
 
       # Rsync the built web directory
       - run:
