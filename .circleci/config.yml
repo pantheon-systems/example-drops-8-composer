@@ -157,8 +157,6 @@ jobs:
 
   behat_test:
     <<: *defaults
-    environment:
-      CI_WORKING_DIR: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
 
