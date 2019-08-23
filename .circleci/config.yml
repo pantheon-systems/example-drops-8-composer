@@ -118,6 +118,7 @@ jobs:
           paths:
             - web
             - vendor
+            - drush
 
   deploy_to_pantheon:
     <<: *defaults
@@ -143,6 +144,11 @@ jobs:
       - run:
           name: sync vendor
           command: rsync -az /tmp/vendor/ vendor
+
+      # Rsync the drush directory
+      - run:
+          name: sync drush
+          command: rsync -az /tmp/drush/ drush
 
       # Deploy to Pantheon
       - run:
