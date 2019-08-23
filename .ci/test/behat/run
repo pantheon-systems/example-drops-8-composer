@@ -32,8 +32,5 @@ echo "Behat test site: $TERMINUS_SITE.$TERMINUS_ENV"
 echo "::::::::::::::::::::::::::::::::::::::::::::::::"
 echo
 
-# List Behat steps
-./vendor/bin/behat -dl --config=tests/behat/behat-pantheon.yml --strict
-
 # Run the Behat tests
 ./vendor/bin/behat --config=tests/behat/behat-pantheon.yml --strict --colors  "$@"
