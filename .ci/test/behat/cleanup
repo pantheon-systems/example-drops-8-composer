@@ -10,7 +10,7 @@ set -eo pipefail
 terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
 
 # Restore the DB backup made before testing
-terminus -n backup:restore $TERMINUS_SITE.$TERMINUS_ENV --element=database --yes
+#terminus -n backup:restore $TERMINUS_SITE.$TERMINUS_ENV --element=database --yes
 
 # Clear Drupal cache
 terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" cr

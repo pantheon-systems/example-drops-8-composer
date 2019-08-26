@@ -172,6 +172,9 @@ jobs:
           command: /build-tools-ci/scripts/set-environment
 
       - run:
+          # Uncomment line 26 in .ci/test/behat/initialize to create a backup
+          # prior to running Behat tests. This is useful to reset the multidev
+          # environment to the previous state after Behat tests have run.
           name: prepare for Behat testing
           command: ./.ci/test/behat/initialize
 
@@ -180,6 +183,9 @@ jobs:
           command: ./.ci/test/behat/run
 
       - run:
+          # Uncomment line 13 in .ci/test/behat/cleanup to restore a backup
+          # after running Behat tests. This is useful to reset the multidev
+          # environment to the previous state after Behat tests have run.
           name: clean up after Behat
           command: ./.ci/test/behat/cleanup
           when: always

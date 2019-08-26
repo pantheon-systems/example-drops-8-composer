@@ -23,7 +23,7 @@ terminus -n drush $TERMINUS_SITE.$TERMINUS_ENV -- version
 terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
 
 # Create a backup before running Behat tests
-terminus -n backup:create $TERMINUS_SITE.$TERMINUS_ENV
+#terminus -n backup:create $TERMINUS_SITE.$TERMINUS_ENV
 
 # Clear Drupal cache
 terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- cr
