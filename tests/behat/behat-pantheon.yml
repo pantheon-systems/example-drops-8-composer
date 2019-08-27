@@ -11,11 +11,22 @@ default:
         - FeatureContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+        - FailAid\Context\FailureContext
   extensions:
     Behat\MinkExtension:
-      goutte: ~
-      selenium2: ~
       files_path: './data-files'
+      # base_url set by ENV
+      browser_name: chrome
+      sessions:
+        default:
+          chrome:
+            api_url: "http://localhost:9222"
+            validate_certificate: false
+
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drush'
+
+    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~

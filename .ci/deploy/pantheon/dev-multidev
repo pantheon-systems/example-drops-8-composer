@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -eo pipefail
+
+#
+# This script deploys the build artifact to Pantheon.
+# On the master branch the dev environment is used.
+# Otherwise a multidev environment is used.
+#
+
+# Authenticate with Terminus
+terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+
+# Prepare for Pantheon
+composer run prepare-for-pantheon
+
+if [[ $CI_BRANCH != $DEFAULT_BRANCH ]]
+then
+  # Create a new multidev environment (or push to an existing one)
+  terminus -n build:env:create "$TERMINUS_SITE.dev" "$TERMINUS_ENV" --yes
+else
+  # Push to the dev environment
+  terminus -n build:env:push "$TERMINUS_SITE.dev" --yes
+fi
+
+# Update the Drupal database
+terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
+
+# If exported configuration is available, then import it.
+if [ -f "config/system.site.yml" ] ; then
+  terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- config-import --yes
+fi
+
+# Clear Drupal cache
+terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- cr
+
+# Clear the environment cache
+terminus -n env:clear-cache $TERMINUS_SITE.$TERMINUS_ENV
+
+# Ensure secrets are set
+terminus -n secrets:set "$TERMINUS_SITE.$TERMINUS_ENV" token "$GITHUB_TOKEN" --file='github-secrets.json' --clear --skip-if-empty
+
+# Delete old multidev environments associated
+# with a PR that has been merged or closed.
+terminus -n build:env:delete:pr $TERMINUS_SITE --yes

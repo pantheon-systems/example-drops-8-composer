@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -eo pipefail
+
+#
+# This script makes the preparations
+# needed to run Behat tests.
+#
+
+# Authenticate with Terminus
+terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+
+# Run composer install again to get dev dependencies
+composer install --no-ansi --no-interaction --optimize-autoloader --no-progress
+
+# Wake the multidev environment before running tests
+terminus -n env:wake $TERMINUS_SITE.$TERMINUS_ENV
+
+# Ping Drush to start ssh with the app server
+terminus -n drush $TERMINUS_SITE.$TERMINUS_ENV -- version
+
+# Update Drupal database
+terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- updatedb -y
+
+# Create a backup before running Behat tests
+#terminus -n backup:create $TERMINUS_SITE.$TERMINUS_ENV
+
+# Clear Drupal cache
+terminus -n drush "$TERMINUS_SITE.$TERMINUS_ENV" -- cr
+
+# Clear the environment cache
+terminus -n env:clear-cache $TERMINUS_SITE.$TERMINUS_ENV
