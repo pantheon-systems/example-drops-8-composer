@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49d1571b0dd6a6db4d126c68cf9dcbdd",
+    "content-hash": "e5fad3ba6626eb2a12083f44c1409251",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2533,16 +2533,16 @@
         },
         {
             "name": "pantheon-systems/quicksilver-pushback",
-            "version": "1.0.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pantheon-systems/quicksilver-pushback.git",
-                "reference": "32c65effd6802bdf829f1c68fb75ade2bd5894a0"
+                "reference": "76336de6a5d6c8abe0829ff79b9edc70086751f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pantheon-systems/quicksilver-pushback/zipball/32c65effd6802bdf829f1c68fb75ade2bd5894a0",
-                "reference": "32c65effd6802bdf829f1c68fb75ade2bd5894a0",
+                "url": "https://api.github.com/repos/pantheon-systems/quicksilver-pushback/zipball/76336de6a5d6c8abe0829ff79b9edc70086751f0",
+                "reference": "76336de6a5d6c8abe0829ff79b9edc70086751f0",
                 "shasum": ""
             },
             "require": {
@@ -2554,7 +2554,7 @@
                 "MIT"
             ],
             "description": "Push commits made via the Pantheon dashboard back to original GitHub repository.",
-            "time": "2017-07-21T17:10:28+00:00"
+            "time": "2019-08-28T09:58:06+00:00"
         },
         {
             "name": "paragonie/random_compat",

@@ -20,7 +20,7 @@
         "drupal/core": "^8.6.15",
         "drush-ops/behat-drush-endpoint": "^9.3",
         "drush/drush": "~8.3",
-        "pantheon-systems/quicksilver-pushback": "~1",
+        "pantheon-systems/quicksilver-pushback": "^2",
         "rvtraveller/qs-composer-installer": "^1.1",
         "webflo/drupal-core-strict": "^8.6.15",
         "zaporylie/composer-drupal-optimizations": "^1.0"
