@@ -68,6 +68,7 @@ build:php:
     paths:
       - web
       - vendor
+      - drush
   only:
   - merge_requests
   - master
