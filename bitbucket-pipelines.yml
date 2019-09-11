@@ -56,6 +56,7 @@ default_steps: &default_steps
           artifacts:
             - web/**
             - vendor/**
+            - drush/**
   - step:
       name: Deploy to Pantheon
       services:
@@ -72,41 +73,40 @@ default_steps: &default_steps
         - vendor/**
         - drush/**
         - console/**
-  - parallel:
-      - step:
-          name: Test Visual Regression
-          image: backstopjs/backstopjs:4.1.9
-          services:
-            - docker
-          caches:
-            - docker
-            - node
-            - terminusplugins
-          script:
-            - *bash_env_export
-            - *bash_env_source
-            - ./.ci/test/visual-regression/run
-          artifacts:
-            - backstop_data/**
-      - step:
-          name: Test Behat
-          services:
-            - docker
-          caches:
-            - docker
-            - composer
-            - terminusplugins
-          script:
-            - *bash_env_export
-            - *bash_env_source
-            - ./.ci/test/behat/initialize
-            # Start headless Chrome
-            - google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 --no-sandbox </dev/null &>/dev/null &
-            - ./.ci/test/behat/run
-          after-script:
-            - ./.ci/test/behat/cleanup
-          artifacts:
-            - behat-screenshots/**
+  - step:
+      name: Test Visual Regression
+      image: backstopjs/backstopjs:4.1.9
+      services:
+        - docker
+      caches:
+        - docker
+        - node
+        - terminusplugins
+      script:
+        - *bash_env_export
+        - *bash_env_source
+        - ./.ci/test/visual-regression/run
+      artifacts:
+        - backstop_data/**
+  - step:
+      name: Test Behat
+      services:
+        - docker
+      caches:
+        - docker
+        - composer
+        - terminusplugins
+      script:
+        - *bash_env_export
+        - *bash_env_source
+        - ./.ci/test/behat/initialize
+        # Start headless Chrome
+        - google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 --no-sandbox </dev/null &>/dev/null &
+        - ./.ci/test/behat/run
+      after-script:
+        - ./.ci/test/behat/cleanup
+      artifacts:
+        - behat-screenshots/**
 
 image: quay.io/pantheon-public/build-tools-ci:5.x
 
