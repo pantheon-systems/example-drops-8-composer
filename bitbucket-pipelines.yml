@@ -25,7 +25,7 @@ default_steps: &default_steps
         - export CI_PROJECT_USERNAME=$BITBUCKET_REPO_OWNER && echo $CI_PROJECT_USERNAME
         - export CI_PROJECT_REPONAME=$BITBUCKET_REPO_SLUG && echo $CI_PROJECT_REPONAME
         - export CI_PROJECT_NAME=$BITBUCKET_REPO_FULL_NAME && echo $CI_PROJECT_NAME
-        - ./.ci/build/set-environment
+        - /build-tools-ci/scripts/set-environment
       artifacts:
         - .bashrc
   - parallel:
@@ -108,7 +108,7 @@ default_steps: &default_steps
       artifacts:
         - behat-screenshots/**
 
-image: quay.io/pantheon-public/build-tools-ci:5.x
+image: quay.io/pantheon-public/build-tools-ci:6.x
 
 options:
   max-time: 30
