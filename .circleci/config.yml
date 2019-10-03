@@ -138,7 +138,7 @@ jobs:
       # Rsync the build artifact pieces web directory
       - run:
           name: sync build artifact
-          command: rsync -az /tmp/web /tmp/vendor /tmp/drush .
+          command: rsync -rz /tmp/web /tmp/vendor /tmp/drush .
 
       # Deploy to Pantheon
       - run:
