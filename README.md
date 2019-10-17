@@ -41,6 +41,13 @@ Third party Drupal dependencies, such as contrib modules, are added to the proje
 
 Non-Drupal dependencies are downloaded to the `/vendor` directory.
 
+### `drupal-scaffold`
+
+Sites created from this repository use [`pantheon-systems/drops-8-scaffolding`](https://github.com/pantheon-systems/drops-8-scaffolding), instead of the Drupal scaffolding plugin included with [`drupal-composer/drupal-project`](https://github.com/drupal-composer/drupal-scaffold).  You can see and customize which files are included/excluded right in `composer.json`:
+https://github.com/pantheon-systems/example-drops-8-composer/blob/master/composer.json#L98
+
+You can read more about `drupal-scaffold`, including additional configuration options, over on [`drupal-composer/drupal-scaffold`](https://github.com/drupal-composer/drupal-scaffold#configuration)
+
 ### `.ci`
 This `.ci` directory is where all of the scripts that run on Continuous Integration are stored. Provider specific configuration files, such as `.circle/config.yml` and `.gitlab-ci.yml`, make use of these scripts.
 
@@ -83,7 +90,6 @@ Visual regression testing uses a headless browser to take screenshots of web pag
 - `tests/behat/behat-pantheon.yml` Behat configuration file compatible with running tests against a Pantheon site
 - `tests/behat/tests/behat/features` Where Behat test files, with the `.feature` extension, should be stored. The provided example tests will need to be replaced with project specific tests.
   - `tests/behat/tests/behat/features/content.feature` A Behat test file which logs into the Drupal dashboard, creates nodes, users and terms, and verifies their existience in the Drupal admin interface and the front end of the site
-
 
 ## Updating your site
 
