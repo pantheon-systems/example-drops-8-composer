@@ -122,6 +122,5 @@ pipelines:
           - composer
         script:
           - /build-tools-ci/scripts/set-environment
-          - git clone https://github.com/aaronbauman/terminus-clu-plugin.git ${TERMINUS_PLUGINS_DIR:-~/.terminus/plugins}/terminus-clu-plugin
           - terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
-          - terminus clu $BITBUCKET_REPO_SLUG
+          - terminus project:clu $BITBUCKET_REPO_SLUG
