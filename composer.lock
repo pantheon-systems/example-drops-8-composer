@@ -1917,16 +1917,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "8.3.0",
+            "version": "8.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "59454e59b1139d3c0264504e42359397d828d459"
+                "reference": "346536f579a55a2e895d1434324521bab71459f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/59454e59b1139d3c0264504e42359397d828d459",
-                "reference": "59454e59b1139d3c0264504e42359397d828d459",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/346536f579a55a2e895d1434324521bab71459f9",
+                "reference": "346536f579a55a2e895d1434324521bab71459f9",
                 "shasum": ""
             },
             "require": {
@@ -2026,7 +2026,7 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
-            "time": "2019-07-09T21:53:08+00:00"
+            "time": "2019-10-24T23:13:00+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -2483,16 +2483,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "97e59c7a16464196a8b9c77c47df68e4a39a45c4"
+                "reference": "b76bbc3c51f22c570648de48e8c2d941ed5e2cf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/97e59c7a16464196a8b9c77c47df68e4a39a45c4",
-                "reference": "97e59c7a16464196a8b9c77c47df68e4a39a45c4",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/b76bbc3c51f22c570648de48e8c2d941ed5e2cf2",
+                "reference": "b76bbc3c51f22c570648de48e8c2d941ed5e2cf2",
                 "shasum": ""
             },
             "require": {
@@ -2500,6 +2500,7 @@
                 "php": ">=7.0"
             },
             "require-dev": {
+                "ircmaxell/php-yacc": "0.0.4",
                 "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0"
             },
             "bin": [
@@ -2530,7 +2531,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-09-01T07:51:21+00:00"
+            "time": "2019-10-25T18:33:07+00:00"
         },
         {
             "name": "pantheon-systems/quicksilver-pushback",
