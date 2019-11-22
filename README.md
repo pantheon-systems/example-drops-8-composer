@@ -1,7 +1,7 @@
 # Example Drops 8 Composer
 
 [![CircleCI](https://circleci.com/gh/pantheon-systems/example-drops-8-composer.svg?style=shield)](https://circleci.com/gh/pantheon-systems/example-drops-8-composer)
-[![Pantheon example-drops-8-composer](https://img.shields.io/badge/dashboard-drops_8-yellow.svg)](https://dashboard.pantheon.io/sites/c401fd14-f745-4e51-9af2-f30b45146a0c#dev/code) 
+[![Pantheon example-drops-8-composer](https://img.shields.io/badge/dashboard-drops_8-yellow.svg)](https://dashboard.pantheon.io/sites/c401fd14-f745-4e51-9af2-f30b45146a0c#dev/code)
 [![Dev Site example-drops-8-composer](https://img.shields.io/badge/site-drops_8-blue.svg)](http://dev-example-drops-8-composer.pantheonsite.io/)
 
 This repository is a reference implementation and start state for a modern Drupal 8 workflow utilizing [Composer](https://getcomposer.org/), Continuous Integration (CI), Automated Testing, and Pantheon. Even though this is a good starting point, you will need to customize and maintain the CI/testing set up for your projects.
@@ -29,7 +29,7 @@ One of the directories moved to the git root is `/config`. This directory holds 
 ### `composer.json`
 This project uses Composer to manage third-party PHP dependencies.
 
-The `require` section of `composer.json` should be used for any dependencies your web project needs, even those that might only be used on non-Live environments. All dependencies in `require` will be pushed to Pantheon. 
+The `require` section of `composer.json` should be used for any dependencies your web project needs, even those that might only be used on non-Live environments. All dependencies in `require` will be pushed to Pantheon.
 
 The `require-dev` section should be used for dependencies that are not a part of the web application but are necesarry to build or test the project. Some example are `php_codesniffer` and `phpunit`. Dev dependencies will not be deployed to Pantheon.
 
@@ -68,11 +68,18 @@ Static tests analyze code without executing it. It is good at detecting syntax e
 - `tests/unit/bootstrap.php` Bootstraps the Composer autoloader
 - `tests/unit/TestAssert.php` An example Unit test. Project specific test files will need to be created in `tests/unit`.
 
-**Visual Regression Testing** `.ci/test/visual-regression`
+**BackstopJS Visual Regression Testing** `.ci/test/visual-regression`
 Visual regression testing uses a headless browser to take screenshots of web pages and compare them for visual differences.
 
 - `.ci/test/visual-regression/run` Runs [BackstopJS](https://github.com/garris/BackstopJS) visual regression testing.
 - `.ci/test/visual-regression/backstopConfig.js` The [BackstopJS](https://github.com/garris/BackstopJS) configuration file. Setting here will need to be updated for your project. For example, the `pathsToTest` variable determines the URLs to test.
+
+**[Diffy Visual Regression Testing](https://diffy.website)** `.ci/test/diffy-visual-regression`
+Visual regression testing uses a cloud service Diffy to take screenshots of web pages and compare them for visual differences.
+All project settings are stored in Diffy's UI. Read more about [Diffy features](https://diffy.website/features).
+
+- `.ci/test/diffy-visual-regression/run` Runs [Diffy](https://diffy.website) visual regression testing.
+
 
 **Behat Testing** `.ci/test/behat` and `tests/behat`
 [Behat](http://behat.org/en/latest/) is an acceptance/end-to-end testing framework written in PHP. It faciliates testing the fully built Drupal site on Pantheon infrastucture. [The Drupal Behat Extension](https://www.drupal.org/project/drupalextension) is used to help with integrating Behat and Drupal.
