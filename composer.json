@@ -69,14 +69,20 @@
         "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
         "post-install-cmd": [
             "@drupal-scaffold",
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "find docroot vendor -name '.git' | xargs rm -rf",
+            "find docroot vendor -name '.gitignore' | xargs rm -rf"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "find docroot vendor -name '.git' | xargs rm -rf",
+            "find docroot vendor -name '.gitignore' | xargs rm -rf"
         ],
         "post-create-project-cmd": [
             "@drupal-scaffold",
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "find docroot vendor -name '.git' | xargs rm -rf",
+            "find docroot vendor -name '.gitignore' | xargs rm -rf"
         ]
     },
     "extra": {
