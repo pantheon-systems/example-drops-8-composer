@@ -14,8 +14,10 @@ source $BASH_ENV
 set -ex
 
 # Create a drush alias file so that Behat tests can be executed against Pantheon.
+terminus --version
 terminus alpha:aliases --no-db-url --only=$TERMINUS_SITE
 drush sa @pantheon.$TERMINUS_SITE.$TERMINUS_ENV
+drush @pantheon.$TERMINUS_SITE.$TERMINUS_ENV status
 
 # Drush Behat driver fails without this option.
 echo "\$options['strict'] = 0;" >> ~/.drush/pantheon.aliases.drushrc.php
