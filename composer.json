@@ -18,7 +18,7 @@
         "drupal/config_installer": "^1.0",
         "drupal/console": "^1",
         "drupal/core": "^8.8",
-        "drush-ops/behat-drush-endpoint": "dev-drush-10",
+        "drush-ops/behat-drush-endpoint": "^9.3.1",
         "drush/drush": "^10",
         "pantheon-systems/quicksilver-pushback": "^2",
         "rvtraveller/qs-composer-installer": "^1.1",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82728dea7b20efbf33f3c0ce673663f4",
+    "content-hash": "d08b3af1f40bc388607d42facdd8a4d6",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2539,16 +2539,16 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "dev-drush-10",
+            "version": "9.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "861bd008e2d08c0170ab5574072b10222721d3a6"
+                "reference": "578aa5402b0cd5a0b0b577290e17e4eeec2835d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/861bd008e2d08c0170ab5574072b10222721d3a6",
-                "reference": "861bd008e2d08c0170ab5574072b10222721d3a6",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/578aa5402b0cd5a0b0b577290e17e4eeec2835d3",
+                "reference": "578aa5402b0cd5a0b0b577290e17e4eeec2835d3",
                 "shasum": ""
             },
             "require": {
@@ -2570,7 +2570,7 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2020-01-17T00:01:59+00:00"
+            "time": "2020-01-17T00:59:53+00:00"
         },
         {
             "name": "drush/drush",
@@ -8557,9 +8557,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "drush-ops/behat-drush-endpoint": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
