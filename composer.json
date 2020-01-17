@@ -18,8 +18,8 @@
         "drupal/config_installer": "^1.0",
         "drupal/console": "^1",
         "drupal/core": "^8.8",
-        "drush-ops/behat-drush-endpoint": "^9.3",
-        "drush/drush": "~8.3",
+        "drush-ops/behat-drush-endpoint": "^9.3.1",
+        "drush/drush": "^10",
         "pantheon-systems/quicksilver-pushback": "^2",
         "rvtraveller/qs-composer-installer": "^1.1",
         "drupal/core-recommended": "^8.8",
@@ -116,7 +116,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "7.0.8"
+            "php": "7.3.10"
         }
     }
 }
