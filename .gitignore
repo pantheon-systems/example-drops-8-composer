@@ -11,17 +11,26 @@
 /vendor/
 /web/core/
 /web/modules/contrib/
+/web/modules/README.txt
 /web/themes/contrib/
+/web/themes/README.txt
 /web/profiles/contrib/
+/web/profiles/README.txt
 /web/private/scripts/quicksilver
 /console/
 
 # Ignore scaffold files
+.drush-lock-update
+.gitattributes
+pantheon.upstream.yml
+web/.eslintrc.json
+web/INSTALL.txt
+web/README.txt
+web/example.gitignore
 web/.csslintrc
 web/.editorconfig
 web/.eslintignore
 web/.eslintrc
-web/.gitattributes
 web/.htaccess
 web/.ht.router.php
 web/autoload.php
@@ -34,6 +43,7 @@ web/sites/default/settings.pantheon.php
 web/sites/development.services.yml
 web/sites/example.settings.local.php
 web/sites/example.sites.php
+web/sites/README.txt
 web/update.php
 web/web.config
 
