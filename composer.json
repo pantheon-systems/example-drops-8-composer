@@ -22,7 +22,7 @@
         "pantheon-systems/quicksilver-pushback": "^2",
         "rvtraveller/qs-composer-installer": "^1.1",
         "drupal/core-recommended": "^8.8",
-        "pantheon-systems/pantheon-enabler": "^0.1.0",
+        "pantheon-systems/drupal-integrations": "^0.3.0",
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "require-dev": {
@@ -97,7 +97,7 @@
         },
         "drupal-scaffold": {
             "allowed-packages": [
-                "pantheon-systems/pantheon-enabler"
+                "pantheon-systems/drupal-integrations"
             ],
             "locations": {
                 "web-root": "./web"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "011473a0770dd9805edd5c58d8c4af76",
+    "content-hash": "a5cb88fb3a7adbbc8e0c6c496ef0b727",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2583,17 +2583,17 @@
             "time": "2019-11-08T13:50:10+00:00"
         },
         {
-            "name": "pantheon-systems/pantheon-enabler",
-            "version": "0.1.0",
+            "name": "pantheon-systems/drupal-integrations",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pantheon-systems/pantheon-enabler.git",
-                "reference": "ffde75fe8c2b250d41417cf159f5d83f0600cbab"
+                "url": "https://github.com/pantheon-systems/drupal-integrations.git",
+                "reference": "19002eae45d7b6f1c866e75d32990b840a7c6425"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pantheon-systems/pantheon-enabler/zipball/ffde75fe8c2b250d41417cf159f5d83f0600cbab",
-                "reference": "ffde75fe8c2b250d41417cf159f5d83f0600cbab",
+                "url": "https://api.github.com/repos/pantheon-systems/drupal-integrations/zipball/19002eae45d7b6f1c866e75d32990b840a7c6425",
+                "reference": "19002eae45d7b6f1c866e75d32990b840a7c6425",
                 "shasum": ""
             },
             "conflict": {
@@ -2606,7 +2606,12 @@
                         "[project-root]/.drush-lock-update": "assets/drush-lock-update",
                         "[project-root]/pantheon.upstream.yml": "assets/pantheon.upstream.yml",
                         "[web-root]/sites/default/default.services.pantheon.preproduction.yml": "assets/default.services.pantheon.preproduction.yml",
-                        "[web-root]/sites/default/settings.pantheon.php": "assets/settings.pantheon.php"
+                        "[web-root]/sites/default/settings.pantheon.php": "assets/settings.pantheon.php",
+                        "[web-root]/sites/default/settings.php": {
+                            "mode": "replace",
+                            "path": "assets/initial.settings.php",
+                            "overwrite": false
+                        }
                     }
                 }
             },
@@ -2615,7 +2620,7 @@
                 "MIT"
             ],
             "description": "Add this project to any Drupal distribution based on drupal/core-composer-scaffold to enable it for use on Pantheon.",
-            "time": "2020-01-29T05:50:32+00:00"
+            "time": "2020-01-29T21:57:07+00:00"
         },
         {
             "name": "pantheon-systems/quicksilver-pushback",
