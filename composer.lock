@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5cb88fb3a7adbbc8e0c6c496ef0b727",
+    "content-hash": "1b6d77c489a862bb93860e0ce234d083",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2584,16 +2584,16 @@
         },
         {
             "name": "pantheon-systems/drupal-integrations",
-            "version": "0.3.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pantheon-systems/drupal-integrations.git",
-                "reference": "19002eae45d7b6f1c866e75d32990b840a7c6425"
+                "reference": "8b2d68cd5c9e3b4997e4013adc88a3264376787b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pantheon-systems/drupal-integrations/zipball/19002eae45d7b6f1c866e75d32990b840a7c6425",
-                "reference": "19002eae45d7b6f1c866e75d32990b840a7c6425",
+                "url": "https://api.github.com/repos/pantheon-systems/drupal-integrations/zipball/8b2d68cd5c9e3b4997e4013adc88a3264376787b",
+                "reference": "8b2d68cd5c9e3b4997e4013adc88a3264376787b",
                 "shasum": ""
             },
             "conflict": {
@@ -2620,7 +2620,7 @@
                 "MIT"
             ],
             "description": "Add this project to any Drupal distribution based on drupal/core-composer-scaffold to enable it for use on Pantheon.",
-            "time": "2020-01-29T21:57:07+00:00"
+            "time": "2020-01-30T17:03:22+00:00"
         },
         {
             "name": "pantheon-systems/quicksilver-pushback",
