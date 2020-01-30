@@ -22,7 +22,7 @@
         "pantheon-systems/quicksilver-pushback": "^2",
         "rvtraveller/qs-composer-installer": "^1.1",
         "drupal/core-recommended": "^8.8",
-        "pantheon-systems/drupal-integrations": "^0.4.0",
+        "pantheon-systems/drupal-integrations": "^8",
         "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "require-dev": {
