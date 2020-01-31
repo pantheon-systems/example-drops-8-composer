@@ -35,11 +35,37 @@ The `require-dev` section should be used for dependencies that are not a part of
 
 If you are just browsing this repository on GitHub, you may not see some of the directories mentioned above. That is because Drupal core and contrib modules are installed via Composer and ignored in the `.gitignore` file.
 
-A custom, [Composer version of Drupal 8 for Pantheon](https://github.com/pantheon-systems/drops-8-composer/) is used as the source for Drupal core.
+This project uses the following required dependencies:
 
-Third party Drupal dependencies, such as contrib modules, are added to the project via `composer.json`. The `composer.lock` file keeps track of the exact version of dependency. [Composer `installer-paths`](https://getcomposer.org/doc/faqs/how-do-i-install-a-package-to-a-custom-path-for-my-framework.md#how-do-i-install-a-package-to-a-custom-path-for-my-framework-) are used to ensure the Drupal dependencies are downloaded into the appropriate directory.
+- **composer/installers**: Relocates the installation location of certain Composer projects by type; for example, this component allows Drupal modules to be installed to the `modules` directory rather than `vendor`.
 
-Non-Drupal dependencies are downloaded to the `/vendor` directory.
+- **drupal/core-composer-scaffold**: Allows certain necessary files, e.g. index.php, to be copied into the required location at installation time.
+
+- **drupal/core-recommended**: This package contains Drupal itself, including the Drupal scaffold files.
+
+- **pantheon-systems/drupal-integrations**: This package provides additional scaffold files required to install this site on the Pantheon platform. These files do nothing if the site is deployed elsewhere.
+
+The following optional dependencies are also included as suggestions:
+
+- **pantheon-systems/quicksilver-pushback**: This component allows commits from the Pantheon Dashboard to be automatically pushed back to GitHub for sites using the Build Tools Workflow. This package does nothing if that workflow has not been set up for this site.
+
+- **drush/drush**: Drush is a commandline tool that provides ways to interact with site maintenance from the command line.
+
+- **drupal/console**: Drupal Console is similar to and an alternative for Drush. You may use either or both.
+
+- **cweagans/composer-patches**: Allows a site to be altered with patch files at installation time.
+
+- **drupal/config_direct_save**: Provides a way to export configuration directly to the filesystem (in SFTP mode) directly from the Drupal admin interface. This is a convenient way to manage configuration files.
+
+- **drupal/config_installer**: Allows a site to be re-installed through the Drupal web installer using existing exported configuration files.
+
+- **drush-ops/behat-drush-endpoint**: Used by Behat tests.
+
+- **rvtraveller/qs-composer-installer**: Allows a site to install quicksilver hooks from a Composer package.
+
+- **zaporylie/composer-drupal-optimizations**: This package makes `composer update` operations run more quickly when updating Drupal and Drupal's dependencies.
+
+Any of the optional dependencies may be removed if they are not needed or desired.
 
 ### `.ci`
 This `.ci` directory is where all of the scripts that run on Continuous Integration are stored. Provider specific configuration files, such as `.circle/config.yml` and `.gitlab-ci.yml`, make use of these scripts.
