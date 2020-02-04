@@ -101,15 +101,14 @@ Visual regression testing uses a headless browser to take screenshots of web pag
 - `.ci/test/visual-regression/backstopConfig.js` The [BackstopJS](https://github.com/garris/BackstopJS) configuration file. Setting here will need to be updated for your project. For example, the `pathsToTest` variable determines the URLs to test.
 
 **Behat Testing** `.ci/test/behat` and `tests/behat`
-[Behat](http://behat.org/en/latest/) is an acceptance/end-to-end testing framework written in PHP. It faciliates testing the fully built Drupal site on Pantheon infrastucture. [The Drupal Behat Extension](https://www.drupal.org/project/drupalextension) is used to help with integrating Behat and Drupal.
+[Behat](http://behat.org/en/latest/) is an acceptance/end-to-end testing framework written in PHP. It facilitates testing the fully built Drupal site on Pantheon infrastructure. [The Drupal Behat Extension](https://www.drupal.org/project/drupalextension) is used to help with integrating Behat and Drupal.
 
 - `.ci/test/behat/initialize` creates a backup of the environment to be tested
 - `.ci/test/behat/run` sets the `BEHAT_PARAMS` environment variable with dynamic information necessary for Behat and configure it to use Drush via [Terminus](https://pantheon.io/docs/terminus/) and starts headless Chrome, and runs Behat
 - `.ci/test/behat/cleanup` restores the previously made database backup and saves screenshots taken by Behat
 - `tests/behat/behat-pantheon.yml` Behat configuration file compatible with running tests against a Pantheon site
 - `tests/behat/tests/behat/features` Where Behat test files, with the `.feature` extension, should be stored. The provided example tests will need to be replaced with project specific tests.
-  - `tests/behat/tests/behat/features/content.feature` A Behat test file which logs into the Drupal dashboard, creates nodes, users and terms, and verifies their existience in the Drupal admin interface and the front end of the site
-
+  - `tests/behat/tests/behat/features/content.feature` A Behat test file which logs into the Drupal dashboard, creates nodes, users and terms, and verifies their existence in the Drupal admin interface and the front end of the site
 
 ## Updating your site
 
