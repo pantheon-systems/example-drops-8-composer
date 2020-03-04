@@ -15,9 +15,9 @@ if [ -n "$site_url" ] ; then
 fi
 
 if [ -n "$token" ] ; then
-  curl -d '{ "body": "'"$comment\\n\\n$visit_site"'" }' -X POST https://api.github.com/repos/$project/commits/$sha/comments?access_token=$token
+  curl -H "Authorization: token $token" -d '{ "body": "'"$comment\\n\\n$visit_site"'" }' -X POST "https://api.github.com/repos/$project/commits/$sha/comments"
 
-  echo $comment
+  echo "$comment"
   echo
-  echo $visit_site
+  echo "$visit_site"
 fi
