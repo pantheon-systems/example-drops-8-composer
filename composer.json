@@ -19,7 +19,7 @@
         "drupal/core-composer-scaffold": "^8.8.1",
         "drupal/core-recommended": "^8.8",
         "drush-ops/behat-drush-endpoint": "^9.4",
-        "drush/drush": "^10",
+        "drush/drush": "8.3.2",
         "pantheon-systems/drupal-integrations": "^8",
         "pantheon-systems/quicksilver-pushback": "^2",
         "rvtraveller/qs-composer-installer": "^1.1",
