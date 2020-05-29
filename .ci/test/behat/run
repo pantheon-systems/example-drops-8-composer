@@ -33,4 +33,12 @@ echo "::::::::::::::::::::::::::::::::::::::::::::::::"
 echo
 
 # Run the Behat tests
-./vendor/bin/behat --config=tests/behat/behat-pantheon.yml --strict --colors  "$@"
+./vendor/bin/behat --config=tests/behat/behat-pantheon.yml --strict --colors -vv "$@"
+
+# Create the artifacts directory if needed
+if [ ! -d "$ARTIFACTS_FULL_DIR" ]; then
+  mkdir -p $ARTIFACTS_FULL_DIR
+fi
+
+# Copy screenshots, if any
+@cp -R /tmp/*.png $ARTIFACTS_FULL_DIR
