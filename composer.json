@@ -16,13 +16,13 @@
         "drupal/core-recommended": "^8.8",
         "pantheon-systems/drupal-integrations": "^8",
         "pantheon-systems/quicksilver-pushback": "^2",
-        "drupal/console": "^1",
         "cweagans/composer-patches": "^1.0",
         "drupal/config_direct_save": "^1.0",
         "drupal/config_installer": "^1.0",
         "drush-ops/behat-drush-endpoint": "^9.3",
         "rvtraveller/qs-composer-installer": "^1.1",
-        "zaporylie/composer-drupal-optimizations": "^1.0"
+        "zaporylie/composer-drupal-optimizations": "^1.0",
+        "drush/drush": "^8.3.5"
     },
     "require-dev": {
         "behat/behat": "3.*",
@@ -34,7 +34,6 @@
         "drupal/coder": "^8.3.1",
         "drupal/drupal-driver": "dev-master",
         "drupal/drupal-extension": "dev-master",
-        "drush/drush": "^8.3.5",
         "genesis/behat-fail-aid": "^2.1",
         "jcalderonzumba/gastonjs": "^1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "^0.3.1",
