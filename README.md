@@ -16,6 +16,7 @@ The Terminus Build Tools plugin will scaffold a new project, including:
 
 For more details and instructions on creating a new project, see the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin/).
 
+
 ## Important files and directories
 
 ### `/web`
