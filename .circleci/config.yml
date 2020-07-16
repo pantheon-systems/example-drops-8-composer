@@ -18,6 +18,23 @@ defaults: &defaults
     # TEST_SITE_NAME: The name of the test site to provide when installing.
     # ADMIN_PASSWORD: The admin password to use when installing.
     # ADMIN_EMAIL:    The email address to give the admin when installing.
+    #
+    # If your Pantheon environments use the security feature to lockdown
+    # access with a HTTP Basic Authentication username and password, you may
+    # also add any of the following environment variables to target specific
+    # Pantheon environments. The value should be URL-encoded and follow the
+    # format 'username:password' (without quotes).
+    #
+    # MULTIDEV_SITE_BASIC_AUTH
+    # DEV_SITE_BASIC_AUTH
+    # TEST_SITE_BASIC_AUTH
+    # LIVE_SITE_BASIC_AUTH
+    #
+    # If all environments are locked using the same username and password you
+    # may instead use the following environment variable in Circle CI UI.
+    #
+    # SITE_BASIC_AUTH
+    #
     #=========================================================================
     TZ: "/usr/share/zoneinfo/America/Los_Angeles"
 
