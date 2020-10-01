@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e02348f9e04fc4d2cb659f776010b11",
+    "content-hash": "fb5e56a6d13cf8eb29061c875df2860b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1627,16 +1627,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "8.4.2",
+            "version": "8.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "8c81046290adc38b76cbbc7431eafae060db35a2"
+                "reference": "29ab4fc41e6b516abc34b8dc477b3039fb5c0e96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/8c81046290adc38b76cbbc7431eafae060db35a2",
-                "reference": "8c81046290adc38b76cbbc7431eafae060db35a2",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/29ab4fc41e6b516abc34b8dc477b3039fb5c0e96",
+                "reference": "29ab4fc41e6b516abc34b8dc477b3039fb5c0e96",
                 "shasum": ""
             },
             "require": {
@@ -1682,8 +1682,8 @@
             },
             "autoload": {
                 "psr-0": {
-                    "Drush": "lib/",
-                    "Consolidation": "lib/"
+                    "Drush\\": "lib/",
+                    "Consolidation\\": "lib/"
                 },
                 "psr-4": {
                     "Drush\\": "src/"
@@ -1741,7 +1741,7 @@
                 "forum": "http://drupal.stackexchange.com/questions/tagged/drush",
                 "irc": "irc://irc.freenode.org/drush",
                 "issues": "https://github.com/drush-ops/drush/issues",
-                "source": "https://github.com/drush-ops/drush/tree/8.4.2"
+                "source": "https://github.com/drush-ops/drush/tree/8.4.5"
             },
             "funding": [
                 {
@@ -1749,7 +1749,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-14T20:18:50+00:00"
+            "time": "2020-10-01T00:23:28+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -6135,7 +6135,7 @@
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "dev-master",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
@@ -6157,7 +6157,6 @@
                 "phpcompatibility/php-compatibility": "^9.0",
                 "sensiolabs/security-checker": "^4.1.0"
             },
-            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
                 "class": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin"
@@ -8816,8 +8815,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cweagans/composer-patches": 20,
-        "dealerdirect/phpcodesniffer-composer-installer": 20
+        "cweagans/composer-patches": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
