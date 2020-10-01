@@ -17,7 +17,7 @@
         "pantheon-systems/drupal-integrations": "^8",
         "pantheon-systems/quicksilver-pushback": "^2",
         "drush/drush": "^8.4.5",
-        "cweagans/composer-patches": "dev-master",
+        "cweagans/composer-patches": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.3"
     },
     "require-dev": {

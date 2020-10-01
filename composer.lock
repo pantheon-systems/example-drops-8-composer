@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb5e56a6d13cf8eb29061c875df2860b",
+    "content-hash": "648061fbcdf911b247b02a9dd28d530e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -475,82 +475,30 @@
             "time": "2019-05-30T23:16:01+00:00"
         },
         {
-            "name": "cweagans/composer-configurable-plugin",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cweagans/composer-configurable-plugin.git",
-                "reference": "2df389bb1f13830fd95461d51f6eb52d02fc1c21"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-configurable-plugin/zipball/2df389bb1f13830fd95461d51f6eb52d02fc1c21",
-                "reference": "2df389bb1f13830fd95461d51f6eb52d02fc1c21",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "composer/composer": "~1.0",
-                "phpunit/phpunit": "~5.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "cweagans\\Composer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Cameron Eagans",
-                    "email": "me@cweagans.net"
-                }
-            ],
-            "description": "Provides a lightweight configuration system for Composer plugins.",
-            "support": {
-                "issues": "https://github.com/cweagans/composer-configurable-plugin/issues",
-                "source": "https://github.com/cweagans/composer-configurable-plugin/tree/1.0.0"
-            },
-            "time": "2017-05-25T04:32:06+00:00"
-        },
-        {
             "name": "cweagans/composer-patches",
-            "version": "dev-master",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "a5cf4817a36c01bfe38dc93b81343ead0aba87b2"
+                "reference": "ae02121445ad75f4eaff800cc532b5e6233e2ddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/a5cf4817a36c01bfe38dc93b81343ead0aba87b2",
-                "reference": "a5cf4817a36c01bfe38dc93b81343ead0aba87b2",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/ae02121445ad75f4eaff800cc532b5e6233e2ddf",
+                "reference": "ae02121445ad75f4eaff800cc532b5e6233e2ddf",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
-                "cweagans/composer-configurable-plugin": "^1.0",
-                "ext-json": "*",
-                "php": ">=5.6.0"
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "codeception/codeception": "~2.0",
-                "composer/composer": "~1.0",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "phpro/grumphp": "^0.11.6",
-                "satooshi/php-coveralls": "~1.0",
-                "sebastian/phpcpd": "^3.0",
-                "squizlabs/php_codesniffer": "^3.0"
+                "composer/composer": "~1.0 || ~2.0",
+                "phpunit/phpunit": "~4.6"
             },
-            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
-                "class": "cweagans\\Composer\\Plugin\\Patches"
+                "class": "cweagans\\Composer\\Patches"
             },
             "autoload": {
                 "psr-4": {
@@ -570,9 +518,9 @@
             "description": "Provides a way to patch Composer packages.",
             "support": {
                 "issues": "https://github.com/cweagans/composer-patches/issues",
-                "source": "https://github.com/cweagans/composer-patches/tree/master"
+                "source": "https://github.com/cweagans/composer-patches/tree/1.x"
             },
-            "time": "2020-08-18T16:15:33+00:00"
+            "time": "2020-09-30T17:56:20+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
