@@ -1,0 +1,125 @@
+#!/bin/bash
+
+#
+# This script runs visual regression tests using Diffy (https://diffy.website).
+# To configure integration check https://github.com/DiffyWebsite/diffy-build-tools-plugin.
+# Tests are run if composer.lock has changed
+# but composer.json has not (e.g. dependency updates)
+# OR if the last commit message contains [vr]
+#
+
+# Variables
+BUILD_DIR=$(pwd)
+GITHUB_API_URL="https://api.github.com/repos/$CI_PROJECT_USERNAME/$CI_PROJECT_REPONAME"
+
+if [ -z "$DIFFY_API_KEY" ]
+then
+  echo "Diffy integration is not configured. Add DIFFY_API_KEY to CircleCI variables."
+  exit 1;
+fi
+
+if [ -z "$DIFFY_PROJECT_ID" ]
+then
+  echo "Diffy integration is not configured. Add DIFFY_PROJECT_ID to CircleCI variables."
+  exit 1;
+fi
+
+GIT_FILE_MODIFIED()
+{
+    # Stash list of changed files
+    GIT_FILES_CHANGED="$(git diff origin/master --name-only)"
+
+    while read -r changedFile; do
+        if [[ "${changedFile}" == "$1" ]]
+        then
+            return 0;
+        fi
+    done <<< "$GIT_FILES_CHANGED"
+
+    return 1;
+}
+
+LAST_GIT_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+
+if [[ ${LAST_GIT_COMMIT_MESSAGE} == *"--skip-vr"* ]]
+then
+    echo -e "\nVisual regression tests skipped because the last commit contains --skip-vr"
+    exit 0
+fi
+
+# Always run visual tests if "[vr]" is in the last commit message
+if [[ ${LAST_GIT_COMMIT_MESSAGE} != *"[vr]"* ]]
+then
+
+    # Skip visual tests if there hasn't been a modification to composer.lock
+    if ! GIT_FILE_MODIFIED 'composer.lock'
+    then
+        echo -e "\nSkipping visual regression tests since composer.lock has NOT changed"
+        exit 0
+    fi
+
+    # Skip visual tests if has been a modification to composer.json
+    if GIT_FILE_MODIFIED 'composer.json'
+    then
+        echo -e "\nSkipping visual regression tests since composer.json HAS changed"
+        exit 0
+    fi
+
+else
+    echo -e "\nRunning visual regression tests because the latest commit message demands it"
+fi
+
+# Ping the multidev environment to wake it from sleep
+echo -e "\nPinging the ${TERMINUS_ENV} multidev environment to wake it from sleep..."
+curl -I "$MULTIDEV_SITE_URL" >/dev/null
+
+# Ping the live environment to wake it from sleep
+echo -e "\nPinging the dev environment to wake it from sleep..."
+curl -I "$DEV_SITE_URL" >/dev/null
+
+# Get an access token from Diffy.
+echo -e "\nGetting an access token from Diffy"
+TOKEN=`curl -X POST "https://app.diffy.website/api/auth/key" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"key\":\"$DIFFY_API_KEY\"}" | php -r 'echo json_decode(file_get_contents("php://stdin"))->token;'`
+
+# Trigger a job to compare environments.
+echo -e "\nCompare a build ${MULTIDEV_SITE_URL} with DEV environment..."
+DIFF_ID=`curl -X POST "https://app.diffy.website/api/projects/$DIFFY_PROJECT_ID/compare" -H "Accept: application/json" -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d "{\"env1\":\"dev\",\"env2\":\"custom\",\"env2Url\":\"${MULTIDEV_SITE_URL}\"}"`
+sleep 30
+
+DIFF_COMPLETED=''
+while [ -z "$DIFF_COMPLETED" ]
+do
+  echo -e "\nChecking status of the diff $DIFF_ID"
+  # State 4 or 8 means that diff completed. 8 means that Diffy creates an archive but we already can treat it as completed.
+  DIFF_INFO=`curl -X GET "https://app.diffy.website/api/diffs/$DIFF_ID" -H "Accept: application/json" -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json"`
+  echo -e "\n Result of the check: $DIFF_INFO"
+  DIFF_COMPLETED=`echo $DIFF_INFO | grep '"state":8\|"state":4'`
+  echo -e "\n Diff completed? $DIFF_COMPLETED"
+  sleep 5
+done
+
+CHANGES=`echo $DIFF_COMPLETED | php -r 'echo json_decode(file_get_contents("php://stdin"))->result;'`
+echo "Diff result: $CHANGES"
+if [ "$CHANGES" -eq "0" ]
+then
+	# visual regression passed
+	echo -e "\n\nVisual regression test passed! No changes found."
+	PR_MESSAGE="Diffy visual regression test passed! No changes found."
+else
+  # visual regression failed
+	echo -e "\nVisual regression test failed!"
+	REPORT_LINK="https://app.diffy.website/#/diffs/$DIFF_ID"
+	PR_MESSAGE="Diffy visual regression test failed! $REPORT_LINK"
+fi
+
+# Post the image back to the pull request on GitHub
+if [[ -n ${CI_REPOSITORY_URL} && ${CI_REPOSITORY_URL} == *"github"* ]]
+then
+    echo -e "\nPosting visual regression results back to PR #$PR_NUMBER "
+    curl -s -i -u "$CI_PROJECT_USERNAME:$GITHUB_TOKEN" -d "{\"body\": \"$PR_MESSAGE\"}" $GITHUB_API_URL/issues/$PR_NUMBER/comments > /dev/null
+fi
+
+if [ "$CHANGES" != "0" ]
+then
+    exit 1
+fi
