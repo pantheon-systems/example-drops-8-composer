@@ -15,7 +15,7 @@ env:
   # Needed because the default token is not supported to push.
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   TERMINUS_TOKEN: ${{ secrets.TERMINUS_TOKEN }}
-  TEST_SITE_NAME: ${{ secrets.TEST_SITE_NAME }}
+  TEST_SITE_NAME: ${{ secrets.TERMINUS_SITE }}
   BASH_ENV: "./bash_env.txt"
   CI_BRANCH: ${{ github.ref }}
   COMMIT_SHA: ${{ github.sha }}
