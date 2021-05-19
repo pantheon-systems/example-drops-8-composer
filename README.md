@@ -87,6 +87,9 @@ Scripts for facilitating code deployment to Pantheon.
 #### Automated Test Scripts `.ci/tests`
 Scripts that run automated tests. Feel free to add or remove scripts here depending on your testing needs.
 
+#### Github Actions Workflows `.ci/.github`
+This folder should be copied to .github folder in root to enable Github Actions. Also, some secrets need to be added to Github Actions configuration.
+
 **Static Testing** `.ci/test/static` and `tests/unit`
 Static tests analyze code without executing it. It is good at detecting syntax error but not functionality.
 
@@ -110,6 +113,17 @@ Visual regression testing uses a headless browser to take screenshots of web pag
 - `tests/behat/tests/behat/features` Where Behat test files, with the `.feature` extension, should be stored. The provided example tests will need to be replaced with project specific tests.
   - `tests/behat/tests/behat/features/content.feature` A Behat test file which logs into the Drupal dashboard, creates nodes, users and terms, and verifies their existience in the Drupal admin interface and the front end of the site
 
+## Github Actions
+
+If you need to enable Github Actions for an existing project, you should copy .ci/.github to .github and then add the following secrets to Github Actions configuration:
+
+- ADMIN_EMAIL
+- ADMIN_PASSWORD
+- ADMIN_USERNAME
+- TERMINUS_TOKEN
+- TERMINUS_SITE
+- SSH_PRIVATE_KEY
+- GH_TOKEN
 
 ## Updating your site
 
