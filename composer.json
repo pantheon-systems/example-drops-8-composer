@@ -109,6 +109,12 @@
         "sort-packages": true,
         "platform": {
             "php": "7.3"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "cweagans/composer-patches": true
         }
     }
 }
