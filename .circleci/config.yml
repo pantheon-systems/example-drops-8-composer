@@ -206,6 +206,27 @@ jobs:
           path: /tmp/artifacts
           destination: artifacts
 
+  diffy_visual_regression_test:
+    <<: *defaults
+    docker:
+      - image: circleci/php:7.3.9
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /tmp/workspace
+
+      - run: cp /tmp/workspace/bash_env.txt $BASH_ENV
+      - run: echo "export CI_BUILD_URL='${CIRCLE_BUILD_URL}'" >> $BASH_ENV
+      - run: echo "export CI_NODE_INDEX='${CIRCLE_NODE_INDEX}'" >> $BASH_ENV
+      - run: echo "export CI_REPOSITORY_URL='${CIRCLE_REPOSITORY_URL}'" >> $BASH_ENV
+      - run: echo "export ARTIFACTS_DIR_URL='${CIRCLE_BUILD_URL}/artifacts/${CIRCLE_NODE_INDEX}/artifacts'" >> $BASH_ENV
+      - run: source $BASH_ENV
+
+      - run:
+          name: diffy visual regression test
+          command: ./.ci/test/diffy-visual-regression/run
+
   visual_regression_test:
     <<: *defaults
     docker:
@@ -261,6 +282,14 @@ workflows:
           requires:
             - static_tests
             - build_php
+      - diffy_visual_regression_test:
+          requires:
+            - configure_env_vars
+            - deploy_to_pantheon
+          filters:
+            branches:
+              ignore:
+                - master
       - visual_regression_test:
           requires:
             - configure_env_vars
