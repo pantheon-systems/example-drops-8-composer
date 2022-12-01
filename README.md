@@ -131,6 +131,6 @@ If you need to enable Github Actions for an existing project, you should copy .c
 
 When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Ensure your site is in Git mode, clone it locally, and then run composer commands from there.  Commit and push your files back up to Pantheon as usual.
 
-## Upstream automation
+## Re-enabling automation
 
-The automation which ran daily and created PRs with updated `composer.lock` files has been disabled as of `12/1/22`. If at any point it is desired to re-enable this job, uncomment lines `277-286` in `.circleci/config.yml`.
+The automation which ran daily to check for composer updates has been disabled as of `12/1/22`. Build Tools users can re-enable automation to check for composer updates by uncommenting lines `277-286` in `.circleci/config.yml`.
