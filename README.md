@@ -133,4 +133,4 @@ When using this repository to manage your Drupal site, you will no longer use th
 
 ## Re-enabling automation
 
-The automation which ran daily to check for composer updates has been disabled as of `12/1/22`. Build Tools users can re-enable automation to check for composer updates by uncommenting lines `277-286` in `.circleci/config.yml`.
+The automation which ran daily to check for composer updates has been disabled as of `12/1/22`. Build Tools users can re-enable automation to check for composer updates by uncommenting the  `scheduled_update_check` in `.circleci/config.yml`.
